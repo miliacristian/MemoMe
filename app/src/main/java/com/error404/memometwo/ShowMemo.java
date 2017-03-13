@@ -128,5 +128,3 @@ public class ShowMemo extends AppCompatActivity {
         }
     }
 }
-
-// Test Daniele
