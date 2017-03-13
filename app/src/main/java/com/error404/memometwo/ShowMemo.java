@@ -121,6 +121,3 @@ public class ShowMemo extends AppCompatActivity {
         }
     }
 }
-
-//Test commit
-//test commit 2
