@@ -169,7 +169,7 @@ public class DAO {
     }
 
     public void addMemoToDB(String title,String text,int emoji,int color){//chiamata quando si clicca
-        // sul tasto salva sull'activity in modalità creazione!
+        // sul tasto salva sull'activity in modalità creazione! vb
         final int encryption=0;
         Calendar date=Calendar.getInstance();//data creazione(prende la data corrente)
         int month=date.get(Calendar.MONTH);
