@@ -68,6 +68,7 @@ public class MemoMeMain extends AppCompatActivity
                 myIntent.putExtras(bun);
                 if(memoAdapter.get(position).getEncryption()==1){
                     //alert dialog che prende in input la password e la verifica
+                    startActivity(myIntent);
                 }
                 else {
                     //vado alla nuova activity

@@ -42,11 +42,11 @@ public class ShowMemo extends AppCompatActivity {
        // emojitxt.setText(m.getEmoji());
         setColorOnTitleAndText();
         // if encrypted
-        /*if (dao.isEncrypted(position)){
+        if (dao.isEncrypted(position)){
             //password momentanea
             String password = "abc";
             dao.decryptText(dao.loadMemoByPosition(position), password);
-        }*/
+        }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
@@ -91,7 +91,7 @@ public class ShowMemo extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         // se la nota è criptata carico un menu, altrimenti l'altro
-        if (false){
+        if (isEncrypted()){
             inflater.inflate(R.menu.show_memo_decode, menu);
         }else{
             inflater.inflate(R.menu.show_memo_encode, menu);
@@ -99,6 +99,14 @@ public class ShowMemo extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    public boolean isEncrypted(){
+        //mostra alert dialog ,sull ok memorizza la password nella stringa password
+        DAO dao=new DAO(this);
+        dao.open();//necessaria??
+        return dao.isEncrypted(position);
+    }
+
     // onClick per il pulsante elimina e encode
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -164,6 +164,7 @@ public class DAO {
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
         String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
+        System.out.println(sql);
         database.execSQL(sql);
     }
 
