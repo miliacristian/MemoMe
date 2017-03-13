@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1abc9c</color>
+    <color name="colorPrimaryDark">#16a085</color>
+    <color name="colorAccent">#7f8c8d</color>
+    <color name="rosa">#FF8A80</color><!-- position 0-->
+    <color name="lightBlue">#81D8FF</color><!-- position 1-->
+    <color name="lime">#CCFF90</color><!-- position 2-->
+    <color name="outerSpace">#FF111516</color><!-- dark backgourd-->
+</resources>
