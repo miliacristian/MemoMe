@@ -29,6 +29,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_or_add);
+        Intent intent=getIntent();
+        Bundle bun=intent.getExtras();
+        String password = bun.getString("password");
        // getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
@@ -41,8 +44,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogListView();
             }
         });
-        Intent intent=getIntent();
-        Bundle bun=intent.getExtras();
         //getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         int position=bun.getInt("key");
 
@@ -59,7 +60,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             currentMemo= dao.loadMemoByPosition(position);
             if(currentMemo.getEncryption()==1){
                 String normalPassword="";//fare la get della password non cifrata
-                dao.decryptText(currentMemo,normalPassword);
+                dao.decryptText(currentMemo,password);
             }
             textModify.setText(currentMemo.getText());
             titleModify.setText(currentMemo.getTitle());

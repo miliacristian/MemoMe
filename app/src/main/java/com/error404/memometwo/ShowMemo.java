@@ -56,6 +56,7 @@ public class ShowMemo extends AppCompatActivity {
                 Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
                 b.putInt("key", position);
+                b.putString("password", "abc");
                 intent.putExtras(b);
                 startActivity(intent);
                 //vai all'activity della creazione/modifica in modalità modifica;
