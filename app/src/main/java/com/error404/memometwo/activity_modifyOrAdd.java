@@ -66,9 +66,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             colorIndex=currentMemo.getColor();
             System.out.println("activitymodify"+colorIndex);
             color =getColorByList(colorIndex);
-            textModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-            titleModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-            emojiModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             //istanziare emoji
         }
@@ -123,9 +120,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         return Memo.colors[itemPosition];
     }
     public void setColorOnTitleAndText(){
-        textModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-        titleModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-        emojiModify.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
 
     }

@@ -60,9 +60,6 @@ public class ShowMemo extends AppCompatActivity {
         return Memo.colors[itemPosition];
     }
     public void setColorOnTitleAndText(){
-        txtViewNota.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-        txtViewTitle.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-        emojitxt.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
     public void insertEncryptToPasswordAndText(){
