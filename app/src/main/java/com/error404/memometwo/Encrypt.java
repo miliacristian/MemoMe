@@ -84,6 +84,7 @@ public class  Encrypt {//usare solo encryption e decryption
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println(normalTextEnc);
         return normalTextEnc;
     }
     public static String decryption(String strEncryptedText,String key){

@@ -212,6 +212,7 @@ public class DAO {
         //e settando encryption a 1
         Memo m=loadMemoByPosition(idMemo);
         m.setEncryption(1);
+        System.out.println(password);
         m.setPassword(Encrypt.encryption(password,password));
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,idMemo);

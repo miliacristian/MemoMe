@@ -144,10 +144,6 @@ public class MemoMeMain extends AppCompatActivity
                 finish();
                 startActivity(getIntent());
             }
-        } else if (id == R.id.ordNomeAsc) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -41,6 +41,12 @@ public class ShowMemo extends AppCompatActivity {
         //inizializzare opportunamente emoji
        // emojitxt.setText(m.getEmoji());
         setColorOnTitleAndText();
+        // if encrypted
+        /*if (dao.isEncrypted(position)){
+            //password momentanea
+            String password = "abc";
+            dao.decryptText(dao.loadMemoByPosition(position), password);
+        }*/
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
@@ -62,15 +68,17 @@ public class ShowMemo extends AppCompatActivity {
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
+
     public void insertEncryptToPasswordAndText(){
-        String password=null;
+        String password="abc";
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
         dao.open();//necessaria??
         dao.addEncryptionToPasswordAndText(position,password);
     }
+
     public void deleteEncryptionToPasswordAndText(){
-        String password=null;
+        String password="abc";
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
         dao.open();//necessaria??
@@ -108,10 +116,12 @@ public class ShowMemo extends AppCompatActivity {
             case R.id.action_encode:
                 Toast.makeText(getApplicationContext(), "encode",
                         Toast.LENGTH_LONG).show();
+                insertEncryptToPasswordAndText();
                 return true;
             case R.id.action_decode:
                 Toast.makeText(getApplicationContext(), "decode",
                         Toast.LENGTH_LONG).show();
+                deleteEncryptionToPasswordAndText();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
