@@ -45,7 +45,7 @@ public class ShowMemo extends AppCompatActivity {
         if (dao.isEncrypted(position)){
             //password momentanea
             String password = "abc";
-            dao.decryptText(dao.loadMemoByPosition(position), password);
+            dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
