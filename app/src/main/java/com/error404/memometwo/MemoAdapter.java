@@ -49,7 +49,8 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
             TextView dateLastModify = (TextView) rowView.findViewById(R.id.lastmodify);
             LinearLayout rowListView=(LinearLayout)rowView.findViewById(R.id.linearExternal);
             if(rowListView!=null) {
-                rowListView.setBackgroundColor(ContextCompat.getColor(getContext(), getColorByList(memo.getColor())));
+                rowListView.setBackgroundColor(ContextCompat.getColor(getContext(),memo.getColor()));
+
             }
             if (emoji != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
                 emoji.setText(getEmojiByUnicode(memo.getEmoji()));

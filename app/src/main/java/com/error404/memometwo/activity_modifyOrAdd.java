@@ -64,9 +64,10 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
             textModify.setText(currentMemo.getText());
             titleModify.setText(currentMemo.getTitle());
-            colorIndex=currentMemo.getColor();
+            //colorIndex=currentMemo.getColor();
             System.out.println("activitymodify"+colorIndex);
-            color =getColorByList(colorIndex);
+            //color =getColorByList(colorIndex);
+            color=currentMemo.getColor();
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             //istanziare emoji
         }
@@ -82,18 +83,23 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     DAO dao = new DAO(activity_modifyOrAdd.this);
                     dao.open();
                     if (mode.equals("addMode")) {//aggiungi al db
-                        dao.addMemoToDB(title, text, 0x1f604, colorIndex);//al posto di null parametro color
+                        //dao.addMemoToDB(title, text, 0x1f604, colorIndex);
+                        dao.addMemoToDB(title, text, 0x1f604, color);//se color non viene modificato che colore ho?
+                        // mettere color a valore bianco di default
                         Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
                         startActivity(intent);
+                        finish();
                         //alla fine dell'intent ci va finish??
                     } else {//aggiorna memo con tutti i dati
                         currentMemo.setTitle(titleModify.getText().toString());
                         currentMemo.setText(textModify.getText().toString());
                         //currentMemo.setEmoji();
-                        currentMemo.setColor(colorIndex);
+                        //currentMemo.setColor(colorIndex);
+                        currentMemo.setColor(color);
                         dao.saveMemo(currentMemo, currentMemo.getId());
                         Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
                         startActivity(intent);
+                        finish();
                     }
                 }
                 else{
@@ -111,6 +117,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 colorIndex=item;
                 color=getColorByList(item);
+                System.out.println(color);
                 setColorOnTitleAndText();
                 //dialog.dismiss();
             }
@@ -122,6 +129,5 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-
     }
 }

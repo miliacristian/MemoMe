@@ -32,8 +32,9 @@ public class ShowMemo extends AppCompatActivity {
         DAO dao = new DAO(this);
         dao.open();
         Memo m = dao.loadMemoByPosition(position);
-        int colorIndex=m.getColor();
-        color=getColorByList(colorIndex);
+        //int colorIndex=m.getColor();
+        //color=getColorByList(colorIndex);
+        color=m.getColor();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);

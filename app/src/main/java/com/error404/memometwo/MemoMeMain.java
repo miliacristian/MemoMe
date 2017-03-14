@@ -151,8 +151,5 @@ public class MemoMeMain extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void prova(){
-        System.out.println(1);
-    }
 }
 
