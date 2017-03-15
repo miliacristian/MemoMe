@@ -23,6 +23,7 @@ public class MemoMeMain extends AppCompatActivity
     private DAO dao;
     private ListView myListView;
     private ArrayList<Memo> memoAdapter = new ArrayList<Memo>();
+    private MemoAdapter mem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class MemoMeMain extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);//adapter deve essere un arraylist di memo
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);//adapter deve essere un arraylist di memo
         myListView = (ListView) findViewById(R.id.listOfNotes);//id della list view nella prima activity
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,8 +87,6 @@ public class MemoMeMain extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-        System.out.println("wwww");
-        System.exit(0);
     }
 
     @Override
@@ -125,7 +124,7 @@ public class MemoMeMain extends AppCompatActivity
                 //finish();
                 //startActivity(getIntent());
                 memoAdapter=dao.loadAllMemo();
-                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
@@ -133,7 +132,7 @@ public class MemoMeMain extends AppCompatActivity
                 //dao.open(); è necessaria??
                 dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
                 memoAdapter=dao.loadAllMemo();
-                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
                 //finish();
                 //startActivity(getIntent());
@@ -144,7 +143,7 @@ public class MemoMeMain extends AppCompatActivity
                 //dao.open(); è necessaria??
                 dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
                 memoAdapter=dao.loadAllMemo();
-                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
                 //finish();
                 //startActivity(getIntent());
@@ -154,7 +153,7 @@ public class MemoMeMain extends AppCompatActivity
                 //dao.open(); è necessaria??
                 dao.updateSort("color");
                 memoAdapter=dao.loadAllMemo();
-                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
                 //finish();
                 //startActivity(getIntent());
