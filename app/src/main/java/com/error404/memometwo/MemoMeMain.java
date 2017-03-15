@@ -122,30 +122,42 @@ public class MemoMeMain extends AppCompatActivity
             if(dao!=null) {
                 //dao.open(); è necessaria??
                 dao.updateSort("title");
-                finish();
-                startActivity(getIntent());
+                //finish();
+                //startActivity(getIntent());
+                memoAdapter=dao.loadAllMemo();
+                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
                 //dao.open(); è necessaria??
                 dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
-                finish();
-                startActivity(getIntent());
+                memoAdapter=dao.loadAllMemo();
+                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
+                //finish();
+                //startActivity(getIntent());
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
                 //dao.open(); è necessaria??
                 dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
-                finish();
-                startActivity(getIntent());
+                memoAdapter=dao.loadAllMemo();
+                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
+                //finish();
+                //startActivity(getIntent());
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
             if(dao!=null) {
                 //dao.open(); è necessaria??
                 dao.updateSort("color");
-                finish();
-                startActivity(getIntent());
+                memoAdapter=dao.loadAllMemo();
+                MemoAdapter mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
+                //finish();
+                //startActivity(getIntent());
             }
         }
 
