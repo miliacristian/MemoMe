@@ -131,7 +131,7 @@ public class ShowMemo extends AppCompatActivity {
                 return true;
             case R.id.action_encode:
                 Toast.makeText(getApplicationContext(), "encode",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 insertEncryptToPasswordAndText();
                 /*startActivity(getIntent());
                 finish();*/
@@ -139,7 +139,7 @@ public class ShowMemo extends AppCompatActivity {
                 return true;
             case R.id.action_decode:
                 Toast.makeText(getApplicationContext(), "decode",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
                 deleteEncryptionToPasswordAndText();
                 //startActivity(getIntent());
                 //finish();
