@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String MEMO_TABLE_SQL = "CREATE TABLE "+MEMOS+"(\n" +
             "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//da non toccare incrementa automaticamente.
             "\ttitle\tTEXT NOT NULL,\n"+
-            "\ttext\tTEXT NOT NULL,\n"+//text not null?
+            "\ttext\tTEXT,\n"+//text not null?
             "\tcolor\tINTEGER NOT NULL,\n" +//COLOR E EMOJI INTERI???
             "\temoji\tINTEGER NOT NULL,\n"+
             "\tdaydatecreation\tINTEGER NOT NULL,\n"+

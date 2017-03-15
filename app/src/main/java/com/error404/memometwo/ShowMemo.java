@@ -71,6 +71,7 @@ public class ShowMemo extends AppCompatActivity {
     public static Activity getInstance(){
         return refer;
     }
+
     public int getColorByList(int itemPosition){
         return Memo.colors[itemPosition];
     }
@@ -126,8 +127,6 @@ public class ShowMemo extends AppCompatActivity {
                 dao.open();
                 int id=dao.findIdByPosition(position);
                 dao.deleteMemoByIdFromDB(id);
-                Intent intent=new Intent(this,MemoMeMain.class);
-                startActivity(intent);
                 finish();
                 return true;
             case R.id.action_encode:
