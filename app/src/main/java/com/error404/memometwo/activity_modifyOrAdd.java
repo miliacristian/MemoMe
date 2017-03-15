@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class activity_modifyOrAdd extends AppCompatActivity {
     Memo currentMemo;
     int colorIndex;
-    int color;
+    int color = Memo.colors[0];
     EditText textModify;
     EditText titleModify;
     TextView emojiModify;
@@ -86,8 +86,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         //dao.addMemoToDB(title, text, 0x1f604, colorIndex);
                         dao.addMemoToDB(title, text, 0x1f604, color);//se color non viene modificato che colore ho?
                         // mettere color a valore bianco di default
-                        Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
+                        //startActivity(intent);
                         finish();
                         //alla fine dell'intent ci va finish??
                     } else {//aggiorna memo con tutti i dati
@@ -109,7 +109,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         });
     }
     public void alertDialogListView() {
-        final String[] items = { "ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
+        final String[] items = { "BIANCO","ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle("Choose your color");
@@ -129,5 +129,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+    }
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }

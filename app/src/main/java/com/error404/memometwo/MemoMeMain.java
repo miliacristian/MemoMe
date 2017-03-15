@@ -86,6 +86,8 @@ public class MemoMeMain extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        System.out.println("wwww");
+        System.exit(0);
     }
 
     @Override

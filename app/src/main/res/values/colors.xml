@@ -7,4 +7,5 @@
     <color name="lightBlue">#81D8FF</color><!-- position 1-->
     <color name="lime">#CCFF90</color><!-- position 2-->
     <color name="outerSpace">#FF111516</color><!-- dark backgourd-->
+    <color name = "bianco">#FFFFFFFF</color>>
 </resources>

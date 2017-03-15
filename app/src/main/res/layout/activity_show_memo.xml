@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/emojitxt"
-                android:layout_weight="0.13"
+                android:layout_weight="0.05"
                 android:gravity="center_vertical"
                 android:textAlignment="center" />
 
@@ -41,14 +41,6 @@
                 android:maxLength="32"
                 android:layout_marginTop="8dp"
                 android:padding="2dp" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.13"
-                android:background="@android:color/transparent"
-                app:srcCompat="@mipmap/color_choice" />
 
         </LinearLayout>
 

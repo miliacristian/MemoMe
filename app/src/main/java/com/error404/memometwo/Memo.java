@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 
 public class Memo {
-    public static final int[]colors={R.color.rosa,R.color.lightBlue,R.color.lime};
+    public static final int[]colors={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
     private int id;
     private String title;
     private String text;
