@@ -35,6 +35,7 @@
             android:layout_height="514dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="7dp"
+            android:paddingBottom="7dp"
             android:paddingLeft="7dp"
             android:paddingRight="7dp"
             android:paddingTop="7dp" />

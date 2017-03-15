@@ -134,8 +134,9 @@ public class ShowMemo extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "encode",
                         Toast.LENGTH_LONG).show();
                 insertEncryptToPasswordAndText();
-                startActivity(getIntent());
-                finish();
+                /*startActivity(getIntent());
+                finish();*/
+
                 return true;
             case R.id.action_decode:
                 Toast.makeText(getApplicationContext(), "decode",
