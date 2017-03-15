@@ -1,5 +1,6 @@
 package com.error404.memometwo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -20,10 +21,12 @@ public class ShowMemo extends AppCompatActivity {
     TextView txtViewNota;
     int color;
     int position;
+    private static Activity refer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memo);
+        refer = this;
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         position = bun.getInt("key");
@@ -63,6 +66,10 @@ public class ShowMemo extends AppCompatActivity {
                 //vai all'activity della creazione/modifica in modalità modifica;
             }
         });
+    }
+
+    public static Activity getInstance(){
+        return refer;
     }
     public int getColorByList(int itemPosition){
         return Memo.colors[itemPosition];

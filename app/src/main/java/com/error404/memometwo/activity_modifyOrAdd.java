@@ -97,8 +97,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         //currentMemo.setColor(colorIndex);
                         currentMemo.setColor(color);
                         dao.saveMemo(currentMemo, currentMemo.getId());
-                        Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
+                        //startActivity(intent);
+                        ShowMemo.getInstance().finish();
                         finish();
                     }
                 }
