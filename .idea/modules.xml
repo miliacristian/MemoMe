@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MemoMe.iml" filepath="$PROJECT_DIR$/MemoMe.iml" />
       <module fileurl="file://$PROJECT_DIR$/MemoMeGitHub.iml" filepath="$PROJECT_DIR$/MemoMeGitHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MemoMeOk.iml" filepath="$PROJECT_DIR$/MemoMeOk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cristianmilia-memometwo-11ead6fadc5a.iml" filepath="$PROJECT_DIR$/cristianmilia-memometwo-11ead6fadc5a.iml" />
     </modules>
