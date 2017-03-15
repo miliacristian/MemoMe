@@ -164,5 +164,12 @@ public class MemoMeMain extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        memoAdapter=dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        myListView.setAdapter(mem);
+    }
 }
 
