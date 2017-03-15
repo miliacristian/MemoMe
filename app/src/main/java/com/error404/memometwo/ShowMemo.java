@@ -30,7 +30,6 @@ public class ShowMemo extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         position = bun.getInt("key");
-        System.out.println(position);
         //getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         DAO dao = new DAO(this);
         dao.open();
@@ -53,8 +52,8 @@ public class ShowMemo extends AppCompatActivity {
         }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
+        buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);

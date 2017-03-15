@@ -36,8 +36,8 @@ public class MemoMeMain extends AppCompatActivity
         dao=new DAO(this);
         dao.open();
         memoAdapter=dao.loadAllMemo();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
+        buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MemoMeMain.this,activity_modifyOrAdd.class);

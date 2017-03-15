@@ -71,8 +71,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             //istanziare emoji
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);//floating button
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);//floating button
+        buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String title=titleModify.getText().toString();
