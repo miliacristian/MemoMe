@@ -150,8 +150,8 @@ public class ShowMemo extends AppCompatActivity {
                 invalidateOptionsMenu();
                 return true;
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "back",
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "back",
+                        //Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:

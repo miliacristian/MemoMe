@@ -166,8 +166,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "back",
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "back",
+                  //      Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:
