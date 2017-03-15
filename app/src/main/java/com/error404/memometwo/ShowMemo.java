@@ -21,6 +21,7 @@ public class ShowMemo extends AppCompatActivity {
     TextView txtViewNota;
     int color;
     int position;
+    int emoji;
     private static Activity refer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class ShowMemo extends AppCompatActivity {
         //int colorIndex=m.getColor();
         //color=getColorByList(colorIndex);
         color=m.getColor();
+        emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
@@ -52,6 +54,7 @@ public class ShowMemo extends AppCompatActivity {
         }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
+        emojitxt.setText(Memo.getEmojiByUnicode(emoji));
         FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
         buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
             @Override

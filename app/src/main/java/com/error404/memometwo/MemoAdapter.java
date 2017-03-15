@@ -28,10 +28,6 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
         super(c,textViewId,memoList);
         this.memoList=memoList;//ho tutti i riferimenti alle memo
     }
-    public String getEmojiByUnicode(int unicode){
-        return new String(Character.toChars(unicode));
-    }
-
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
         //una linea,position parte da 0 e viene automaticamente incrementato
@@ -53,7 +49,7 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
 
             }
             if (emoji != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
-                emoji.setText(getEmojiByUnicode(memo.getEmoji()));
+                emoji.setText(Memo.getEmojiByUnicode(memo.getEmoji()));
 
             }
             if(dateCreation!=null){
