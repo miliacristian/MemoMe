@@ -30,6 +30,8 @@ public class ShowMemo extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         position = bun.getInt("key");
+        //Aggiunge il pulsante back alla action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         DAO dao = new DAO(this);
         dao.open();
@@ -143,6 +145,11 @@ public class ShowMemo extends AppCompatActivity {
                 //startActivity(getIntent());
                 //finish();
                 invalidateOptionsMenu();
+                return true;
+            case android.R.id.home:
+                Toast.makeText(getApplicationContext(), "back",
+                        Toast.LENGTH_SHORT).show();
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
