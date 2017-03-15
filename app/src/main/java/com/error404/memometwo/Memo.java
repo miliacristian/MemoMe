@@ -9,7 +9,7 @@ import java.util.Calendar;
  */
 
 public class Memo {
-    public static final int[]colors={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
+    private static final int[]colors={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
     private int id;
     private String title;
     private String text;
@@ -114,6 +114,9 @@ public class Memo {
     }
     public String dateLastModifyConverter(Calendar date){
         return "Modified:"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+    }
+    public static int getColors(int index){
+        return colors[index];
     }
 }
 //test2

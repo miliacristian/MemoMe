@@ -71,9 +71,9 @@ public class ShowMemo extends AppCompatActivity {
         return refer;
     }
 
-    public int getColorByList(int itemPosition){
-        return Memo.colors[itemPosition];
-    }
+    //public int getColorByList(int itemPosition){
+        //return Memo.colors[itemPosition];
+    //}
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }

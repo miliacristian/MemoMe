@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class activity_modifyOrAdd extends AppCompatActivity {
     Memo currentMemo;
     int colorIndex;
-    int color = Memo.colors[0];
+    int color = Memo.getColors(0);
     EditText textModify;
     EditText titleModify;
     TextView emojiModify;
@@ -117,7 +117,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 colorIndex=item;
-                color=getColorByList(item);
+                color=Memo.getColors(item);
                 System.out.println(color);
                 setColorOnTitleAndText();
                 //dialog.dismiss();
@@ -125,9 +125,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         }).show();
     }
 
-    public int getColorByList(int itemPosition){
-        return Memo.colors[itemPosition];
-    }
+    //public int getColorByList(int itemPosition){
+        //return Memo.getColors(itemPosition);
+    //}
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }

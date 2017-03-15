@@ -70,7 +70,7 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
         }
         return rowView;
     }
-    public int getColorByList(int itemPosition){
-        return Memo.colors[itemPosition];
-    }
+   // public int getColorByList(int itemPosition){
+       // return Memo.colors[itemPosition];
+   // }
 }
