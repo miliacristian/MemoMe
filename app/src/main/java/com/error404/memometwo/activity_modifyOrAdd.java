@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
         String password = bun.getString("password");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
@@ -157,5 +159,19 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(getApplicationContext(), "back",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
