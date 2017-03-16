@@ -155,6 +155,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle("Choose emoji");
+        builder.setIcon(R.mipmap.emoji_icon);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 emoji=Memo.getEmoji(item);
