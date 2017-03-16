@@ -171,7 +171,6 @@ public class ShowMemo extends AppCompatActivity {
                                     ShowMemo.setPassword(nameEditText.getText().toString());
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                     dialog.cancel();
-                                    Toast.makeText(ShowMemo.this, "password corrispondenti", Toast.LENGTH_SHORT).show();
                                     invalidateOptionsMenu();
                                 }else{
                                     Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
