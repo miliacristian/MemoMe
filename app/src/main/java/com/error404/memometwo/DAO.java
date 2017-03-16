@@ -154,7 +154,6 @@ public class DAO {
         String title=memo.getTitle();
         int emoji=memo.getEmoji();
         String text=memo.getText();
-        System.out.println(text);
         String psw=memo.getPassword();
         int color=memo.getColor();
         String password=memo.getPassword();
@@ -214,7 +213,6 @@ public class DAO {
         //e settando encryption a 1
         Memo m=loadMemoByPosition(position);
         m.setEncryption(1);
-        System.out.println(password);
         m.setPassword(Encrypt.encryption(password,password));
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());

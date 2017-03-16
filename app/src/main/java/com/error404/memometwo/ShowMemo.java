@@ -61,7 +61,7 @@ public class ShowMemo extends AppCompatActivity {
         // if encrypted
         if (dao.isEncrypted(position)){
             //password momentanea
-            String password = "abc";
+            password = bun.getString("password");
             dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
@@ -74,7 +74,7 @@ public class ShowMemo extends AppCompatActivity {
                 Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
                 b.putInt("key", position);
-                b.putString("password", "abc");
+                b.putString("password", password);
                 intent.putExtras(b);
                 startActivity(intent);
                 //vai all'activity della creazione/modifica in modalità modifica;
@@ -172,6 +172,7 @@ public class ShowMemo extends AppCompatActivity {
                      */
                                 if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
                                     ShowMemo.setPassword(nameEditText.getText().toString());
+                                    insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                     dialog.cancel();
                                 }else{
                                     Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
@@ -194,7 +195,7 @@ public class ShowMemo extends AppCompatActivity {
                             }
                         })
                         .show();
-                insertEncryptToPasswordAndText(password);
+                //insertEncryptToPasswordAndText(password);
                 /*startActivity(getIntent());
                 finish();*/
                 invalidateOptionsMenu();

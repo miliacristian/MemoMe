@@ -34,7 +34,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
         final String password = bun.getString("password");
-        System.out.println(password);
+        //System.out.println(password);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         textModify=(EditText)findViewById(R.id.textModify);
