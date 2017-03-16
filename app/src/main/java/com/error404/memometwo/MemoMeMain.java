@@ -88,6 +88,7 @@ public class MemoMeMain extends AppCompatActivity
                     //alert dialog
                     new AlertDialog.Builder(MemoMeMain.this).setView(formElementsView)
                             .setTitle("Insert Password")
+                            .setIcon(R.mipmap.lock_finale)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @TargetApi(11)
                                         public void onClick(DialogInterface dialog, int id) {
@@ -217,10 +218,33 @@ public class MemoMeMain extends AppCompatActivity
         else if (id == R.id.nav_delete_all){
             if(dao!=null) {
                 //dao.open(); è necessaria??
-                dao.deleteAllMemoNotEncrypted();
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                        //set message, title, and icon
+                        .setTitle("Delete")
+                        .setMessage("Do you want to Delete")
+                        .setIcon(R.mipmap.delete_finale)
+
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                deleteAllMemo();
+                                dialog.dismiss();
+                            }
+
+                        })
+
+
+
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
                 //finish();
                 //startActivity(getIntent());
             }
@@ -245,6 +269,13 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
+        memoAdapter=dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        myListView.setAdapter(mem);
+    }
+
+    public void deleteAllMemo(){
+        dao.deleteAllMemoNotEncrypted();
         memoAdapter=dao.loadAllMemo();
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
         myListView.setAdapter(mem);
