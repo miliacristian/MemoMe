@@ -101,8 +101,7 @@ public class ShowMemo extends AppCompatActivity {
         dao.addEncryptionToPasswordAndText(position,password);
     }
 
-    public void deleteEncryptionToPasswordAndText(){
-        String password="abc";
+    public void deleteEncryptionToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
         dao.open();//necessaria??
@@ -174,6 +173,8 @@ public class ShowMemo extends AppCompatActivity {
                                     ShowMemo.setPassword(nameEditText.getText().toString());
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                     dialog.cancel();
+                                    Toast.makeText(ShowMemo.this, "password corrispondenti", Toast.LENGTH_SHORT).show();
+                                    invalidateOptionsMenu();
                                 }else{
                                     Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
                                     nameEditText.setText("");
@@ -198,12 +199,12 @@ public class ShowMemo extends AppCompatActivity {
                 //insertEncryptToPasswordAndText(password);
                 /*startActivity(getIntent());
                 finish();*/
-                invalidateOptionsMenu();
+
                 return true;
             case R.id.action_decode:
                 Toast.makeText(getApplicationContext(), "decode",
                         Toast.LENGTH_SHORT).show();
-                deleteEncryptionToPasswordAndText();
+                deleteEncryptionToPasswordAndText(password);
                 //startActivity(getIntent());
                 //finish();
                 invalidateOptionsMenu();

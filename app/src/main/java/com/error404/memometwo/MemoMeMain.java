@@ -212,13 +212,15 @@ public class MemoMeMain extends AppCompatActivity
                 myListView.setAdapter(mem);
                 //finish();
                 //startActivity(getIntent());
-            }else if (id == R.id.nav_delete_all){
-                //cancella tutte le note
-            }else if (id == R.id.nav_emoji){
-                //ordina per emoji
             }
         }
-
+        else if (id == R.id.nav_delete_all){
+            //cancella tutte le note
+            Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
+        }else if (id == R.id.nav_emoji){
+            //ordina per emoji
+            Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
