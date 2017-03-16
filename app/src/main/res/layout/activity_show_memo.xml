@@ -21,26 +21,29 @@
             android:layout_height="84dp">
 
             <TextView
-                android:text="TextView"
+                android:id="@+id/emojitxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/emojitxt"
                 android:layout_weight="0.05"
                 android:gravity="center_vertical"
-                android:textAlignment="center" />
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="30sp" />
 
             <TextView
+                android:id="@+id/txtViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:inputType="text|textMultiLine|textCapSentences"
-                android:ems="10"
-                android:id="@+id/txtViewTitle"
+                android:layout_marginTop="8dp"
                 android:layout_weight="0.13"
+                android:ems="10"
                 android:gravity="top"
                 android:hint="Title"
+                android:inputType="text|textMultiLine|textCapSentences"
                 android:maxLength="32"
-                android:layout_marginTop="8dp"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -50,17 +53,18 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/txtViewNota"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/txtViewNota"
-                android:hint="Note"
-                android:gravity="top"
-                android:maxLength="255"
-                android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:padding="3dp" />
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="Note"
+                android:inputType="textMultiLine"
+                android:maxLength="255"
+                android:padding="3dp"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
