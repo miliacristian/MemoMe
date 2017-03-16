@@ -33,7 +33,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         setContentView(R.layout.activity_modify_or_add);
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
-        String password = bun.getString("password");
+        final String password = bun.getString("password");
+        System.out.println(password);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
        // getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         textModify=(EditText)findViewById(R.id.textModify);
@@ -104,8 +105,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         finish();
                         //alla fine dell'intent ci va finish??
                     } else {//aggiorna memo con tutti i dati
+                        if (currentMemo.getEncryption() == 1){
+                            String toCifrateText = textModify.getText().toString();
+                            String cifratedText = Encrypt.encryption(toCifrateText, password);
+                            currentMemo.setText(cifratedText);
+                        }else{
+                            currentMemo.setText(textModify.getText().toString());
+                        }
+
                         currentMemo.setTitle(titleModify.getText().toString());
-                        currentMemo.setText(textModify.getText().toString());
+
                         currentMemo.setEmoji(emoji);
                         //currentMemo.setColor(colorIndex);
                         currentMemo.setColor(color);
