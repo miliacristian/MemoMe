@@ -8,4 +8,5 @@
     <color name="lime">#CCFF90</color><!-- position 2-->
     <color name="outerSpace">#FF111516</color><!-- dark backgourd-->
     <color name = "bianco">#FFFFFFFF</color>>
+    <color name = "black" >#000000</color>
 </resources>
