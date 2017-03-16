@@ -139,6 +139,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle("Choose your color");
+        builder.setIcon(R.mipmap.palette_icon);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 //colorIndex=item;

@@ -141,11 +141,32 @@ public class ShowMemo extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_delete:
-                DAO dao=new DAO(this);
-                dao.open();
-                int id=dao.findIdByPosition(position);
-                dao.deleteMemoByIdFromDB(id);
-                finish();
+                AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                        //set message, title, and icon
+                        .setTitle("Delete")
+                        .setMessage("Do you want to Delete")
+                        .setIcon(R.mipmap.delete_finale)
+
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                deleteThisMemo();
+                                dialog.dismiss();
+                            }
+
+                        })
+
+
+
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
                 return true;
             case R.id.action_encode:
                 Toast.makeText(getApplicationContext(), "encode",
@@ -163,6 +184,7 @@ public class ShowMemo extends AppCompatActivity {
                 //alert dialog
                 new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
                         .setTitle("Insert Password")
+                        .setIcon(R.mipmap.lock_finale)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
@@ -201,10 +223,38 @@ public class ShowMemo extends AppCompatActivity {
             case R.id.action_decode:
                 Toast.makeText(getApplicationContext(), "decode",
                         Toast.LENGTH_SHORT).show();
-                deleteEncryptionToPasswordAndText(password);
+                AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
+                        //set message, title, and icon
+                        .setTitle("Decode")
+                        .setMessage("Do you want to decode")
+                        .setIcon(R.mipmap.unlock_finale)
+
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                deleteEncryptionToPasswordAndText(password);
+                                invalidateOptionsMenu();
+                                dialog.dismiss();
+                            }
+
+                        })
+
+
+
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .show();
+
+
                 //startActivity(getIntent());
                 //finish();
-                invalidateOptionsMenu();
+
                 return true;
             case android.R.id.home:
                 //Toast.makeText(getApplicationContext(), "back",
@@ -214,5 +264,12 @@ public class ShowMemo extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void deleteThisMemo(){
+        DAO dao=new DAO(this);
+        dao.open();
+        int id=dao.findIdByPosition(position);
+        dao.deleteMemoByIdFromDB(id);
+        finish();
     }
 }
