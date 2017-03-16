@@ -158,7 +158,7 @@ public class ShowMemo extends AppCompatActivity {
                 final EditText nameEditText = (EditText) formElementsView
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
-                        .findViewById(R.id.nameEditText);
+                        .findViewById(R.id.nameEditText2);
 
                 //alert dialog
                 new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
@@ -166,9 +166,7 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                    /*
-                     * Getting the value of an EditText.
-                     */
+                                // il controllo non funziona, esegue sempre
                                 if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
                                     ShowMemo.setPassword(nameEditText.getText().toString());
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
