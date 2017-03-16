@@ -153,10 +153,12 @@ public class ShowMemo extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View formElementsView = inflater.inflate(R.layout.password_layout,
+                final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
 
                 final EditText nameEditText = (EditText) formElementsView
+                        .findViewById(R.id.nameEditText);
+                final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText);
 
                 //alert dialog
@@ -168,12 +170,17 @@ public class ShowMemo extends AppCompatActivity {
                     /*
                      * Getting the value of an EditText.
                      */
-
-                                ShowMemo.setPassword(nameEditText.getText().toString());
-
+                                if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
+                                    ShowMemo.setPassword(nameEditText.getText().toString());
+                                    dialog.cancel();
+                                }else{
+                                    Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
+                                    nameEditText.setText("");
+                                    nameEditText2.setText("");
+                                }
                                 //showToast(toastString);
 
-                                dialog.cancel();
+
                             }
 
 
