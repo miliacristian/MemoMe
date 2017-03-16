@@ -2,6 +2,7 @@ package com.error404.memometwo;
 
 import android.support.v4.content.ContextCompat;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Calendar;
 
 public class Memo {
     private static final int[]COLORS={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
-    private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609};
+    private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609,0x1f60d};
     private int id;
     private String title;
     private String text;
@@ -124,6 +125,13 @@ public class Memo {
     }
     public static String getEmojiByUnicode(int unicode){
         return new String(Character.toChars(unicode));
+    }
+    public static ArrayList<Integer> getListEmojis(){
+        ArrayList<Integer> listEmojis=new ArrayList<Integer>();
+        for(int i=0;i<EMOJIS.length;i++){
+            listEmojis.add(EMOJIS[i]);
+        }
+        return listEmojis;
     }
 }
 //test2
