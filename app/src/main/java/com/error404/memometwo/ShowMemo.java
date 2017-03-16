@@ -153,10 +153,12 @@ public class ShowMemo extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                final View formElementsView = inflater.inflate(R.layout.password_layout,
+                final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
 
                 final EditText nameEditText = (EditText) formElementsView
+                        .findViewById(R.id.nameEditText);
+                final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText);
 
                 //alert dialog
@@ -165,15 +167,23 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                    /*
+
+                                /*
                      * Getting the value of an EditText.
                      */
-
-                                ShowMemo.setPassword(nameEditText.getText().toString());
+                                if(nameEditText.getText().equals(nameEditText2.getText())&& !nameEditText.equals("")){
+                                    ShowMemo.setPassword(nameEditText.getText().toString());
+                                    dialog.cancel();
+                                }else{
+                                    Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
+                                    nameEditText.setText("");
+                                    nameEditText2.setText("");
+                                }
+                                //ShowMemo.setPassword(nameEditText.getText().toString());
 
                                 //showToast(toastString);
 
-                                dialog.cancel();
+
                             }
 
 
