@@ -22,6 +22,20 @@
                 android:id="@+id/nav_manage"
                 android:icon="@mipmap/palette_icon"
                 android:title="Colore" />
+            <item
+                android:id="@+id/nav_emoji"
+                android:icon="@mipmap/palette_icon"
+                android:title="Emoji" />
+        </menu>
+    </item>
+
+    <item android:title="Gestisci note">
+        <menu>
+            <item
+                android:id="@+id/nav_delete_all"
+                android:icon="@mipmap/delete_finale"
+                android:title="Cancella tutte le note" />
+
         </menu>
     </item>
 
