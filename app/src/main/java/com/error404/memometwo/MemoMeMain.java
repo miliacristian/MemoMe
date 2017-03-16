@@ -215,11 +215,28 @@ public class MemoMeMain extends AppCompatActivity
             }
         }
         else if (id == R.id.nav_delete_all){
-            //cancella tutte le note
-            Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
+            if(dao!=null) {
+                //dao.open(); è necessaria??
+                dao.deleteAllMemoNotEncrypted();
+                memoAdapter=dao.loadAllMemo();
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
+                //finish();
+                //startActivity(getIntent());
+            }
+            //Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
         }else if (id == R.id.nav_emoji){
+            if(dao!=null) {
+                //dao.open(); è necessaria??
+                dao.updateSort("emoji");
+                memoAdapter=dao.loadAllMemo();
+                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                myListView.setAdapter(mem);
+                //finish();
+                //startActivity(getIntent());
+            }
             //ordina per emoji
-            Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

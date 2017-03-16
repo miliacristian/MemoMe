@@ -184,7 +184,7 @@ public class DAO {
         return;
     }
     public void deleteAllMemoNotEncrypted(){
-        String sql="delete from memos where encryption=0";
+        String sql="delete from memos where encryption<>1";
         database.execSQL(sql);
         return;
     }
