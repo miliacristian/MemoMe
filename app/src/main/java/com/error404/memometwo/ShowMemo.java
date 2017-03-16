@@ -1,16 +1,25 @@
 package com.error404.memometwo;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +31,7 @@ public class ShowMemo extends AppCompatActivity {
     int color;
     int position;
     int emoji;
+    private static String password;
     private static Activity refer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +93,8 @@ public class ShowMemo extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
 
-    public void insertEncryptToPasswordAndText(){
-        String password="abc";
+    public void insertEncryptToPasswordAndText(String password){
+        //String password="abc";
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
         dao.open();//necessaria??
@@ -116,9 +126,14 @@ public class ShowMemo extends AppCompatActivity {
 
     public boolean isEncrypted(){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
+
         DAO dao=new DAO(this);
         dao.open();//necessaria??
         return dao.isEncrypted(position);
+    }
+
+    public static void setPassword(String password){
+        ShowMemo.password = password;
     }
 
     // onClick per il pulsante elimina e encode
@@ -136,7 +151,43 @@ public class ShowMemo extends AppCompatActivity {
             case R.id.action_encode:
                 Toast.makeText(getApplicationContext(), "encode",
                         Toast.LENGTH_SHORT).show();
-                insertEncryptToPasswordAndText();
+                //Inizio alert
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View formElementsView = inflater.inflate(R.layout.password_layout,
+                        null, false);
+
+                final EditText nameEditText = (EditText) formElementsView
+                        .findViewById(R.id.nameEditText);
+
+                //alert dialog
+                new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
+                        .setTitle("Insert Password")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @TargetApi(11)
+                            public void onClick(DialogInterface dialog, int id) {
+                    /*
+                     * Getting the value of an EditText.
+                     */
+
+                                ShowMemo.setPassword(nameEditText.getText().toString());
+
+                                //showToast(toastString);
+
+                                dialog.cancel();
+                            }
+
+
+                        }
+                        )
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @TargetApi(11)
+                            public void onClick(DialogInterface dialog, int id) {
+                                //showToast(" is not awesome for you. :(");
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+                insertEncryptToPasswordAndText(password);
                 /*startActivity(getIntent());
                 finish();*/
                 invalidateOptionsMenu();
