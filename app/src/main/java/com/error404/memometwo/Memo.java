@@ -1,9 +1,13 @@
 package com.error404.memometwo;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static java.security.AccessController.getContext;
 
 public class Memo {
     private static final int[]COLORS={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
@@ -105,10 +109,10 @@ public class Memo {
         return id+" "+title+" "+text+" "+color+" "+dateCreation+" "+lastModify+" "+encryption;
     }
     public String dateCreationConverter(Calendar date){
-        return R.string.created+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+        return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
     public String dateLastModifyConverter(Calendar date){
-        return R.string.modified+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+        return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
     public static int getColors(int index){
         return COLORS[index];
