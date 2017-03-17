@@ -9,6 +9,6 @@
         android:layout_height="80dp"
         android:layout_weight="1"
         android:gravity="center_vertical|center"
-        android:text="TextView"
+        android:text="@string/NULL"
         android:textSize="30sp" />
 </LinearLayout>

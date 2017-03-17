@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">MemoMeTwo</string>
-
+    <string name="InsertText">Inserisci testo qui</string>
+    <string name="InsertTitle">Inserisci titolo</string>
+    <string name="NULL"></string>
+    <string name="MemoMe">MemoMe</string>
+    <string name="Developers">Created by DelloVicario Milia DeTurris</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="type_your_password">Type your password...</string>
     <string name="confirm_password">Confirm Password...</string>

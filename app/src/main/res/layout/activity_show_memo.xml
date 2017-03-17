@@ -24,11 +24,11 @@
                 android:id="@+id/emojitxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.05"
+                android:layout_weight="0.21"
                 android:gravity="center_vertical"
-                android:text="TextView"
+                android:text="@string/NULL"
                 android:textAlignment="center"
-                android:textSize="30sp" />
+                android:textSize="30sp"/>
 
             <TextView
                 android:id="@+id/txtViewTitle"
@@ -38,7 +38,6 @@
                 android:layout_weight="0.13"
                 android:ems="10"
                 android:gravity="center_vertical"
-                android:hint="Title"
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:maxLength="32"
                 android:padding="2dp"
@@ -61,7 +60,6 @@
                 android:background="@drawable/bordertext"
                 android:ems="10"
                 android:gravity="top"
-                android:hint="Note"
                 android:inputType="textMultiLine"
                 android:maxLength="255"
                 android:padding="3dp"

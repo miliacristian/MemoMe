@@ -24,9 +24,9 @@
                 android:id="@+id/emojiModify"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.13"
+                android:layout_weight="0.51"
                 android:gravity="center_vertical"
-                android:text="TextView"
+                android:text="@string/NULL"
                 android:textAlignment="center"
                 android:textSize="30sp" />
 
@@ -37,7 +37,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="0.13"
                 android:ems="10"
-                android:hint="insert your title"
+                android:hint="@string/InsertTitle"
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:maxLength="32"
                 android:padding="2dp"
@@ -66,7 +66,7 @@
                 android:layout_marginTop="15dp"
                 android:ems="10"
                 android:gravity="top"
-                android:hint="Insert note here"
+                android:hint="@string/InsertText"
                 android:inputType="textMultiLine"
                 android:maxLength="255"
                 android:padding="3dp" />
