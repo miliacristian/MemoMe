@@ -6,9 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by cristian on 19/02/17.
- */
 public class DAO {
     private DatabaseHelper dbh;
     private SQLiteDatabase database;

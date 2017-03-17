@@ -43,12 +43,9 @@ public class ShowMemo extends AppCompatActivity {
         position = bun.getInt("key");
         //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         DAO dao = new DAO(this);
         dao.open();
         Memo m = dao.loadMemoByPosition(position);
-        //int colorIndex=m.getColor();
-        //color=getColorByList(colorIndex);
         color=m.getColor();
         emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
@@ -56,11 +53,9 @@ public class ShowMemo extends AppCompatActivity {
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         //inizializzare opportunamente emoji
-       // emojitxt.setText(m.getEmoji());
         setColorOnTitleAndText();
         // if encrypted
         if (dao.isEncrypted(position)){
-            //password momentanea
             password = bun.getString("password");
             dao.decryptText(m, password);
         }
@@ -86,28 +81,23 @@ public class ShowMemo extends AppCompatActivity {
         return refer;
     }
 
-    //public int getColorByList(int itemPosition){
-        //return Memo.colors[itemPosition];
-    //}
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
 
     public void insertEncryptToPasswordAndText(String password){
-        //String password="abc";
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
-        dao.open();//necessaria??
+        dao.open();
         dao.addEncryptionToPasswordAndText(position,password);
     }
 
     public void deleteEncryptionToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         DAO dao=new DAO(this);
-        dao.open();//necessaria??
+        dao.open();
         dao.deleteEncryptionToPasswordAndText(position,password);
     }
-
 
     // inflata il pulsante elimina ed encripta
     @Override
@@ -119,13 +109,11 @@ public class ShowMemo extends AppCompatActivity {
         }else{
             inflater.inflate(R.menu.show_memo_encode, menu);
         }
-
         return super.onCreateOptionsMenu(menu);
     }
 
     public boolean isEncrypted(){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
-
         DAO dao=new DAO(this);
         dao.open();//necessaria??
         return dao.isEncrypted(position);
@@ -169,8 +157,6 @@ public class ShowMemo extends AppCompatActivity {
                         .show();
                 return true;
             case R.id.action_encode:
-                //Toast.makeText(getApplicationContext(), "encode",
-                        //Toast.LENGTH_SHORT).show();
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
@@ -188,7 +174,6 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                // il controllo non funziona, esegue sempre
                                 if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
                                     ShowMemo.setPassword(nameEditText.getText().toString());
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
@@ -199,9 +184,6 @@ public class ShowMemo extends AppCompatActivity {
                                     nameEditText.setText("");
                                     nameEditText2.setText("");
                                 }
-                                //showToast(toastString);
-
-
                             }
 
 
@@ -210,19 +192,12 @@ public class ShowMemo extends AppCompatActivity {
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                //showToast(" is not awesome for you. :(");
                                 dialog.cancel();
                             }
                         })
                         .show();
-                //insertEncryptToPasswordAndText(password);
-                /*startActivity(getIntent());
-                finish();*/
-
                 return true;
             case R.id.action_decode:
-                //Toast.makeText(getApplicationContext(), "decode",
-                        //Toast.LENGTH_SHORT).show();
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         //set message, title, and icon
                         .setTitle("Decode")
@@ -232,33 +207,20 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton("Decode", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //your deleting code
                                 deleteEncryptionToPasswordAndText(password);
                                 invalidateOptionsMenu();
                                 dialog.dismiss();
                             }
 
                         })
-
-
-
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
-
                             }
                         })
                         .show();
-
-
-                //startActivity(getIntent());
-                //finish();
-
                 return true;
             case android.R.id.home:
-                //Toast.makeText(getApplicationContext(), "back",
-                        //Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:

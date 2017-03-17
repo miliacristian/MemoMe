@@ -92,11 +92,7 @@ public class MemoMeMain extends AppCompatActivity
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @TargetApi(11)
                                         public void onClick(DialogInterface dialog, int id) {
-                                            //Memo currentMemo = dao.loadMemoById(position);
-
                                             String cifratedPassword = "" +Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                            System.out.println(cifratedPassword);
-                                            System.out.println(memoAdapter.get(position).getPassword());
                                             String passFromDB = "" +memoAdapter.get(position).getPassword();
                                             if(cifratedPassword.equals(passFromDB)) {
                                                 Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
@@ -109,9 +105,6 @@ public class MemoMeMain extends AppCompatActivity
                                             }else{
                                                 Toast.makeText(MemoMeMain.this, "Wrong password", Toast.LENGTH_SHORT).show();
                                             }
-                                            //showToast(toastString);
-
-
                                         }
 
 
@@ -120,7 +113,6 @@ public class MemoMeMain extends AppCompatActivity
                             .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                                 @TargetApi(11)
                                 public void onClick(DialogInterface dialog, int id) {
-                                    //showToast(" is not awesome for you. :(");
                                     dialog.cancel();
                                 }
                             })
@@ -175,49 +167,36 @@ public class MemoMeMain extends AppCompatActivity
 
         if (id == R.id.nav_camera) {//ordina per titolo
             if(dao!=null) {
-                //dao.open(); è necessaria??
                 dao.updateSort("title");
-                //finish();
-                //startActivity(getIntent());
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
-                //dao.open(); è necessaria??
                 dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
-                //finish();
-                //startActivity(getIntent());
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
-                //dao.open(); è necessaria??
                 dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
-                //finish();
-                //startActivity(getIntent());
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
             if(dao!=null) {
-                //dao.open(); è necessaria??
                 dao.updateSort("color");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
-                //finish();
-                //startActivity(getIntent());
             }
         }
         else if (id == R.id.nav_delete_all){
             if(dao!=null) {
-                //dao.open(); è necessaria??
                 AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                         //set message, title, and icon
                         .setTitle("Delete")
@@ -227,7 +206,6 @@ public class MemoMeMain extends AppCompatActivity
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                //your deleting code
                                 deleteAllMemo();
                                 dialog.dismiss();
                             }
@@ -238,17 +216,11 @@ public class MemoMeMain extends AppCompatActivity
 
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
-
                             }
                         })
                         .show();
-
-                //finish();
-                //startActivity(getIntent());
             }
-            //Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
         }else if (id == R.id.nav_emoji){
             if(dao!=null) {
                 //dao.open(); è necessaria??
@@ -256,11 +228,8 @@ public class MemoMeMain extends AppCompatActivity
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
                 myListView.setAdapter(mem);
-                //finish();
-                //startActivity(getIntent());
             }
             //ordina per emoji
-            //Toast.makeText(this, "delete all", Toast.LENGTH_SHORT).show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
