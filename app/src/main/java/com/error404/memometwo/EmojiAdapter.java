@@ -13,10 +13,6 @@ import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
 
-/**
- * Created by cristian on 16/03/17.
- */
-
 public class EmojiAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> emojiList;
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
@@ -32,7 +28,6 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.emoji_layout, null);
         }
-        //Integer emoji= emojiList.get(position);
             TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
             if (emojis != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
                 emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));

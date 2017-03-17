@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-//import static com.example.cristian.memome2.R.id.fab;
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
     ArrayList<Integer> emojiAdapter=new ArrayList<Integer>();
@@ -41,9 +40,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
         final String password = bun.getString("password");
-        //System.out.println(password);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),R.color.outerSpace));
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
@@ -52,7 +49,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //alertDialogChooseEmoji();
                 alertTest();
             }
         });
@@ -64,7 +60,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogChooseColor();
             }
         });
-        //getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         int position=bun.getInt("key");
 
         if(position==-1){
@@ -84,14 +79,10 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
             textModify.setText(currentMemo.getText());
             titleModify.setText(currentMemo.getTitle());
-            //colorIndex=currentMemo.getColor();
-            //System.out.println("activitymodify"+colorIndex);
-            //color =getColorByList(colorIndex);
             color=currentMemo.getColor();
             emoji=currentMemo.getEmoji();
             emojiModify.setText(Memo.getEmojiByUnicode(emoji));
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-            //istanziare emoji
         }
         FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);//floating button
         buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
@@ -100,17 +91,12 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 String title=titleModify.getText().toString();
                 if(!title.equals("")) {
                     String text = textModify.getText().toString();
-                    //String emoji = emojiModify.getText().toString();
                     DAO dao = new DAO(activity_modifyOrAdd.this);
                     dao.open();
                     if (mode.equals("addMode")) {//aggiungi al db
-                        //dao.addMemoToDB(title, text, 0x1f604, colorIndex);
                         dao.addMemoToDB(title, text,emoji, color);//se color non viene modificato che colore ho?
                         // mettere color a valore bianco di default
-                        //Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
-                        //startActivity(intent);
                         finish();
-                        //alla fine dell'intent ci va finish??
                     } else {//aggiorna memo con tutti i dati
                         if (currentMemo.getEncryption() == 1){
                             String toCifrateText = textModify.getText().toString();
@@ -123,11 +109,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         currentMemo.setTitle(titleModify.getText().toString());
 
                         currentMemo.setEmoji(emoji);
-                        //currentMemo.setColor(colorIndex);
                         currentMemo.setColor(color);
                         dao.saveMemo(currentMemo, currentMemo.getId());
-                        //Intent intent = new Intent(activity_modifyOrAdd.this, MemoMeMain.class);
-                        //startActivity(intent);
                         ShowMemo.getInstance().finish();
                         finish();
                     }
@@ -148,9 +131,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 //colorIndex=item;
                 color=Memo.getColors(item);
-                //System.out.println(color);
                 setColorOnTitleAndText();
-                //dialog.dismiss();
             }
         }).show();
     }
@@ -164,13 +145,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 emoji=Memo.getEmoji(item);
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-                //dialog.dismiss();
             }
         }).show();
     }
-    //public int getColorByList(int itemPosition){
-        //return Memo.getColors(itemPosition);
-    //}
     //Inizio alert
 
     public void setColorOnTitleAndText(){
@@ -186,8 +163,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case android.R.id.home:
-                //Toast.makeText(getApplicationContext(), "back",
-                  //      Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
             default:
@@ -204,6 +179,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
             builder.setTitle("Choose Emoji");
+            builder.setIcon(R.mipmap.emoji_icon);
             final AlertDialog ad=builder.show();
             lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -215,5 +191,3 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             });
         }
 }
-
-//prova

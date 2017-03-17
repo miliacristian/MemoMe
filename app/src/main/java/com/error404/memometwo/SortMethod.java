@@ -1,9 +1,5 @@
 package com.error404.memometwo;
 
-/**
- * Created by cristian on 19/02/17.
- */
-
 public class SortMethod {// asc/desc+colore/titolo/datacreazione/datamodifica
 
     private String ascDesc;//può diventare boolean 0=crescente 1=descrescente

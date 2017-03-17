@@ -5,10 +5,6 @@ import android.support.v4.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-/**
- * Created by cristian on 19/02/17.
- */
-
 public class Memo {
     private static final int[]COLORS={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
     private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609,0x1f60d};
@@ -40,10 +36,6 @@ public class Memo {
     public int getId() {
         return id;
     }
-
-   /* public void setId(int id) {
-        this.id = id;
-    } id non deve essere settato */
 
     public String getText() {
         return text;
@@ -134,4 +126,3 @@ public class Memo {
         return listEmojis;
     }
 }
-//test2

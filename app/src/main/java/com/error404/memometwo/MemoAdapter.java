@@ -13,15 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by cristian on 19/02/17.
- */
-//String color="#ffffff"; funziona avendo la stringa colore con #numero
-//int c=Color.parseColor(color);
-//title.setBackgroundColor(c);
-
-//title.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));//per settare il colore da color.xml,
-// (getapplicationcontext al posto di getcontext se non funziona)
 public class MemoAdapter extends ArrayAdapter<Memo> {
     private ArrayList<Memo> memoList;
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
@@ -61,12 +52,8 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
             }
             if(title!=null){
                 title.setText(memo.getTitle());
-               // title.setBackgroundColor(ContextCompat.getColor(getContext(),getColorByList(memo.getColor())));
             }
         }
         return rowView;
     }
-   // public int getColorByList(int itemPosition){
-       // return Memo.colors[itemPosition];
-   // }
 }
