@@ -131,11 +131,11 @@ public class ShowMemo extends AppCompatActivity {
             case R.id.action_delete:
                 AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                         //set message, title, and icon
-                        .setTitle("Delete")
-                        .setMessage("Do you want to Delete")
+                        .setTitle(R.string.delete)
+                        .setMessage(R.string.confirmDelete)
                         .setIcon(R.mipmap.delete_finale)
 
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.btnDelete, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //your deleting code
@@ -147,7 +147,7 @@ public class ShowMemo extends AppCompatActivity {
 
 
 
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 dialog.dismiss();
@@ -169,9 +169,9 @@ public class ShowMemo extends AppCompatActivity {
 
                 //alert dialog
                 new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
-                        .setTitle("Insert Password")
+                        .setTitle(R.string.insertPsw)
                         .setIcon(R.mipmap.lock_finale)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
@@ -180,7 +180,7 @@ public class ShowMemo extends AppCompatActivity {
                                     dialog.cancel();
                                     invalidateOptionsMenu();
                                 }else{
-                                    Toast.makeText(ShowMemo.this, "Passwords dont match", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ShowMemo.this,R.string.pswMatch, Toast.LENGTH_SHORT).show();
                                     nameEditText.setText("");
                                     nameEditText2.setText("");
                                 }
@@ -189,7 +189,7 @@ public class ShowMemo extends AppCompatActivity {
 
                         }
                         )
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
@@ -200,11 +200,11 @@ public class ShowMemo extends AppCompatActivity {
             case R.id.action_decode:
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         //set message, title, and icon
-                        .setTitle("Decode")
-                        .setMessage("Do you want to decode")
+                        .setTitle(R.string.decode)
+                        .setMessage(R.string.decodeText)
                         .setIcon(R.mipmap.unlock_finale)
 
-                        .setPositiveButton("Decode", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.decode, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 deleteEncryptionToPasswordAndText(password);
@@ -213,7 +213,7 @@ public class ShowMemo extends AppCompatActivity {
                             }
 
                         })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }

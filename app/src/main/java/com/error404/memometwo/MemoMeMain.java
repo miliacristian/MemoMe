@@ -87,9 +87,10 @@ public class MemoMeMain extends AppCompatActivity
 
                     //alert dialog
                     new AlertDialog.Builder(MemoMeMain.this).setView(formElementsView)
-                            .setTitle("Insert Password")
+                            .setTitle(R.string.warningMemoEncoded)
+                            .setMessage(R.string.warningMemoEncodedText)
                             .setIcon(R.mipmap.lock_finale)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                         @TargetApi(11)
                                         public void onClick(DialogInterface dialog, int id) {
                                             String cifratedPassword = "" +Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
@@ -103,14 +104,14 @@ public class MemoMeMain extends AppCompatActivity
                                                 startActivity(myIntent);
                                                 dialog.cancel();
                                             }else{
-                                                Toast.makeText(MemoMeMain.this, "Wrong password", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MemoMeMain.this,R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                             }
                                         }
 
 
                                     }
                             )
-                            .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 @TargetApi(11)
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
@@ -199,11 +200,11 @@ public class MemoMeMain extends AppCompatActivity
             if(dao!=null) {
                 AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                         //set message, title, and icon
-                        .setTitle("Delete")
-                        .setMessage("Do you want to Delete")
+                        .setTitle(R.string.deleteAllNotEncoded)
+                        .setMessage(R.string.confirmDeleteAll)
                         .setIcon(R.mipmap.delete_finale)
 
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 deleteAllMemo();
@@ -214,7 +215,7 @@ public class MemoMeMain extends AppCompatActivity
 
 
 
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }

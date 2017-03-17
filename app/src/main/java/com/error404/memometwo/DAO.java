@@ -151,7 +151,6 @@ public class DAO {
         String title=memo.getTitle();
         int emoji=memo.getEmoji();
         String text=memo.getText();
-        String psw=memo.getPassword();
         int color=memo.getColor();
         String password=memo.getPassword();
         int  encryption=memo.getEncryption();

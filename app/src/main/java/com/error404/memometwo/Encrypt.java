@@ -92,7 +92,7 @@ public class  Encrypt {//usare solo encryption e decryption
         try {
             strDecryptedText = Encrypt.decrypt(key, strEncryptedText);
         } catch (Exception e) {
-            System.out.println("errore le 2 chiavi sono diverse??");
+            System.out.println("different key");
             e.printStackTrace();
         }
 

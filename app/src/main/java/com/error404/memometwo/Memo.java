@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 public class Memo {
     private static final int[]COLORS={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
+    //private static final int[]EMOJIS={R.integer.emojiRide1,R.integer.emojiSbadata2,R.integer.emojiRide3,R.integer.emojiFlirt4,R.integer.emojiLove5};
     private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609,0x1f60d};
     private int id;
     private String title;
@@ -104,10 +105,10 @@ public class Memo {
         return id+" "+title+" "+text+" "+color+" "+dateCreation+" "+lastModify+" "+encryption;
     }
     public String dateCreationConverter(Calendar date){
-        return "Created:"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+        return R.string.created+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
     public String dateLastModifyConverter(Calendar date){
-        return "Modified:"+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+        return R.string.modified+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
     public static int getColors(int index){
         return COLORS[index];

@@ -116,7 +116,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     }
                 }
                 else{
-                        Toast.makeText(activity_modifyOrAdd.this, "Insert title", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT).show();
                     }
                 }
         });
@@ -125,7 +125,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         final String[] items = { "BIANCO","ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
-        builder.setTitle("Choose your color");
+        builder.setTitle(R.string.chooseColor);
         builder.setIcon(R.mipmap.palette_icon);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
@@ -135,7 +135,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         }).show();
     }
-    public void alertDialogChooseEmoji() {
+    /*public void alertDialogChooseEmoji() {
         final String[] items = { "1","2","3","4",};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
@@ -147,8 +147,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
             }
         }).show();
-    }
-    //Inizio alert
+    }*/
 
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
@@ -178,7 +177,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             lV.setAdapter(emAdapt);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
-            builder.setTitle("Choose Emoji");
+            builder.setTitle(R.string.chooseEmoji);
             builder.setIcon(R.mipmap.emoji_icon);
             final AlertDialog ad=builder.show();
             lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {

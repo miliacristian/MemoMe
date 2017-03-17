@@ -4,37 +4,37 @@
     >
 
     ]]>
-    <item android:title="Ordina per:">
+    <item android:title="@string/sortBy">
         <menu>
             <item
                 android:id="@+id/nav_camera"
                 android:icon="@mipmap/alphabet_sorting"
-                android:title="Titolo" />
+                android:title="@string/sortTitle" />
             <item
                 android:id="@+id/nav_gallery"
                 android:icon="@mipmap/calendar_icon"
-                android:title="Data creazione" />
+                android:title="@string/sortDateCreation" />
             <item
                 android:id="@+id/nav_slideshow"
                 android:icon="@mipmap/calendar_icon"
-                android:title="Ultima modifica" />
+                android:title="@string/sortLastModify" />
             <item
                 android:id="@+id/nav_manage"
                 android:icon="@mipmap/palette_icon"
-                android:title="Colore" />
+                android:title="@string/sortColor" />
             <item
                 android:id="@+id/nav_emoji"
                 android:icon="@mipmap/emoji_icon"
-                android:title="Emoji" />
+                android:title="@string/sortEmoji" />
         </menu>
     </item>
 
-    <item android:title="Gestisci note">
+    <item android:title="@string/handler_notes">
         <menu>
             <item
                 android:id="@+id/nav_delete_all"
                 android:icon="@mipmap/delete_finale"
-                android:title="Cancella tutte le note" />
+                android:title="@string/btnDeleteAll" />
 
         </menu>
     </item>
