@@ -169,8 +169,8 @@ public class ShowMemo extends AppCompatActivity {
                         .show();
                 return true;
             case R.id.action_encode:
-                Toast.makeText(getApplicationContext(), "encode",
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "encode",
+                        //Toast.LENGTH_SHORT).show();
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
@@ -221,15 +221,15 @@ public class ShowMemo extends AppCompatActivity {
 
                 return true;
             case R.id.action_decode:
-                Toast.makeText(getApplicationContext(), "decode",
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "decode",
+                        //Toast.LENGTH_SHORT).show();
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         //set message, title, and icon
                         .setTitle("Decode")
                         .setMessage("Do you want to decode")
                         .setIcon(R.mipmap.unlock_finale)
 
-                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Decode", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //your deleting code

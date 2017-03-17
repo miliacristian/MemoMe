@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MemoMeMain"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -19,8 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_modifyOrAdd" />
-        <activity android:name=".ShowMemo"></activity>
+        <activity android:name=".activity_modifyOrAdd"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".ShowMemo"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
     </application>
 
 </manifest>
