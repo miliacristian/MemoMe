@@ -12,8 +12,8 @@
     <string name="confirm_password">Conferma password...</string>
     <string name="type_password">Inserisci Password...</string>
     <string name="textview">TextView</string>
-    <string name="created">Creato il</string>
-    <string name="modified">Modificato il</string>
+    <string name="created">Creato:</string>
+    <string name="modified">Modificato:</string>
     <string name="delete">Elimina</string>
     <string name="confirmDelete">Sei sicuro di voler eliminare la nota?</string>
     <string name="btnDelete">Elimina</string>

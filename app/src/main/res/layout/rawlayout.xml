@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="92dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/emoji1"
@@ -39,7 +40,8 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/background_dark"
                 android:textSize="16sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                tools:ignore="InefficientWeight,NestedWeights" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +50,7 @@
 
                 <TextView
                     android:id="@+id/datecreation"
-                    android:layout_width="141dp"
+                    android:layout_width="127dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:gravity="center_vertical"
@@ -63,7 +65,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/textview"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    tools:ignore="InefficientWeight" />
             </LinearLayout>
 
         </LinearLayout>

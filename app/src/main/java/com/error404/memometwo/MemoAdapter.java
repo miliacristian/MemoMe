@@ -44,12 +44,12 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
 
             }
             if(dateCreation!=null){
-                dateCreation.setText(getContext().getResources().getString(R.string.created) + " " + memo.dateCreationConverter(memo.getDateCreation()));
+                dateCreation.setText(getContext().getResources().getString(R.string.created)+ memo.dateCreationConverter(memo.getDateCreation()));
 
             }
             if(dateLastModify!=null){
                 System.out.println(getContext().getResources().getString(R.string.modified) + " " +memo.dateLastModifyConverter(memo.getLastModify()));
-                dateLastModify.setText(getContext().getResources().getString(R.string.modified) + " " +memo.dateLastModifyConverter(memo.getLastModify()));
+                dateLastModify.setText(getContext().getResources().getString(R.string.modified)+memo.dateLastModifyConverter(memo.getLastModify()));
             }
             if(title!=null){
                 title.setText(memo.getTitle());
