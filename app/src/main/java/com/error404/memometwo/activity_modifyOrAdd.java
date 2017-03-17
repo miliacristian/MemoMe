@@ -179,6 +179,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
             builder.setTitle("Choose Emoji");
+            builder.setIcon(R.mipmap.emoji_icon);
             final AlertDialog ad=builder.show();
             lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

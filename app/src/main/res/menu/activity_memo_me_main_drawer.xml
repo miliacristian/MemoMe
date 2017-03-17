@@ -24,7 +24,7 @@
                 android:title="Colore" />
             <item
                 android:id="@+id/nav_emoji"
-                android:icon="@mipmap/palette_icon"
+                android:icon="@mipmap/emoji_icon"
                 android:title="Emoji" />
         </menu>
     </item>
