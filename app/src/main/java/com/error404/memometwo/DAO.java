@@ -66,6 +66,9 @@ public class DAO {
     }
     public void updateSort(String newSortType){//il menu optionbar deve passare la stringa newsortype alla
         //funzione update sort e fare il refresh della grafica;
+        if(newSortType.equals("onlyUpdateGUI")){
+            return;
+        }
         Cursor c=getRowSort();
         if(c!=null) {
             c.moveToFirst();

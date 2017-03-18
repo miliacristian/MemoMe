@@ -169,32 +169,36 @@ public class MemoMeMain extends AppCompatActivity
 
         if (id == R.id.nav_camera) {//ordina per titolo
             if(dao!=null) {
-                dao.updateSort("title");
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                //dao.updateSort("title");
+                updateSortAndGUI("title");
+                //memoAdapter=dao.loadAllMemo();
+                //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+                //myListView.setAdapter(mem);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
-                dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
+                updateSortAndGUI("yeardatecreation,monthdatecreation,daydatecreation");
+                /*dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                myListView.setAdapter(mem);*/
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
-                dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
+                updateSortAndGUI("yearlastmodify,monthlastmodify,daylastmodify");
+                /*dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                myListView.setAdapter(mem);*/
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
             if(dao!=null) {
-                dao.updateSort("color");
+                updateSortAndGUI("color");
+                /*dao.updateSort("color");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                myListView.setAdapter(mem);*/
             }
         }
         else if (id == R.id.nav_delete_all){
@@ -209,6 +213,7 @@ public class MemoMeMain extends AppCompatActivity
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 deleteAllMemo();
+                                updateSortAndGUI("onlyUpdateGUI");
                                 dialog.dismiss();
                             }
 
@@ -225,11 +230,12 @@ public class MemoMeMain extends AppCompatActivity
             }
         }else if (id == R.id.nav_emoji){
             if(dao!=null) {
+                updateSortAndGUI("emoji");
                 //dao.open(); è necessaria??
-                dao.updateSort("emoji");
+                /*dao.updateSort("emoji");
                 memoAdapter=dao.loadAllMemo();
                 mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);
+                myListView.setAdapter(mem);*/
             }
             //ordina per emoji
         }
@@ -240,13 +246,20 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
-        memoAdapter=dao.loadAllMemo();
+        updateSortAndGUI("onlyUpdateGUI");
+        /*memoAdapter=dao.loadAllMemo();
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-        myListView.setAdapter(mem);
+        myListView.setAdapter(mem);*/
     }
 
     public void deleteAllMemo(){
         dao.deleteAllMemoNotEncrypted();
+        //memoAdapter=dao.loadAllMemo();
+        //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        //myListView.setAdapter(mem);
+    }
+    public void updateSortAndGUI(String type){
+        dao.updateSort(type);
         memoAdapter=dao.loadAllMemo();
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
         myListView.setAdapter(mem);
