@@ -42,4 +42,5 @@
     <string name="sortEmoji">Emoji</string>
     <string name="btnDeleteAll">Cancella note non cifrate</string>
     <string name="handler_notes">Gestisci note</string>
+    <string name="emojiProva">0x1f604</string>
 </resources>
