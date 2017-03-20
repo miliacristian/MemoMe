@@ -2,8 +2,8 @@ package com.error404.memometwo;
 
 public class SortMethod {// asc/desc+colore/titolo/datacreazione/datamodifica
 
-    private String ascDesc;//può diventare boolean 0=crescente 1=descrescente
-    private String sortType;//può diventare anche enum(deve essere uguale agli attributi della tabella memos su cui è definito l'ordinamento
+    private String ascDesc;
+    private String sortType;
 
     public String getAscDesc() {
         return ascDesc;

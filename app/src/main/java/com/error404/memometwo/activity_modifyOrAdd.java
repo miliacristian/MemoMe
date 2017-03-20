@@ -171,7 +171,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         public void alertTest(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
-            CustomListView lV=(CustomListView)customView.findViewById(R.id.listV);
+            ListView lV=(ListView)customView.findViewById(R.id.listV);
             emojiAdapter=Memo.getListEmojis();
             emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiAdapter);
             lV.setAdapter(emAdapt);

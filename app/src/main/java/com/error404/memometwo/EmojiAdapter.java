@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import static java.security.AccessController.getContext;
 
 public class EmojiAdapter extends ArrayAdapter<Integer> {
-    private ArrayList<Integer> emojiList;
+    private ArrayList<Integer> emojiList;//mi serve emojiList se effettivamente uso solo la position??(emojiList mai acceduto)
+
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
         super(c,textViewId,emojiList);
         this.emojiList=emojiList;
     }
+
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
         //una linea,position parte da 0 e viene automaticamente incrementato
@@ -28,10 +30,10 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(R.layout.emoji_layout, null);
         }
-            TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
-            if (emojis != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
-                emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
-            }
+        TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
+        if (emojis != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
+            emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
+        }
         return rowView;
     }
 }

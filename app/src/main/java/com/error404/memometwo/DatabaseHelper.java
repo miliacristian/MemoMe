@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    Context gContext;
     final static String DATABASE_NAME = "memo.db";
     final static String MEMOS = "memos";
     final static String SORT = "sort";
@@ -23,10 +24,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tencryption\tINTEGER,\n"+//può essere null,default 0
             "\tpassword\tTEXT\n"+//può essere null,default ??(se non è cifrata non è importante)
             ")";
+
     final static String SORT_TABLE_SQL="CREATE TABLE "+SORT+"(\n" +
             "\tascdesc\tTEXT NOT NULL PRIMARY KEY,\n" +
             "\tsorttype\tTEXT NOT NULL\n" +
             ");";
+
     final static String MEMO_FIELDS_WITHOUT_PASSWORD="title,text,color,emoji,daydatecreation,monthdatecreation,yeardatecreation,daylastmodify,monthlastmodify,yearlastmodify,encryption";
     final static String [] MEMO_FIELDS = {"title", "text", "color", "emoji","daydatecretion","monthdatecreation","yeardatecreation","daylastmodify","monthlastmodify","yearlastmodify","encryption","password"};
     final static String [] MEMO_FIELDS2 = {"_id", "title", "text", "color", "emoji","daydatecretion","monthdatecreation","yeardatecreation","daylastmodify","monthlastmodify","yearlastmodify","encryption","password"};
@@ -34,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
     final static int version = 1;
 
-    Context gContext;
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, version);
         gContext = context;

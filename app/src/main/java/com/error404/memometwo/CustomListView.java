@@ -1,4 +1,4 @@
-package com.error404.memometwo;
+/*package com.error404.memometwo;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -21,4 +21,4 @@ public class CustomListView extends ListView {
         super(context, attrs, defStyleAttr, defStyleRes);
 
     }
-}
+}*/

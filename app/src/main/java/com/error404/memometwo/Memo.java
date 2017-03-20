@@ -22,8 +22,7 @@ public class Memo {
     private Calendar lastModify;
     private int encryption;
     private String password;
-    //le set e get particolari tipo emoji e color devono essere fatte in maniera tale che ritornano i dati già pronti da passare al
-    //componente grafico tipo textview
+
     public Memo(int id,String title,String text,int color,int emoji,int datecreation[],int datelastmodify[],int encryption,String password){
 
         this.title = title;
@@ -38,6 +37,7 @@ public class Memo {
         this.dateCreation.set(datecreation[2], datecreation[1]+1, datecreation[0]);
         this.lastModify.set(datelastmodify[2], datelastmodify[1]+1, datelastmodify[0]);
     }
+
     public int getId() {
         return id;
     }
@@ -105,9 +105,9 @@ public class Memo {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String toString(){
-        return id+" "+title+" "+text+" "+color+" "+dateCreation+" "+lastModify+" "+encryption;
-    }
+    //public String toString(){
+        //return id+" "+title+" "+text+" "+color+" "+dateCreation+" "+lastModify+" "+encryption;
+    //}
     public String dateCreationConverter(Calendar date){
         return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
