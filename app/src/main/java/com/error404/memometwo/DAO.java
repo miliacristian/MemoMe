@@ -26,13 +26,14 @@ public class DAO {
         Memo m=loadMemoById(id);
         return m;
     }
-    public Memo loadMemoById(int id){//carico memo da id(chiave primaria)
+    public Memo loadMemoById(int id){//carico memo da id(chiave primaria),cursore locale chiudibile
         Memo memo=null;
         String sql=SELECT_ALL+"where _id="+id;
         Cursor c=database.rawQuery(sql,null);
         if(c!=null) {
             c.moveToFirst();
             memo = loadMemoByCursorOneRow(c);
+            c.close();
         }
         return memo;
     }
@@ -47,18 +48,20 @@ public class DAO {
     }
 
     public ArrayList<Memo>loadAllMemo(){//carica tutti i memo secondo l'ordinamento,vedendo dapprima il tipo di ordinamento e poi query
-        Cursor c=getRowSort();
+        Cursor c=getRowSort();//cursori locali chiudibili
         if(c!=null) {
             c.moveToFirst();
             String actualSortType = c.getString(c.getColumnIndex("sorttype"));
             String actualAscDesc = c.getString(c.getColumnIndex("ascdesc"));
             String sortMethod = "order by" +" "+actualSortType+" "+ actualAscDesc;
-            System.out.println("metodo ordinamento"+sortMethod);
+            c.close();
+            //System.out.println("metodo ordinamento"+sortMethod);
             String sql = SELECT_ALL + sortMethod;
             Cursor tabAllMemos = database.rawQuery(sql, null);
             if(tabAllMemos!=null) {
                 ArrayList<Memo> arrMemo = new ArrayList<Memo>();
                 fromCursorToList(arrMemo, tabAllMemos);//aggiunge i memo all'arraylist
+                tabAllMemos.close();
                 return arrMemo;
             }
         }
@@ -69,26 +72,28 @@ public class DAO {
         if(newSortType.equals("onlyUpdateGUI")){
             return;
         }
-        Cursor c=getRowSort();
+        Cursor c=getRowSort();//cursore locale chiudibile
         if(c!=null) {
             c.moveToFirst();
             String actualSortType = c.getString(c.getColumnIndex("sorttype"));
-            System.out.println(actualSortType);
+            //System.out.println(actualSortType);
             String actualAscDesc = c.getString(c.getColumnIndex("ascdesc"));
-            System.out.println(actualAscDesc);
+            //System.out.println(actualAscDesc);
+            c.close();
             if (actualSortType.equals(newSortType)) {
-                System.out.println("stesso tipo");
+                //System.out.println("stesso tipo");
                 switchAscDescIntoDB(actualAscDesc);
             } else {
-                System.out.println("diverso tipo");
+                //System.out.println("diverso tipo");
                 updateOnlySortTypeIntoDB(newSortType);
             }
         }
         return;
     }
     public Cursor getRowSort(){
+        Cursor c=null;//cursore locale da ritornare non chiudibile
         String sql="select ascdesc,sorttype from sort";//farla diventare private final static
-        Cursor c = database.rawQuery(sql, null);
+        c = database.rawQuery(sql, null);
         return c;
     }
     public void switchAscDescIntoDB(String actualAscDesc){
@@ -108,39 +113,42 @@ public class DAO {
         database.execSQL(sql);
         return;
     }
-    public Memo loadMemoByCursorOneRow(Cursor c){
+    public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
         //per loadAllMemo
-        int id=c.getInt(c.getColumnIndex("_id"));
-        String title=c.getString(c.getColumnIndex("title"));
-        String text=c.getString(c.getColumnIndex("text"));
-        int color=c.getInt(c.getColumnIndex("color"));
-        int emoji=c.getInt(c.getColumnIndex("emoji"));
-        int datecreation[];//day,month,year
-        int lastmodify[];//day,month,year
-        datecreation=getDateCreation(c);
-        lastmodify=getLastModify(c);
-        int encryption=c.getInt(c.getColumnIndex("encryption"));
-        String password=c.getString(c.getColumnIndex("password"));
-        Memo memo=new Memo(id,title,text,color,emoji,datecreation,lastmodify,encryption,password);
-        return memo;
+        if(c!=null) {//cursore preso come parametro,chiudibile??
+            int id = c.getInt(c.getColumnIndex("_id"));
+            String title = c.getString(c.getColumnIndex("title"));
+            String text = c.getString(c.getColumnIndex("text"));
+            int color = c.getInt(c.getColumnIndex("color"));
+            int emoji = c.getInt(c.getColumnIndex("emoji"));
+            int datecreation[];//day,month,year
+            int lastmodify[];//day,month,year
+            datecreation = getDateCreation(c);
+            lastmodify = getLastModify(c);
+            int encryption = c.getInt(c.getColumnIndex("encryption"));
+            String password = c.getString(c.getColumnIndex("password"));
+            Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password);
+            return memo;
+        }
+        return null;
     }
 
     public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
-        int arr[]=new int[3];
+        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
         arr[0]=c.getInt(c.getColumnIndex("daydatecreation"));
         arr[1]=c.getInt(c.getColumnIndex("monthdatecreation"));
         arr[2]=c.getInt(c.getColumnIndex("yeardatecreation"));
         return arr;
     }
     public int[] getLastModify(Cursor c){//ottiene data ultima modifica da cursore
-        int arr[]=new int[3];
+        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
         arr[0]=c.getInt(c.getColumnIndex("daylastmodify"));
         arr[1]=c.getInt(c.getColumnIndex("monthlastmodify"));
         arr[2]=c.getInt(c.getColumnIndex("yearlastmodify"));
         return arr;
     }
     public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor){//da tabella a lista di memo
-        if(cursor!=null) {
+        if(cursor!=null) {//chimato da loadAllMemo
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 arrMemo.add(loadMemoByCursorOneRow(cursor));
@@ -162,7 +170,7 @@ public class DAO {
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
         String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
-        System.out.println(sql);
+        //System.out.println(sql);
         database.execSQL(sql);
     }
 
