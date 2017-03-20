@@ -21,6 +21,28 @@ public class DAO {
         database.close();
     }
 
+
+    public int findIdByPosition(int position){
+        int id;
+        Cursor c=getRowSort();
+        if(c!=null) {
+            c.moveToFirst();
+            String actualSortType = c.getString(c.getColumnIndex("sorttype"));
+            String actualAscDesc = c.getString(c.getColumnIndex("ascdesc"));
+            String sortMethod = "order by" + " " + actualSortType + " " + actualAscDesc;
+            String sql = SELECT_ALL + sortMethod;
+            c.close();
+            Cursor cursor = database.rawQuery(sql, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                cursor.moveToPosition(position);
+                id = cursor.getInt(cursor.getColumnIndex("_id"));
+                cursor.close();
+                return id;
+            }
+        }
+        return -2;//non sono riuscito a trovare l'id dalla posizione
+    }
     public Memo loadMemoByPosition(int position){
         int id=findIdByPosition(position);
         Memo m=loadMemoById(id);
@@ -37,16 +59,71 @@ public class DAO {
         }
         return memo;
     }
-    public boolean isEncrypted(int position){
-        Memo mem=loadMemoByPosition(position);
-        if(mem!=null){
-            if(mem.getEncryption()==1){
-                return true;
-            }
+
+    public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
+        //per loadAllMemo
+        if(c!=null) {//cursore preso come parametro,chiudibile??
+            int id = c.getInt(c.getColumnIndex("_id"));
+            String title = c.getString(c.getColumnIndex("title"));
+            String text = c.getString(c.getColumnIndex("text"));
+            int color = c.getInt(c.getColumnIndex("color"));
+            int emoji = c.getInt(c.getColumnIndex("emoji"));
+            int datecreation[];//day,month,year
+            int lastmodify[];//day,month,year
+            datecreation = getDateCreation(c);
+            lastmodify = getLastModify(c);
+            int encryption = c.getInt(c.getColumnIndex("encryption"));
+            String password = c.getString(c.getColumnIndex("password"));
+            Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password);
+            return memo;
         }
-        return false;
+        return null;
+    }
+    public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
+        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
+        arr[0]=c.getInt(c.getColumnIndex("daydatecreation"));
+        arr[1]=c.getInt(c.getColumnIndex("monthdatecreation"));
+        arr[2]=c.getInt(c.getColumnIndex("yeardatecreation"));
+        return arr;
+    }
+    public int[] getLastModify(Cursor c){//ottiene data ultima modifica da cursore
+        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
+        arr[0]=c.getInt(c.getColumnIndex("daylastmodify"));
+        arr[1]=c.getInt(c.getColumnIndex("monthlastmodify"));
+        arr[2]=c.getInt(c.getColumnIndex("yearlastmodify"));
+        return arr;
     }
 
+
+
+
+    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor){//da tabella a lista di memo
+        if(cursor!=null) {//chimato da loadAllMemo
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                arrMemo.add(loadMemoByCursorOneRow(cursor));
+                cursor.moveToNext();
+            }
+        }
+    }
+
+    public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
+        //no data ultima modifica
+        //e si istanzia una memo;
+        String title=memo.getTitle();
+        int emoji=memo.getEmoji();
+        String text=memo.getText();
+        int color=memo.getColor();
+        String password=memo.getPassword();
+        int  encryption=memo.getEncryption();
+        Calendar date=Calendar.getInstance();
+        int month=date.get(Calendar.MONTH);
+        int year=date.get(Calendar.YEAR);
+        int day=date.get(Calendar.DAY_OF_MONTH);
+        String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
+        //System.out.println(sql);
+        database.execSQL(sql);
+    }
     public ArrayList<Memo>loadAllMemo(){//carica tutti i memo secondo l'ordinamento,vedendo dapprima il tipo di ordinamento e poi query
         Cursor c=getRowSort();//cursori locali chiudibili
         if(c!=null) {
@@ -108,71 +185,14 @@ public class DAO {
         }
         return;
     }
+
     public void updateOnlySortTypeIntoDB(String newSortType){
         String sql="update sort SET sorttype="+"'"+newSortType+"'";
         database.execSQL(sql);
         return;
     }
-    public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
-        //per loadAllMemo
-        if(c!=null) {//cursore preso come parametro,chiudibile??
-            int id = c.getInt(c.getColumnIndex("_id"));
-            String title = c.getString(c.getColumnIndex("title"));
-            String text = c.getString(c.getColumnIndex("text"));
-            int color = c.getInt(c.getColumnIndex("color"));
-            int emoji = c.getInt(c.getColumnIndex("emoji"));
-            int datecreation[];//day,month,year
-            int lastmodify[];//day,month,year
-            datecreation = getDateCreation(c);
-            lastmodify = getLastModify(c);
-            int encryption = c.getInt(c.getColumnIndex("encryption"));
-            String password = c.getString(c.getColumnIndex("password"));
-            Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password);
-            return memo;
-        }
-        return null;
-    }
 
-    public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
-        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
-        arr[0]=c.getInt(c.getColumnIndex("daydatecreation"));
-        arr[1]=c.getInt(c.getColumnIndex("monthdatecreation"));
-        arr[2]=c.getInt(c.getColumnIndex("yeardatecreation"));
-        return arr;
-    }
-    public int[] getLastModify(Cursor c){//ottiene data ultima modifica da cursore
-        int arr[]=new int[3];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
-        arr[0]=c.getInt(c.getColumnIndex("daylastmodify"));
-        arr[1]=c.getInt(c.getColumnIndex("monthlastmodify"));
-        arr[2]=c.getInt(c.getColumnIndex("yearlastmodify"));
-        return arr;
-    }
-    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor){//da tabella a lista di memo
-        if(cursor!=null) {//chimato da loadAllMemo
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                arrMemo.add(loadMemoByCursorOneRow(cursor));
-                cursor.moveToNext();
-            }
-        }
-    }
-    public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
-        //no data ultima modifica
-        //e si istanzia una memo;
-        String title=memo.getTitle();
-        int emoji=memo.getEmoji();
-        String text=memo.getText();
-        int color=memo.getColor();
-        String password=memo.getPassword();
-        int  encryption=memo.getEncryption();
-        Calendar date=Calendar.getInstance();
-        int month=date.get(Calendar.MONTH);
-        int year=date.get(Calendar.YEAR);
-        int day=date.get(Calendar.DAY_OF_MONTH);
-        String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
-        //System.out.println(sql);
-        database.execSQL(sql);
-    }
+
 
     public void addMemoToDB(String title,String text,int emoji,int color){//chiamata quando si clicca
         // sul tasto salva sull'activity in modalità creazione! vb
@@ -185,36 +205,27 @@ public class DAO {
         day+","+month+","+year+","+ day+","+month+","+year+","+encryption+")";
         database.execSQL(sql);
     }
+
     public void deleteMemoByIdFromDB(int id){
         String sql="delete from memos where _id="+id;
         database.execSQL(sql);
         return;
     }
+
     public void deleteAllMemoNotEncrypted(){
         String sql="delete from memos where encryption<>1";
         database.execSQL(sql);
         return;
     }
-    public int findIdByPosition(int position){
-        int id;
-        Cursor c=getRowSort();
-        if(c!=null) {
-            c.moveToFirst();
-            String actualSortType = c.getString(c.getColumnIndex("sorttype"));
-            String actualAscDesc = c.getString(c.getColumnIndex("ascdesc"));
-            String sortMethod = "order by" + " " + actualSortType + " " + actualAscDesc;
-            String sql = SELECT_ALL + sortMethod;
-            c.close();
-            Cursor cursor = database.rawQuery(sql, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                cursor.moveToPosition(position);
-                id = cursor.getInt(cursor.getColumnIndex("_id"));
-                cursor.close();
-                return id;
+
+    public boolean isEncrypted(int position){
+        Memo mem=loadMemoByPosition(position);
+        if(mem!=null){
+            if(mem.getEncryption()==1){
+                return true;
             }
         }
-        return -2;//non sono riuscito a trovare l'id dalla posizione
+        return false;
     }
     public void addEncryptionToPasswordAndText(int position,String password){//aggiorna i dati nel database cifrando testo,password
         //e settando encryption a 1
@@ -224,9 +235,11 @@ public class DAO {
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
+
     public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
         memo.setText(Encrypt.decryption(memo.getText(),password));
     }
+
     public void deleteEncryptionToPasswordAndText(int position,String password){
         Memo m=loadMemoByPosition(position);
         m.setEncryption(0);
