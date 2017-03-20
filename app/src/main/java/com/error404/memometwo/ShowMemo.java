@@ -51,7 +51,7 @@ public class ShowMemo extends AppCompatActivity {
         emojitxt = (TextView) findViewById(R.id.emojitxt);
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
-        imageView2 = (ImageView) findViewById(R.id.imageView2);
+        //imageView2 = (ImageView) findViewById(R.id.imageView2);
         //inizializzare opportunamente emoji
         setColorOnTitleAndText();
         // if encrypted
