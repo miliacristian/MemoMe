@@ -10,7 +10,7 @@ import java.util.Calendar;
 import static java.security.AccessController.getContext;
 
 public class Memo {
-    private static final int[]COLORS={R.color.bianco, R.color.rosa,R.color.lightBlue,R.color.lime};
+    private static final int[]COLORS={R.color.white, R.color.pink,R.color.lightBlue,R.color.lime};
     //private static final int[]EMOJIS={R.integer.emojiRide1,R.integer.emojiSbadata2,R.integer.emojiRide3,R.integer.emojiFlirt4,R.integer.emojiLove5};
     private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609,0x1f60d};
     private int id;
