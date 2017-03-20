@@ -20,6 +20,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_memo_me_main"
-        app:menu="@menu/activity_memo_me_main_drawer" />
+        app:menu="@menu/activity_memo_me_main_drawer"
+        android:backgroundTint="@color/bianco" />
 
 </android.support.v4.widget.DrawerLayout>
