@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+//finita e ordinata
 public class MemoAdapter extends ArrayAdapter<Memo> {
     private ArrayList<Memo> memoList;
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
@@ -48,7 +48,6 @@ public class MemoAdapter extends ArrayAdapter<Memo> {
 
             }
             if(dateLastModify!=null){
-                System.out.println(getContext().getResources().getString(R.string.modified) + " " +memo.dateLastModifyConverter(memo.getLastModify()));
                 dateLastModify.setText(getContext().getResources().getString(R.string.modified)+memo.dateLastModifyConverter(memo.getLastModify()));
             }
             if(title!=null){

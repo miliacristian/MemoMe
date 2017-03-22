@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
-
+//finita e ordinata,da sistemare in codice (cose inutili cose ridondanti ecc)
 public class EmojiAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> emojiList;//mi serve emojiList se effettivamente uso solo la position??(emojiList mai acceduto)
 

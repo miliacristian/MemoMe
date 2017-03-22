@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+//da sistemare in codice ,da riordinare in codice,da aggiungere fragment
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
     ArrayList<Integer> emojiAdapter=new ArrayList<Integer>();
@@ -135,20 +135,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         }).show();
     }
-    /*public void alertDialogChooseEmoji() {
-        final String[] items = { "1","2","3","4",};//char sequence o string non da problemi
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
-        builder.setTitle("Choose emoji");
-        builder.setIcon(R.mipmap.emoji_icon);
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                emoji=Memo.getEmoji(item);
-                emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-            }
-        }).show();
-    }*/
-
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }

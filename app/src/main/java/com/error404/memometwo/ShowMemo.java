@@ -22,7 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//da ordinare,da sistemare,da aggiungere fragment
 public class ShowMemo extends AppCompatActivity {
     TextView emojitxt;
     TextView txtViewTitle;

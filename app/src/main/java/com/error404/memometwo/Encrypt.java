@@ -6,8 +6,31 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-
+//finita e ordinata
 public class  Encrypt {//usare solo encryption e decryption
+
+    public static String encryption(String strNormalText,String key){
+        //String seedValue = "YourSecKey";
+        String normalTextEnc="";
+        try {
+            normalTextEnc = Encrypt.encrypt(key, strNormalText);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return normalTextEnc;
+    }
+    public static String decryption(String strEncryptedText,String key){
+        //String seedValue = "YourSecKey";
+        String strDecryptedText="";
+        try {
+            strDecryptedText = Encrypt.decrypt(key, strEncryptedText);
+        } catch (Exception e) {
+            System.out.println("different key");
+            e.printStackTrace();
+        }
+
+        return strDecryptedText;
+    }
     public static String encrypt(String seed, String cleartext) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] result = encrypt(rawKey, cleartext.getBytes());
@@ -76,26 +99,5 @@ public class  Encrypt {//usare solo encryption e decryption
     private static void appendHex(StringBuffer sb, byte b) {
         sb.append(HEX.charAt((b>>4)&0x0f)).append(HEX.charAt(b&0x0f));
     }
-    public static String encryption(String strNormalText,String key){
-        //String seedValue = "YourSecKey";
-        String normalTextEnc="";
-        try {
-            normalTextEnc = Encrypt.encrypt(key, strNormalText);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return normalTextEnc;
-    }
-    public static String decryption(String strEncryptedText,String key){
-        //String seedValue = "YourSecKey";
-        String strDecryptedText="";
-        try {
-            strDecryptedText = Encrypt.decrypt(key, strEncryptedText);
-        } catch (Exception e) {
-            System.out.println("different key");
-            e.printStackTrace();
-        }
 
-        return strDecryptedText;
-    }
 }

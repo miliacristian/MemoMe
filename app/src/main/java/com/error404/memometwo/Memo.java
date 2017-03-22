@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static java.security.AccessController.getContext;
-
+//ordinata,manca la parte delle emoji in xml
 public class Memo {
     private static final int[]COLORS={R.color.white, R.color.pink,R.color.lightBlue,R.color.lime};
     //private static final int[]EMOJIS={R.integer.emojiRide1,R.integer.emojiSbadata2,R.integer.emojiRide3,R.integer.emojiFlirt4,R.integer.emojiLove5};

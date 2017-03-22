@@ -3,7 +3,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
+//finita,ordinata in attributi e metodi.togliere variabili inutili.riorganizzare codice,aggiungere async task
 public class DatabaseHelper extends SQLiteOpenHelper {
     Context gContext;
     final static String DATABASE_NAME = "memo.db";

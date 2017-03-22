@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
+//finita ordinata nei metodi,da riorganizzare in codice,aggiungere async task
 public class DAO {
     private DatabaseHelper dbh;
     private SQLiteDatabase database;

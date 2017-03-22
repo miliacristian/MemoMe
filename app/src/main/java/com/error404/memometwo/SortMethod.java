@@ -1,5 +1,6 @@
 package com.error404.memometwo;
 
+//finita e ordinata
 public class SortMethod {// asc/desc+colore/titolo/datacreazione/datamodifica
 
     private String ascDesc;
