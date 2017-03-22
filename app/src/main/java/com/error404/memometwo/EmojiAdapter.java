@@ -12,13 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
-//finita e ordinata,da sistemare in codice (cose inutili cose ridondanti ecc)
+//finita e ordinata
 public class EmojiAdapter extends ArrayAdapter<Integer> {
-    private ArrayList<Integer> emojiList;//mi serve emojiList se effettivamente uso solo la position??(emojiList mai acceduto)
 
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
         super(c,textViewId,emojiList);
-        this.emojiList=emojiList;
     }
 
     @Override
@@ -31,7 +29,7 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
             rowView = inflater.inflate(R.layout.emoji_layout, null);
         }
         TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
-        if (emojis != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
+        if (emojis != null){
             emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
         }
         return rowView;

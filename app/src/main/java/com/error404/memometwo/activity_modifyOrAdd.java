@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
-    ArrayList<Integer> emojiAdapter=new ArrayList<Integer>();
+    ArrayList<Integer> emojiList=new ArrayList<Integer>();
     Memo currentMemo;//usare solo questo attributo al posto di color e emoji
     int colorIndex;
     int emoji=0x1f604;
@@ -144,8 +144,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView lV=(ListView)customView.findViewById(R.id.listV);
-            emojiAdapter=Memo.getListEmojis();
-            emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiAdapter);
+            emojiList=Memo.getListEmojis();
+            emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiList);
             lV.setAdapter(emAdapt);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
