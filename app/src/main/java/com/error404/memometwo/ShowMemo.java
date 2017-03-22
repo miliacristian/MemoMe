@@ -22,7 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-//da ordinare,da sistemare,da aggiungere fragment
+//da sistemare,da aggiungere fragment
 public class ShowMemo extends AppCompatActivity {
     TextView emojitxt;
     TextView txtViewTitle;
@@ -77,12 +77,30 @@ public class ShowMemo extends AppCompatActivity {
         });
     }
 
+    public void deleteThisMemo(){
+        DAO dao=new DAO(this);
+        dao.open();
+        int id=dao.findIdByPosition(position);
+        dao.deleteMemoByIdFromDB(id);
+        finish();
+    }
+
     public static Activity getInstance(){
         return refer;
     }
 
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+    }
+    public boolean isEncrypted(){
+        //mostra alert dialog ,sull ok memorizza la password nella stringa password
+        DAO dao=new DAO(this);
+        dao.open();//necessaria??
+        return dao.isEncrypted(position);
+    }
+
+    public static void setPassword(String password){
+        ShowMemo.password = password;
     }
 
     public void insertEncryptToPasswordAndText(String password){
@@ -111,18 +129,6 @@ public class ShowMemo extends AppCompatActivity {
         }
         return super.onCreateOptionsMenu(menu);
     }
-
-    public boolean isEncrypted(){
-        //mostra alert dialog ,sull ok memorizza la password nella stringa password
-        DAO dao=new DAO(this);
-        dao.open();//necessaria??
-        return dao.isEncrypted(position);
-    }
-
-    public static void setPassword(String password){
-        ShowMemo.password = password;
-    }
-
     // onClick per il pulsante elimina e encode
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -227,11 +233,5 @@ public class ShowMemo extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void deleteThisMemo(){
-        DAO dao=new DAO(this);
-        dao.open();
-        int id=dao.findIdByPosition(position);
-        dao.deleteMemoByIdFromDB(id);
-        finish();
-    }
+
 }

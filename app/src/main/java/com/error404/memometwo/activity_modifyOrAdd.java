@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-//da sistemare in codice ,da riordinare in codice,da aggiungere fragment
+//da sistemare in codice ,da aggiungere fragment
+
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
     ArrayList<Integer> emojiAdapter=new ArrayList<Integer>();
@@ -49,7 +50,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertTest();
+                dialogChooseEmoji();
             }
         });
         colorModify=(ImageView)findViewById(R.id.colorModify);
@@ -57,7 +58,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         colorModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogChooseColor();
+                dialogChooseColor();
             }
         });
         int position=bun.getInt("key");
@@ -121,7 +122,11 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 }
         });
     }
-    public void alertDialogChooseColor() {
+    public void setColorOnTitleAndText(){
+        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+    }
+
+    public void dialogChooseColor() {
         final String[] items = { "BIANCO","ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
@@ -135,26 +140,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         }).show();
     }
-    public void setColorOnTitleAndText(){
-        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-    }
-    @Override
-    public void onBackPressed(){
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-        public void alertTest(){
+        public void dialogChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView lV=(ListView)customView.findViewById(R.id.listV);
@@ -175,4 +161,20 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 }
             });
         }
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

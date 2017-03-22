@@ -24,7 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-//da ordinare,da sistemare,da aggiungere fragment
+//da sistemare,da aggiungere fragment
 public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
@@ -35,9 +35,6 @@ public class MemoMeMain extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_me_main);
-
-        //Cambia il colore di sfondo, da mettere in show memo e modify memo
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dao=new DAO(this);
@@ -54,16 +51,13 @@ public class MemoMeMain extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);//adapter deve essere un arraylist di memo
         myListView = (ListView) findViewById(R.id.listOfNotes);//id della list view nella prima activity
         myListView.setAdapter(mem);
@@ -76,7 +70,7 @@ public class MemoMeMain extends AppCompatActivity
                 myIntent.putExtras(bun);
                 if(memoAdapter.get(position).getEncryption()==1){
                     //alert dialog che prende in input la password e la verifica
-                    String password;
+                    //String password;
                     //Inizio alert
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -127,16 +121,17 @@ public class MemoMeMain extends AppCompatActivity
             }
         });
     }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
+    public void deleteAllMemo(){
+        dao.deleteAllMemoNotEncrypted();
+        //memoAdapter=dao.loadAllMemo();
+        //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        //myListView.setAdapter(mem);
+    }
+    public void updateSortAndGUI(String type){
+        dao.updateSort(type);
+        memoAdapter=dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        myListView.setAdapter(mem);
     }
 
     @Override
@@ -250,18 +245,16 @@ public class MemoMeMain extends AppCompatActivity
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
         myListView.setAdapter(mem);*/
     }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
 
-    public void deleteAllMemo(){
-        dao.deleteAllMemoNotEncrypted();
-        //memoAdapter=dao.loadAllMemo();
-        //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-        //myListView.setAdapter(mem);
     }
-    public void updateSortAndGUI(String type){
-        dao.updateSort(type);
-        memoAdapter=dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-        myListView.setAdapter(mem);
-    }
+
 }
 

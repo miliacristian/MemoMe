@@ -5,15 +5,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 //finita,ordinata in attributi e metodi.togliere variabili inutili.riorganizzare codice,aggiungere async task
 public class DatabaseHelper extends SQLiteOpenHelper {
-    Context gContext;
-    final static String DATABASE_NAME = "memo.db";
-    final static String MEMOS = "memos";
-    final static String SORT = "sort";
-    final static String MEMO_TABLE_SQL = "CREATE TABLE "+MEMOS+"(\n" +
+    private final static int DB_VERSION = 1;
+    private final static String DATABASE_NAME = "memo.db";
+    public final static String NAME_TABLE_MEMOS = "memos";
+    public final static String MEMO_FIELDS_WITHOUT_PASSWORD="title,text,color,emoji,daydatecreation,monthdatecreation,yeardatecreation,daylastmodify,monthlastmodify,yearlastmodify,encryption";
+    public final static String NAME_SORT_TABLE = "sort";
+    public final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
+    public final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +
             "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//da non toccare incrementa automaticamente.
             "\ttitle\tTEXT NOT NULL,\n"+
-            "\ttext\tTEXT,\n"+//text not null?
-            "\tcolor\tINTEGER NOT NULL,\n" +//COLOR E EMOJI INTERI???
+            "\ttext\tTEXT,\n"+
+            "\tcolor\tINTEGER NOT NULL,\n" +
             "\temoji\tINTEGER NOT NULL,\n"+
             "\tdaydatecreation\tINTEGER NOT NULL,\n"+
             "\tmonthdatecreation\tINTEGER NOT NULL,\n"+
@@ -21,26 +23,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tdaylastmodify\tINTEGER NOT NULL,\n"+
             "\tmonthlastmodify\tINTEGER NOT NULL,\n"+
             "\tyearlastmodify\tINTEGER NOT NULL,\n"+
-            "\tencryption\tINTEGER,\n"+//può essere null,default 0
-            "\tpassword\tTEXT\n"+//può essere null,default ??(se non è cifrata non è importante)
+            "\tencryption\tINTEGER DEFAULT 0,\n"+
+            "\tpassword\tTEXT DEFAULT 'empty'\n"+
             ")";
 
-    final static String SORT_TABLE_SQL="CREATE TABLE "+SORT+"(\n" +
+    public final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +
             "\tascdesc\tTEXT NOT NULL PRIMARY KEY,\n" +
             "\tsorttype\tTEXT NOT NULL\n" +
             ");";
 
-    final static String MEMO_FIELDS_WITHOUT_PASSWORD="title,text,color,emoji,daydatecreation,monthdatecreation,yeardatecreation,daylastmodify,monthlastmodify,yearlastmodify,encryption";
-    final static String [] MEMO_FIELDS = {"title", "text", "color", "emoji","daydatecretion","monthdatecreation","yeardatecreation","daylastmodify","monthlastmodify","yearlastmodify","encryption","password"};
-    final static String [] MEMO_FIELDS2 = {"_id", "title", "text", "color", "emoji","daydatecretion","monthdatecreation","yeardatecreation","daylastmodify","monthlastmodify","yearlastmodify","encryption","password"};
-    final static String [] SORT_FIELD={"ascdesc,sorttype"};
-    final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
-    final static int version = 1;
-
-
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, version);
-        gContext = context;
+        super(context, DATABASE_NAME, null, DB_VERSION);
     }
 
     @Override
