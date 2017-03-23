@@ -3,6 +3,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +43,10 @@ public class DAO {
     public final static int FALSE=0;
     public final static int TRUE=1;
     public final static String DELETE_MEMO="delete from memos";
+    public final static String ASC="asc";
+    public final static String DESC="desc";
+    public final static String UPDATE_ONLY_SORT_TYPE="update sort SET sorttype=?";
+    public final static String SWITCH_ASC_DESC="update sort SET ascdesc=?";
 
     public DAO(Context context) {
         dbh = new DatabaseHelper(context);
@@ -214,31 +219,50 @@ public class DAO {
         return c;
     }
     public void switchAscDescIntoDB(String actualAscDesc){
-        String sql="update sort SET ascdesc=";
-        if(actualAscDesc.equals("asc")){
-            String command=sql+"'desc'";
-            database.execSQL(command);
+        SQLiteStatement sqLiteStatement=database.compileStatement(SWITCH_ASC_DESC);
+        //String sql="update sort SET ascdesc=";
+        if(actualAscDesc.equals(ASC)){
+            sqLiteStatement.bindString(1,DESC);
+            sqLiteStatement.execute();
+            //database.execSQL(command);
         }
         else{
-            String command=sql+"'asc'";
-            database.execSQL(command);
+            sqLiteStatement.bindString(1,ASC);
+            sqLiteStatement.execute();
+            //database.execSQL(command);
         }
         return;
     }
     public void updateOnlySortTypeIntoDB(String newSortType){
-        String sql="update sort SET sorttype="+"'"+newSortType+"'";
-        database.execSQL(sql);
+        //String sql="update sort SET sorttype="+"'"+newSortType+"'";
+        SQLiteStatement sqLiteStatement=database.compileStatement(UPDATE_ONLY_SORT_TYPE);
+        sqLiteStatement.bindString(1,newSortType);
+        //database.execSQL(sql);
+        sqLiteStatement.execute();
         return;
     }
     public void addMemoToDB(String title,String text,int emoji,int color){//chiamata quando si clicca
         // sul tasto salva sull'activity in modalità creazione! vb
+        SQLiteStatement sqLiteStatement=database.compileStatement("insert into memos("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         Calendar date=Calendar.getInstance();//data creazione(prende la data corrente)
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
-        String sql="insert into memos"+"("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES("+Apex.open+title+Apex.close+","+Apex.open+text+Apex.close+","+color+","+emoji+","+
-        day+","+month+","+year+","+ day+","+month+","+year+","+FALSE+")";
-        database.execSQL(sql);
+        //String sql="insert into memos"+"("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES("+Apex.open+title+Apex.close+","+Apex.open+text+Apex.close+","+color+","+emoji+","+
+        //day+","+month+","+year+","+ day+","+month+","+year+","+FALSE+")";
+        sqLiteStatement.bindString(1,title);
+        sqLiteStatement.bindString(2,text);
+        sqLiteStatement.bindLong(3,color);
+        sqLiteStatement.bindLong(4,emoji);
+        sqLiteStatement.bindLong(5,day);
+        sqLiteStatement.bindLong(6,month);
+        sqLiteStatement.bindLong(7,year);
+        sqLiteStatement.bindLong(8,day);
+        sqLiteStatement.bindLong(9,month);
+        sqLiteStatement.bindLong(10,year);
+        sqLiteStatement.bindLong(11,FALSE);
+        sqLiteStatement.execute();
+        //database.execSQL(sql);
     }
 
     public void deleteMemoByIdFromDB(int id){

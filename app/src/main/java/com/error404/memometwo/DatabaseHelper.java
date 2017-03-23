@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tdaylastmodify\tINTEGER NOT NULL,\n"+
             "\tmonthlastmodify\tINTEGER NOT NULL,\n"+
             "\tyearlastmodify\tINTEGER NOT NULL,\n"+
-            "\tencryption\tINTEGER,\n"+
+            "\tencryption\tINTEGER ,\n"+
             "\tpassword\tTEXT \n"+
             ")";
 
