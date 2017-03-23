@@ -30,6 +30,9 @@ public class MemoMeMain extends AppCompatActivity
     private ListView myListView;
     private ArrayList<Memo> memoAdapter = new ArrayList<Memo>();
     private MemoAdapter mem;
+    private final String KEY="key";
+    private final String SORT_CREATION="yeardatecreation,monthdatecreation,daydatecreation";
+    private final String SORT_LAST_MODIFY="yearlastmodify,monthlastmodify,daylastmodify";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class MemoMeMain extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent=new Intent(MemoMeMain.this,activity_modifyOrAdd.class);
                 Bundle b=new Bundle();
-                b.putInt("key",-1);
+                b.putInt(KEY,-1);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -65,12 +68,10 @@ public class MemoMeMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
                 Bundle bun=new Bundle();
-                bun.putInt("key",position);
+                bun.putInt(KEY,position);
                 myIntent.putExtras(bun);
                 if(memoAdapter.get(position).getEncryption()==1){
                     //alert dialog che prende in input la password e la verifica
-                    //String password;
-                    //Inizio alert
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View formElementsView = inflater.inflate(R.layout.password_layout,
                             null, false);
@@ -91,8 +92,8 @@ public class MemoMeMain extends AppCompatActivity
                                             if(cifratedPassword.equals(passFromDB)) {
                                                 Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
                                                 Bundle bun=new Bundle();
-                                                bun.putInt("key",position);
-                                                bun.putString("password", nameEditText.getText().toString());
+                                                bun.putInt(KEY,position);
+                                                bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                                 myIntent.putExtras(bun);
                                                 startActivity(myIntent);
                                                 dialog.cancel();
@@ -153,7 +154,7 @@ public class MemoMeMain extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    //@SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -162,21 +163,21 @@ public class MemoMeMain extends AppCompatActivity
         if (id == R.id.nav_camera) {//ordina per titolo
             if(dao!=null) {
                 //dao.updateSort("title");
-                updateSortAndGUI("title");
+                updateSortAndGUI(DAO.TITLE);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
-                updateSortAndGUI("yeardatecreation,monthdatecreation,daydatecreation");
+                updateSortAndGUI(SORT_CREATION);
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
-                updateSortAndGUI("yearlastmodify,monthlastmodify,daylastmodify");
+                updateSortAndGUI(SORT_LAST_MODIFY);
 
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
             if(dao!=null) {
-                updateSortAndGUI("color");
+                updateSortAndGUI(DAO.COLOR);
             }
         }
         else if (id == R.id.nav_delete_all){
@@ -191,7 +192,7 @@ public class MemoMeMain extends AppCompatActivity
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 deleteAllMemo();
-                                updateSortAndGUI("onlyUpdateGUI");
+                                updateSortAndGUI(DAO.ONLYUPDATEGUI);
                                 dialog.dismiss();
                             }
 
@@ -208,7 +209,7 @@ public class MemoMeMain extends AppCompatActivity
             }
         }else if (id == R.id.nav_emoji){
             if(dao!=null) {
-                updateSortAndGUI("emoji");
+                updateSortAndGUI(DAO.EMOJI);
             }
             //ordina per emoji
         }
@@ -219,7 +220,7 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
-        updateSortAndGUI("onlyUpdateGUI");
+        updateSortAndGUI(DAO.ONLYUPDATEGUI);
         memoAdapter=dao.loadAllMemo();
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
         myListView.setAdapter(mem);
