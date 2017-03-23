@@ -198,9 +198,7 @@ public class DAO {
         if(c!=null) {
             c.moveToFirst();
             String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
-
             String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
-
             c.close();
             if (actualSortType.equals(newSortType)) {
                 switchAscDescIntoDB(actualAscDesc);
@@ -210,7 +208,6 @@ public class DAO {
         }
         return;
     }
-
     public Cursor getRowSort(){
         Cursor c=null;//cursore locale da ritornare non chiudibile
         c = database.rawQuery(SELECT_SORT, null);

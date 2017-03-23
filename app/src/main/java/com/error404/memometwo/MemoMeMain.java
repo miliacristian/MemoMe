@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 //da sistemare,da aggiungere fragment
 public class MemoMeMain extends AppCompatActivity

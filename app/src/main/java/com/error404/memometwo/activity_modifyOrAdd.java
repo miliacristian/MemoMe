@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static java.security.AccessController.getContext;
 //da sistemare in codice ,da aggiungere fragment
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
@@ -128,7 +130,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
 
     public void alertDialogChooseColor() {
-        final String[] items = { "BIANCO","ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
+        final String[] items = { getApplicationContext().getResources().getString(R.string.bianco),getApplicationContext().getResources().getString(R.string.rosa),getApplicationContext().getResources().getString(R.string.celeste),getApplicationContext().getResources().getString(R.string.lime)
+                ,getApplicationContext().getResources().getString(R.string.ciano),getApplicationContext().getResources().getString(R.string.rosso),getApplicationContext().getResources().getString(R.string.grigio),getApplicationContext().getResources().getString(R.string.verde),getApplicationContext().getResources().getString(R.string.viola),getApplicationContext().getResources().getString(R.string.indaco),getApplicationContext().getResources().getString(R.string.marrone)};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle(R.string.chooseColor);

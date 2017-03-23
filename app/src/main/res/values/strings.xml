@@ -43,4 +43,16 @@
     <string name="textview">TextView</string>
     <string name="warningMemoEncoded">Nota cifrata!</string>
     <string name="warningMemoEncodedText">La nota è cifrata,inserisci la password per visualizzarla.</string>
+    <string name="bianco">Bianco</string>
+    <string name="celeste">Celeste</string>
+    <string name="ciano">Ciano</string>
+    <string name="rosa">Rosa</string>
+    <string name="lime">Lime</string>
+    <string name="grigio">Grigio</string>
+    <string name="rosso">Rosso</string>
+    <string name="viola">Viola</string>
+    <string name="indaco">Indaco</string>
+    <string name="verde">Verde</string>
+    <string name="marrone">Marrone</string>
+
 </resources>
