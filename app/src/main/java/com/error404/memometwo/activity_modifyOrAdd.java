@@ -35,14 +35,17 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     TextView emojiModify;
     ImageView colorModify;
     EmojiAdapter emAdapt;
-    String mode="";//mode può essere "modifyMode" o "addMode"
+    private String mode="";
+    private final String ADD_MODE="addMode";
+    private final String MODIFY_MODE="modifyMode";
+    private final String KEY="key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_or_add);
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
-        final String password = bun.getString("password");
+        final String password = bun.getString(DAO.PASSWORD);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
@@ -64,15 +67,15 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogChooseColor();
             }
         });
-        int position=bun.getInt("key");
+        int position=bun.getInt(KEY);
 
         if(position==-1){
-            mode="addMode";
+            mode=ADD_MODE;
         }
         else{
-            mode="modifyMode";
+            mode=MODIFY_MODE;
         }
-        if(mode.equals("modifyMode")){
+        if(mode.equals(MODIFY_MODE)){
 
             DAO dao = new DAO(this);
             dao.open();
@@ -97,7 +100,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     String text = textModify.getText().toString();
                     DAO dao = new DAO(activity_modifyOrAdd.this);
                     dao.open();
-                    if (mode.equals("addMode")) {//aggiungi al db
+                    if (mode.equals(ADD_MODE)) {//aggiungi al db
                         dao.addMemoToDB(title, text,emoji, color);//se color non viene modificato che colore ho?
                         // mettere color a valore bianco di default
                         finish();

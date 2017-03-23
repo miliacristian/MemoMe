@@ -26,13 +26,14 @@ import android.widget.Toast;
 public class ShowMemo extends AppCompatActivity {
     TextView emojitxt;
     TextView txtViewTitle;
-    ImageView imageView2;
+    //ImageView imageView2;
     TextView txtViewNota;
     int color;
     int position;
     int emoji;
     private static String password;
     private static Activity refer;
+    private String KEY="key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class ShowMemo extends AppCompatActivity {
         refer = this;
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
-        position = bun.getInt("key");
+        position = bun.getInt(KEY);
         //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DAO dao = new DAO(this);
@@ -56,7 +57,7 @@ public class ShowMemo extends AppCompatActivity {
         setColorOnTitleAndText();
         // if encrypted
         if (dao.isEncrypted(position)){
-            password = bun.getString("password");
+            password = bun.getString(DAO.PASSWORD);
             dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
@@ -68,8 +69,8 @@ public class ShowMemo extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
-                b.putInt("key", position);
-                b.putString("password", password);
+                b.putInt(KEY, position);
+                b.putString(DAO.PASSWORD, password);
                 intent.putExtras(b);
                 startActivity(intent);
                 //vai all'activity della creazione/modifica in modalità modifica;
