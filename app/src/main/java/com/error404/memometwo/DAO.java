@@ -139,24 +139,6 @@ public class DAO {
             }
         }
     }
-
-    /*public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
-        //no data ultima modifica
-        //e si istanzia una memo;
-        String title=memo.getTitle();
-        int emoji=memo.getEmoji();
-        String text=memo.getText();
-        int color=memo.getColor();
-        String password=memo.getPassword();
-        int  encryption=memo.getEncryption();
-        Calendar date=Calendar.getInstance();
-        int month=date.get(Calendar.MONTH);
-        int year=date.get(Calendar.YEAR);
-        int day=date.get(Calendar.DAY_OF_MONTH);
-        String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
-        //System.out.println(sql);
-        database.execSQL(sql);
-    }*/
     public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
         //no data ultima modifica
         //e si istanzia una memo;
