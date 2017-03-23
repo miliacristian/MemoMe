@@ -1,14 +1,18 @@
 package com.error404.memometwo;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-//finita ordinata nei metodi,da riorganizzare in codice,aggiungere async task
+
+//finita nei metodi,da ordinare,riorganizzare in codice,aggiungere async task,togliere """"
+//se stringhe final usate solo qui metterle private
 public class DAO {
     private DatabaseHelper dbh;
     private SQLiteDatabase database;
+    //private final static String SELECT_ALL="SELECT * FROM memos ";
     private final static String SELECT_ALL="SELECT * FROM memos";
     public final static String SORTTYPE="sorttype";
     public final static String ASCDESC="ascdesc";
@@ -19,7 +23,7 @@ public class DAO {
     public final static String TEXT="text";
     public final static String COLOR="color";
     public final static String EMOJI="emoji";
-    public final static String PASSWORD="emoji";
+    public final static String PASSWORD="password";
     public final static String ENCRYPTION="encryption";
     public final static String DAYDATECREATION="daydatecreation";
     public final static String MONTHDATECREATION="monthdatecreation";
@@ -50,7 +54,6 @@ public class DAO {
         database.close();
     }
 
-
     public int findIdByPosition(int position){
         int id;
         Cursor c=getRowSort();
@@ -77,6 +80,7 @@ public class DAO {
         Memo m=loadMemoById(id);
         return m;
     }
+
     public Memo loadMemoById(int id){//carico memo da id(chiave primaria),cursore locale chiudibile
         Memo memo=null;
         String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;
@@ -89,7 +93,7 @@ public class DAO {
         return memo;
     }
 
-    public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
+     public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
         //per loadAllMemo
         if(c!=null) {//cursore preso come parametro,chiudibile??
             int id = c.getInt(c.getColumnIndex(ID));
@@ -108,6 +112,7 @@ public class DAO {
         }
         return null;
     }
+
     public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
         int arr[]=new int[NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
         arr[INDEX_DAY]=c.getInt(c.getColumnIndex(DAYDATECREATION));
@@ -125,9 +130,8 @@ public class DAO {
 
 
 
-
-    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor){//da tabella a lista di memo
-        if(cursor!=null) {//chimato da loadAllMemo
+    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor) {//da tabella a lista di memo
+        if (cursor != null) {//chimato da loadAllMemo
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 arrMemo.add(loadMemoByCursorOneRow(cursor));
@@ -136,7 +140,7 @@ public class DAO {
         }
     }
 
-    public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
+    /*public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
         //no data ultima modifica
         //e si istanzia una memo;
         String title=memo.getTitle();
@@ -152,7 +156,37 @@ public class DAO {
         String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
         //System.out.println(sql);
         database.execSQL(sql);
+    }*/
+    public void saveMemo(Memo memo,int id){//chiamato dall'activity quando si clicca il tasto salva si fa la get di tutti gli oggetti(id,colore,testo,titolo,no data creazione
+        //no data ultima modifica
+        //e si istanzia una memo;
+        String title=memo.getTitle();
+        int emoji=memo.getEmoji();
+        String text=memo.getText();
+        int color=memo.getColor();
+        String password=memo.getPassword();
+        int  encryption=memo.getEncryption();
+        Calendar date=Calendar.getInstance();
+        int month=date.get(Calendar.MONTH);
+        int year=date.get(Calendar.YEAR);
+        int day=date.get(Calendar.DAY_OF_MONTH);
+        ContentValues cv=new ContentValues();
+        cv.put(TITLE,title);
+        cv.put(TEXT,text);
+        cv.put(COLOR,color);
+        cv.put(EMOJI,emoji);
+        cv.put(DAYLASTMODIFY,day);
+        cv.put(MONTHLASTMODIFY,month);
+        cv.put(YEARLASTMODIFY,year);
+        cv.put(ENCRYPTION,encryption);
+        cv.put(PASSWORD,password);
+        //String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
+        //System.out.println(sql);
+        database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
+        //System.out.println("save password"+password);
+        //database.execSQL(sql);
     }
+
     public ArrayList<Memo>loadAllMemo(){//carica tutti i memo secondo l'ordinamento,vedendo dapprima il tipo di ordinamento e poi query
         Cursor c=getRowSort();//cursori locali chiudibili
         if(c!=null) {
@@ -161,7 +195,6 @@ public class DAO {
             String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
             String sortMethod = ORDER_BY+" "+actualSortType+" "+ actualAscDesc;
             c.close();
-            //System.out.println("metodo ordinamento"+sortMethod);
             String sql = SELECT_ALL +" "+sortMethod;
             Cursor tabAllMemos = database.rawQuery(sql, null);
             if(tabAllMemos!=null) {
@@ -173,6 +206,7 @@ public class DAO {
         }
         return null;
     }
+
     public void updateSort(String newSortType){//il menu optionbar deve passare la stringa newsortype alla
         //funzione update sort e fare il refresh della grafica;
         if(newSortType.equals(ONLYUPDATEGUI)){
@@ -182,23 +216,21 @@ public class DAO {
         if(c!=null) {
             c.moveToFirst();
             String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
-            //System.out.println(actualSortType);
+
             String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
-            //System.out.println(actualAscDesc);
+
             c.close();
             if (actualSortType.equals(newSortType)) {
-                //System.out.println("stesso tipo");
                 switchAscDescIntoDB(actualAscDesc);
             } else {
-                //System.out.println("diverso tipo");
                 updateOnlySortTypeIntoDB(newSortType);
             }
         }
         return;
     }
+
     public Cursor getRowSort(){
         Cursor c=null;//cursore locale da ritornare non chiudibile
-
         c = database.rawQuery(SELECT_SORT, null);
         return c;
     }
@@ -214,24 +246,19 @@ public class DAO {
         }
         return;
     }
-
     public void updateOnlySortTypeIntoDB(String newSortType){
         String sql="update sort SET sorttype="+"'"+newSortType+"'";
         database.execSQL(sql);
         return;
     }
-
-
-
     public void addMemoToDB(String title,String text,int emoji,int color){//chiamata quando si clicca
         // sul tasto salva sull'activity in modalità creazione! vb
-        final int encryption=0;
         Calendar date=Calendar.getInstance();//data creazione(prende la data corrente)
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
         String sql="insert into memos"+"("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES("+Apex.open+title+Apex.close+","+Apex.open+text+Apex.close+","+color+","+emoji+","+
-        day+","+month+","+year+","+ day+","+month+","+year+","+encryption+")";
+        day+","+month+","+year+","+ day+","+month+","+year+","+FALSE+")";
         database.execSQL(sql);
     }
 
@@ -246,15 +273,17 @@ public class DAO {
         database.execSQL(DELETE_ALL_NOT_ENCRYPTED);
         return;
     }
-
     public boolean isEncrypted(int position){
-        Memo mem=loadMemoByPosition(position);
-        if(mem!=null){
-            if(mem.getEncryption()==TRUE){
-                return true;
-            }
-        }
-        return false;
+       Memo mem=loadMemoByPosition(position);
+       if(mem!=null){
+           if(mem.getEncryption()==TRUE){
+               return true;
+           }
+       }
+       return false;
+   }
+    public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
+        memo.setText(Encrypt.decryption(memo.getText(),password));
     }
     public void addEncryptionToPasswordAndText(int position,String password){//aggiorna i dati nel database cifrando testo,password
         //e settando encryption a 1
@@ -264,11 +293,6 @@ public class DAO {
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
-
-    public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
-        memo.setText(Encrypt.decryption(memo.getText(),password));
-    }
-
     public void deleteEncryptionToPasswordAndText(int position,String password){
         Memo m=loadMemoByPosition(position);
         m.setEncryption(FALSE);

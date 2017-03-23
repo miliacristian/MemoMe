@@ -98,6 +98,8 @@ public class MemoMeMain extends AppCompatActivity
                                                 startActivity(myIntent);
                                                 dialog.cancel();
                                             }else{
+                                                System.out.println(cifratedPassword);
+                                                System.out.println(passFromDB);
                                                 Toast.makeText(MemoMeMain.this,R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                             }
                                         }
@@ -123,9 +125,6 @@ public class MemoMeMain extends AppCompatActivity
     }
     public void deleteAllMemo(){
         dao.deleteAllMemoNotEncrypted();
-        //memoAdapter=dao.loadAllMemo();
-        //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-        //myListView.setAdapter(mem);
     }
     public void updateSortAndGUI(String type){
         dao.updateSort(type);
@@ -165,34 +164,20 @@ public class MemoMeMain extends AppCompatActivity
             if(dao!=null) {
                 //dao.updateSort("title");
                 updateSortAndGUI("title");
-                //memoAdapter=dao.loadAllMemo();
-                //mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                //myListView.setAdapter(mem);
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
                 updateSortAndGUI("yeardatecreation,monthdatecreation,daydatecreation");
-                /*dao.updateSort("yeardatecreation,monthdatecreation,daydatecreation");
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);*/
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
                 updateSortAndGUI("yearlastmodify,monthlastmodify,daylastmodify");
-                /*dao.updateSort("yearlastmodify,monthlastmodify,daylastmodify");
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);*/
+
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
             if(dao!=null) {
                 updateSortAndGUI("color");
-                /*dao.updateSort("color");
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);*/
             }
         }
         else if (id == R.id.nav_delete_all){
@@ -225,11 +210,6 @@ public class MemoMeMain extends AppCompatActivity
         }else if (id == R.id.nav_emoji){
             if(dao!=null) {
                 updateSortAndGUI("emoji");
-                //dao.open(); è necessaria??
-                /*dao.updateSort("emoji");
-                memoAdapter=dao.loadAllMemo();
-                mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-                myListView.setAdapter(mem);*/
             }
             //ordina per emoji
         }
@@ -241,9 +221,9 @@ public class MemoMeMain extends AppCompatActivity
     public void onResume(){
         super.onResume();
         updateSortAndGUI("onlyUpdateGUI");
-        /*memoAdapter=dao.loadAllMemo();
+        memoAdapter=dao.loadAllMemo();
         mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
-        myListView.setAdapter(mem);*/
+        myListView.setAdapter(mem);
     }
     @Override
     public void onBackPressed() {
@@ -257,4 +237,3 @@ public class MemoMeMain extends AppCompatActivity
     }
 
 }
-

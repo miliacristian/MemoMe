@@ -105,9 +105,6 @@ public class Memo {
     public void setPassword(String password) {
         this.password = password;
     }
-    //public String toString(){
-        //return id+" "+title+" "+text+" "+color+" "+dateCreation+" "+lastModify+" "+encryption;
-    //}
     public String dateCreationConverter(Calendar date){
         return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }

@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import static java.security.AccessController.getContext;
 //finita e ordinata
 public class EmojiAdapter extends ArrayAdapter<Integer> {
-
+    private ArrayList<Integer> emojiList;//si può togliere
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
         super(c,textViewId,emojiList);
+        this.emojiList=emojiList;//si può togliere
     }
 
     @Override

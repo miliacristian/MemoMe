@@ -23,8 +23,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tdaylastmodify\tINTEGER NOT NULL,\n"+
             "\tmonthlastmodify\tINTEGER NOT NULL,\n"+
             "\tyearlastmodify\tINTEGER NOT NULL,\n"+
-            "\tencryption\tINTEGER DEFAULT 0,\n"+
-            "\tpassword\tTEXT DEFAULT 'empty'\n"+
+            "\tencryption\tINTEGER,\n"+
+            "\tpassword\tTEXT \n"+
             ")";
 
     public final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +

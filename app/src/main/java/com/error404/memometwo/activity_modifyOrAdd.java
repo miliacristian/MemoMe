@@ -50,7 +50,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogChooseEmoji();
+                alertTest();
             }
         });
         colorModify=(ImageView)findViewById(R.id.colorModify);
@@ -58,7 +58,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         colorModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogChooseColor();
+                //dialogChooseColor();
+                alertDialogChooseColor();
             }
         });
         int position=bun.getInt("key");
@@ -126,7 +127,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
 
-    public void dialogChooseColor() {
+    public void alertDialogChooseColor() {
         final String[] items = { "BIANCO","ROSA","LIGHTBLUE","LIME",};//char sequence o string non da problemi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
@@ -140,7 +141,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         }).show();
     }
-        public void dialogChooseEmoji(){
+        public void alertTest(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView lV=(ListView)customView.findViewById(R.id.listV);
