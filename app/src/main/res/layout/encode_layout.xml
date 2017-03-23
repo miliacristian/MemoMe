@@ -17,7 +17,8 @@
             android:id="@+id/nameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/type_password">
+            android:hint="@string/type_password"
+            android:inputType="textPassword">
 
             <requestFocus />
         </EditText>
@@ -26,7 +27,8 @@
             android:id="@+id/nameEditText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/confirm_password"></EditText>
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"></EditText>
     </LinearLayout>
 
 </RelativeLayout>
