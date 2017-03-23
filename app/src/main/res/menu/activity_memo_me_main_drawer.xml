@@ -24,7 +24,7 @@
                 android:title="@string/sortColor" />
             <item
                 android:id="@+id/nav_emoji"
-                android:icon="@mipmap/emoji_icon"
+                android:icon="@mipmap/smile_icon"
                 android:title="@string/sortEmoji" />
         </menu>
     </item>
