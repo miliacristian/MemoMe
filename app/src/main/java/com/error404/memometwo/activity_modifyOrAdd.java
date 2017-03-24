@@ -21,24 +21,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
-//da sistemare in codice ,da aggiungere fragment
+//da pulire LISTENER ,da aggiungere fragment
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
-    ArrayList<Integer> emojiList=new ArrayList<Integer>();
-    Memo currentMemo;//usare solo questo attributo al posto di color e emoji
-    int colorIndex;
-    int emoji=0x1f604;
-    int color = Memo.getColors(0);
-    EditText textModify;
-    EditText titleModify;
-    TextView emojiModify;
-    ImageView colorModify;
-    EmojiAdapter emAdapt;
-    private String mode="";
+    private ArrayList<Integer> emojiList=new ArrayList<Integer>();
+    private Memo currentMemo;//usare solo questo attributo al posto di color e emoji
+    //private int colorIndex;
+    private int emoji=Values.DEFAULT_EMOJI;
+    private int color=Values.DEFAULT_COLOR;
+    private EditText textModify;
+    private EditText titleModify;
+    private TextView emojiModify;
+    private ImageView colorModify;//a ch emi serve??
+    private EmojiAdapter emAdapt;
+    private String mode=Values.EMPTY_STRING;
     private final String ADD_MODE="addMode";
     private final String MODIFY_MODE="modifyMode";
-    private final String KEY="key";
+    //private final String KEY="key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +67,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogChooseColor();
             }
         });
-        int position=bun.getInt(KEY);
+        int position=bun.getInt(Values.BUNDLE_KEY);
 
-        if(position==-1){
+        if(position==Values.NO_POSITION){
             mode=ADD_MODE;
         }
         else{
@@ -80,8 +80,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             DAO dao = new DAO(this);
             dao.open();
             currentMemo= dao.loadMemoByPosition(position);
-            if(currentMemo.getEncryption()==1){
-                String normalPassword="";//fare la get della password non cifrata
+            if(currentMemo.getEncryption()== DAO.TRUE){
+                //String normalPassword="";//fare la get della password non cifrata
                 dao.decryptText(currentMemo,password);
             }
             textModify.setText(currentMemo.getText());
@@ -96,7 +96,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title=titleModify.getText().toString();
-                if(!title.equals("")) {
+                if(!title.equals(Values.EMPTY_STRING)) {
                     String text = textModify.getText().toString();
                     DAO dao = new DAO(activity_modifyOrAdd.this);
                     dao.open();
@@ -105,7 +105,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         // mettere color a valore bianco di default
                         finish();
                     } else {//aggiorna memo con tutti i dati
-                        if (currentMemo.getEncryption() == 1){
+                        if (currentMemo.getEncryption() == DAO.TRUE){
                             String toCifrateText = textModify.getText().toString();
                             String cifratedText = Encrypt.encryption(toCifrateText, password);
                             currentMemo.setText(cifratedText);
@@ -158,13 +158,13 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             builder.setView(customView);
             builder.setTitle(R.string.chooseEmoji);
             builder.setIcon(R.mipmap.smile_icon);
-            final AlertDialog ad=builder.show();
+            final AlertDialog alertDialog=builder.show();
             lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
                     emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-                    ad.dismiss();
+                    alertDialog.dismiss();
                 }
             });
         }

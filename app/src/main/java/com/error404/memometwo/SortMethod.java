@@ -1,5 +1,5 @@
 package com.error404.memometwo;
-
+//chi la usa???
 //finita e ordinata
 public class SortMethod {// asc/desc+colore/titolo/datacreazione/datamodifica
 
@@ -13,7 +13,6 @@ public class SortMethod {// asc/desc+colore/titolo/datacreazione/datamodifica
         this.ascDesc = ascDesc;
     }
     public String getSortType() {
-
         return sortType;
     }
     public void setSortType(String sortType) {

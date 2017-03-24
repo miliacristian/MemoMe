@@ -10,8 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class  Encrypt {//usare solo encryption e decryption
 
     public static String encryption(String strNormalText,String key){
-        //String seedValue = "YourSecKey";
-        String normalTextEnc="";
+        String normalTextEnc=Values.EMPTY_STRING;
         try {
             normalTextEnc = Encrypt.encrypt(key, strNormalText);
         } catch (Exception e) {
@@ -21,11 +20,11 @@ public class  Encrypt {//usare solo encryption e decryption
     }
     public static String decryption(String strEncryptedText,String key){
         //String seedValue = "YourSecKey";
-        String strDecryptedText="";
+        String strDecryptedText=Values.EMPTY_STRING;
         try {
             strDecryptedText = Encrypt.decrypt(key, strEncryptedText);
         } catch (Exception e) {
-            System.out.println("different key");
+            System.out.println(Values.ERROR);
             e.printStackTrace();
         }
 
@@ -88,7 +87,7 @@ public class  Encrypt {//usare solo encryption e decryption
 
     public static String toHex(byte[] buf) {
         if (buf == null)
-            return "";
+            return Values.EMPTY_STRING;
         StringBuffer result = new StringBuffer(2*buf.length);
         for (int i = 0; i < buf.length; i++) {
             appendHex(result, buf[i]);

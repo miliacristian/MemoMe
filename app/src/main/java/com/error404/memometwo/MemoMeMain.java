@@ -28,11 +28,9 @@ public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
     private ListView myListView;
-    private ArrayList<Memo> memoAdapter = new ArrayList<Memo>();
+    private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
-    private final String KEY="key";
-    private final String SORT_CREATION="yeardatecreation,monthdatecreation,daydatecreation";
-    private final String SORT_LAST_MODIFY="yearlastmodify,monthlastmodify,daylastmodify";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +39,14 @@ public class MemoMeMain extends AppCompatActivity
         setSupportActionBar(toolbar);
         dao=new DAO(this);
         dao.open();
-        memoAdapter=dao.loadAllMemo();
+        memoList=dao.loadAllMemo();
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
         buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MemoMeMain.this,activity_modifyOrAdd.class);
                 Bundle b=new Bundle();
-                b.putInt(KEY,-1);
+                b.putInt(Values.BUNDLE_KEY,Values.NO_POSITION);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -60,7 +58,7 @@ public class MemoMeMain extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);//adapter deve essere un arraylist di memo
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);//adapter deve essere un arraylist di memo
         myListView = (ListView) findViewById(R.id.listOfNotes);//id della list view nella prima activity
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,9 +66,9 @@ public class MemoMeMain extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
                 Bundle bun=new Bundle();
-                bun.putInt(KEY,position);
+                bun.putInt(Values.BUNDLE_KEY,position);
                 myIntent.putExtras(bun);
-                if(memoAdapter.get(position).getEncryption()==1){
+                if(memoList.get(position).getEncryption()==1){
                     //alert dialog che prende in input la password e la verifica
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -88,11 +86,11 @@ public class MemoMeMain extends AppCompatActivity
                                         @TargetApi(11)
                                         public void onClick(DialogInterface dialog, int id) {
                                             String cifratedPassword = "" +Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                            String passFromDB = "" +memoAdapter.get(position).getPassword();
+                                            String passFromDB = "" +memoList.get(position).getPassword();
                                             if(cifratedPassword.equals(passFromDB)) {
                                                 Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
                                                 Bundle bun=new Bundle();
-                                                bun.putInt(KEY,position);
+                                                bun.putInt(Values.BUNDLE_KEY,position);
                                                 bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                                 myIntent.putExtras(bun);
                                                 startActivity(myIntent);
@@ -128,8 +126,8 @@ public class MemoMeMain extends AppCompatActivity
     }
     public void updateSortAndGUI(String type){
         dao.updateSort(type);
-        memoAdapter=dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        memoList=dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
         myListView.setAdapter(mem);
     }
 
@@ -167,12 +165,12 @@ public class MemoMeMain extends AppCompatActivity
             }
         } else if (id == R.id.nav_gallery) {//ordinamento data creazione
             if(dao!=null) {
-                updateSortAndGUI(SORT_CREATION);
+                updateSortAndGUI(Values.SORT_CREATION);
             }
 
         } else if (id == R.id.nav_slideshow) {//ordinamento ultima modifica
             if(dao!=null) {
-                updateSortAndGUI(SORT_LAST_MODIFY);
+                updateSortAndGUI(Values.SORT_LAST_MODIFY);
 
             }
         } else if (id == R.id.nav_manage) {//ordinamento colore
@@ -221,8 +219,8 @@ public class MemoMeMain extends AppCompatActivity
     public void onResume(){
         super.onResume();
         updateSortAndGUI(DAO.ONLYUPDATEGUI);
-        memoAdapter=dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoAdapter);
+        memoList=dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
         myListView.setAdapter(mem);
     }
     @Override

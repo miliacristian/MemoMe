@@ -3,15 +3,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-//finita,ordinata,da aggiungere async task
+//finita,ordinata
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final static int DB_VERSION = 1;
     private final static String DATABASE_NAME = "memo.db";
     public final static String NAME_TABLE_MEMOS = "memos";
     public final static String MEMO_FIELDS_WITHOUT_PASSWORD="title,text,color,emoji,daydatecreation,monthdatecreation,yeardatecreation,daylastmodify,monthlastmodify,yearlastmodify,encryption";
-    public final static String NAME_SORT_TABLE = "sort";
-    public final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
-    public final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +
+    private final static String NAME_SORT_TABLE = "sort";
+    private final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
+    private final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +
             "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//da non toccare incrementa automaticamente.
             "\ttitle\tTEXT NOT NULL,\n"+
             "\ttext\tTEXT,\n"+
