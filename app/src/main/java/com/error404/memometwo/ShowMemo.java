@@ -30,7 +30,7 @@ public class ShowMemo extends AppCompatActivity {
     int color;
     int position;
     int emoji;
-    private static String password;
+    private String password;
     private static Activity refer;
     //private String KEY="key";
     @Override
@@ -99,12 +99,9 @@ public class ShowMemo extends AppCompatActivity {
         return dao.isEncrypted(position);
     }
 
-    public static void setPassword(String password){
-        ShowMemo.password = password;
-    }
-
     public void insertEncryptToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
+        this.password = password;
         DAO dao=new DAO(this);
         dao.open();
         dao.addEncryptionToPasswordAndText(position,password);
@@ -181,7 +178,6 @@ public class ShowMemo extends AppCompatActivity {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
-                                    ShowMemo.setPassword(nameEditText.getText().toString());
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                     dialog.cancel();
                                     invalidateOptionsMenu();
