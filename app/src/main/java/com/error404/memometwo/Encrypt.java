@@ -8,7 +8,10 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 //finita e ordinata
 public class  Encrypt {//usare solo encryption e decryption
-
+    private final static String AES="AES";
+    private final static String HEX = "0123456789ABCDEF";
+    private final static String CRYPTO="Crypto";
+    private final static String SHA1="SHA1PRNG";
     public static String encryption(String strNormalText,String key){
         String normalTextEnc=Values.EMPTY_STRING;
         try {
@@ -44,8 +47,8 @@ public class  Encrypt {//usare solo encryption e decryption
     }
 
     private static byte[] getRawKey(byte[] seed) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG","Crypto");
+        KeyGenerator kgen = KeyGenerator.getInstance(AES);
+        SecureRandom sr = SecureRandom.getInstance(SHA1,CRYPTO);
         sr.setSeed(seed);
         kgen.init(128, sr); // 192 and 256 bits may not be available
         SecretKey skey = kgen.generateKey();
@@ -55,16 +58,16 @@ public class  Encrypt {//usare solo encryption e decryption
 
 
     private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec skeySpec = new SecretKeySpec(raw,AES);
+        Cipher cipher = Cipher.getInstance(AES);
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
         byte[] encrypted = cipher.doFinal(clear);
         return encrypted;
     }
 
     private static byte[] decrypt(byte[] raw, byte[] encrypted) throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec skeySpec = new SecretKeySpec(raw, AES);
+        Cipher cipher = Cipher.getInstance(AES);
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
         byte[] decrypted = cipher.doFinal(encrypted);
         return decrypted;
@@ -94,7 +97,7 @@ public class  Encrypt {//usare solo encryption e decryption
         }
         return result.toString();
     }
-    private final static String HEX = "0123456789ABCDEF";
+
     private static void appendHex(StringBuffer sb, byte b) {
         sb.append(HEX.charAt((b>>4)&0x0f)).append(HEX.charAt(b&0x0f));
     }

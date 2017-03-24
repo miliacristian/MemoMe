@@ -2,7 +2,9 @@ package com.error404.memometwo;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/**
+ * Created by cristian on 03/03/17.
+ */
 //finita,ordinata
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final static int DB_VERSION = 1;

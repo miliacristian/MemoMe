@@ -26,8 +26,7 @@ import static java.security.AccessController.getContext;
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
-    private Memo currentMemo;//usare solo questo attributo al posto di color e emoji
-    //private int colorIndex;
+    private Memo currentMemo;
     private int emoji=Values.DEFAULT_EMOJI;
     private int color=Values.DEFAULT_COLOR;
     private EditText textModify;
@@ -38,7 +37,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private String mode=Values.EMPTY_STRING;
     private final String ADD_MODE="addMode";
     private final String MODIFY_MODE="modifyMode";
-    //private final String KEY="key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
