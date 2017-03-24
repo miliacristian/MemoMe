@@ -7,23 +7,23 @@
     <item android:title="@string/sortBy">
         <menu>
             <item
-                android:id="@+id/nav_camera"
+                android:id="@+id/sort_title"
                 android:icon="@mipmap/alphabet_sorting"
                 android:title="@string/sortTitle" />
             <item
-                android:id="@+id/nav_gallery"
+                android:id="@+id/sort_creation"
                 android:icon="@mipmap/calendar_icon"
                 android:title="@string/sortDateCreation" />
             <item
-                android:id="@+id/nav_slideshow"
+                android:id="@+id/sort_modify"
                 android:icon="@mipmap/calendar_icon"
                 android:title="@string/sortLastModify" />
             <item
-                android:id="@+id/nav_manage"
+                android:id="@+id/sort_color"
                 android:icon="@mipmap/palette_icon"
                 android:title="@string/sortColor" />
             <item
-                android:id="@+id/nav_emoji"
+                android:id="@+id/sort_emoji"
                 android:icon="@mipmap/smile_icon"
                 android:title="@string/sortEmoji" />
         </menu>
