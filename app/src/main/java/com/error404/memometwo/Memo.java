@@ -34,8 +34,8 @@ public class Memo {
         this.password = password;
         this.dateCreation=Calendar.getInstance();
         this.lastModify=Calendar.getInstance();
-        this.dateCreation.set(datecreation[2], datecreation[1]+1, datecreation[0]);
-        this.lastModify.set(datelastmodify[2], datelastmodify[1]+1, datelastmodify[0]);
+        this.dateCreation.set(datecreation[Values.INDEX_YEAR], datecreation[Values.INDEX_MONTH]+1, datecreation[Values.INDEX_DAY]);
+        this.lastModify.set(datelastmodify[Values.INDEX_YEAR], datelastmodify[Values.INDEX_MONTH]+1, datelastmodify[Values.INDEX_DAY]);
     }
 
     public int getId() {
