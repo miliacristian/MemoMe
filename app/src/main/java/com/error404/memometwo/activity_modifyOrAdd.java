@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import static java.security.AccessController.getContext;
 //da ordinare ,da aggiungere fragment
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
@@ -136,6 +134,11 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle(R.string.chooseColor);
         builder.setIcon(R.mipmap.palette_icon);
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 color=Memo.getColors(item);
@@ -145,21 +148,29 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
         public void alertChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
-            View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
-            ListView lV=(ListView)customView.findViewById(R.id.listV);
+            View customView = inflater.inflate(R.layout.list_view_emoji2, null, false);
+            ListView listView=(ListView)customView.findViewById(R.id.listV);
+            TextView tv=(TextView)customView.findViewById(R.id.closed);
+            tv.setClickable(true);
             emojiList=Memo.getListEmojis();
             emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiList);
-            lV.setAdapter(emAdapt);
+            listView.setAdapter(emAdapt);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
             builder.setTitle(R.string.chooseEmoji);
             builder.setIcon(R.mipmap.smile_icon);
             final AlertDialog alertDialog=builder.show();
-            lV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
                     emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+                    alertDialog.dismiss();
+                }
+            });
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     alertDialog.dismiss();
                 }
             });
@@ -171,7 +182,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     @Override
     public void onDestroy(){
        super.onDestroy();
-        System.out.println("memomodify destroy");
+        System.out.println("memo modify destroy");
         dao.close();
 
     }
