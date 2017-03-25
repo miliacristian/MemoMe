@@ -37,16 +37,16 @@ public class MemoMeMain extends AppCompatActivity
         setContentView(R.layout.activity_memo_me_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        dao=new DAO(this);
+        dao = new DAO(this);
         dao.open();
-        memoList=dao.loadAllMemo();
+        memoList = dao.loadAllMemo();
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
         buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MemoMeMain.this,activity_modifyOrAdd.class);
-                Bundle b=new Bundle();
-                b.putInt(Values.BUNDLE_KEY,Values.NO_POSITION);
+                Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
+                Bundle b = new Bundle();
+                b.putInt(Values.BUNDLE_KEY, Values.NO_POSITION);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -58,36 +58,37 @@ public class MemoMeMain extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);//adapter deve essere un arraylist di memo
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);//adapter deve essere un arraylist di memo
         myListView = (ListView) findViewById(R.id.listOfNotes);//id della list view nella prima activity
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                if(memoList.get(position).getEncryption()==1){
+                if (memoList.get(position).getEncryption() == 1) {
                     //alert dialog che prende in input la password e la verifica
                     alertEncrypted(position);
 
-                }
-                else {
+                } else {
                     //vado alla nuova activity
-                    Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
-                    Bundle bun=new Bundle();
-                    bun.putInt(Values.BUNDLE_KEY,position);
+                    Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
+                    Bundle bun = new Bundle();
+                    bun.putInt(Values.BUNDLE_KEY, position);
                     myIntent.putExtras(bun);
                     startActivity(myIntent);
                 }
             }
         });
     }
-    public void deleteAllMemo(){
+
+    public void deleteAllMemo() {
         dao.deleteAllMemoNotEncrypted();
     }
-    public void updateSortAndGUI(String type){
+
+    public void updateSortAndGUI(String type) {
         dao.updateSort(type);
-        memoList=dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
+        memoList = dao.loadAllMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
         myListView.setAdapter(mem);
     }
 
@@ -119,30 +120,29 @@ public class MemoMeMain extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.sort_title) {//ordina per titolo
-            if(dao!=null) {
+            if (dao != null) {
                 //dao.updateSort("title");
                 updateSortAndGUI(DAO.TITLE);
             }
         } else if (id == R.id.sort_creation) {//ordinamento data creazione
-            if(dao!=null) {
+            if (dao != null) {
                 updateSortAndGUI(Values.SORT_CREATION);
             }
 
         } else if (id == R.id.sort_modify) {//ordinamento ultima modifica
-            if(dao!=null) {
+            if (dao != null) {
                 updateSortAndGUI(Values.SORT_LAST_MODIFY);
             }
         } else if (id == R.id.sort_color) {//ordinamento colore
-            if(dao!=null) {
+            if (dao != null) {
                 updateSortAndGUI(DAO.COLOR);
             }
-        }
-        else if (id == R.id.nav_delete_all){
-            if(dao!=null) {
-               deleteAllAlert();
+        } else if (id == R.id.nav_delete_all) {
+            if (dao != null) {
+                deleteAllAlert();
             }
-        }else if (id == R.id.sort_emoji){
-            if(dao!=null) {
+        } else if (id == R.id.sort_emoji) {
+            if (dao != null) {
                 updateSortAndGUI(DAO.EMOJI);
             }
             //ordina per emoji
@@ -151,25 +151,8 @@ public class MemoMeMain extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateSortAndGUI(DAO.ONLYUPDATEGUI);
-        memoList=dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
-        myListView.setAdapter(mem);
-    }
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
 
-    }
-    public void alertEncrypted(final int position){
+    public void alertEncrypted(final int position) {
         //alert dialog che prende in input la password e la verifica
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -186,20 +169,20 @@ public class MemoMeMain extends AppCompatActivity
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                String cifratedPassword = "" +Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                String passFromDB = "" +memoList.get(position).getPassword();
-                                if(cifratedPassword.equals(passFromDB)) {
-                                    Intent myIntent=new Intent(MemoMeMain.this,ShowMemo.class);
-                                    Bundle bun=new Bundle();
-                                    bun.putInt(Values.BUNDLE_KEY,position);
+                                String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
+                                String passFromDB = "" + memoList.get(position).getPassword();
+                                if (cifratedPassword.equals(passFromDB)) {
+                                    Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
+                                    Bundle bun = new Bundle();
+                                    bun.putInt(Values.BUNDLE_KEY, position);
                                     bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);
                                     dialog.cancel();
-                                }else{
+                                } else {
                                     System.out.println(cifratedPassword);
                                     System.out.println(passFromDB);
-                                    Toast.makeText(MemoMeMain.this,R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MemoMeMain.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -216,8 +199,8 @@ public class MemoMeMain extends AppCompatActivity
 
     }
 
-    public void deleteAllAlert(){
-        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+    public void deleteAllAlert() {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
                 //set message, title, and icon
                 .setTitle(R.string.deleteAllNotEncoded)
                 .setMessage(R.string.confirmDeleteAll)
@@ -234,7 +217,6 @@ public class MemoMeMain extends AppCompatActivity
                 })
 
 
-
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -243,5 +225,32 @@ public class MemoMeMain extends AppCompatActivity
                 .show();
 
     }
-}
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateSortAndGUI(DAO.ONLYUPDATEGUI);
+        //memoList=dao.loadAllMemo();
+        //mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
+        //myListView.setAdapter(mem);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("memomain destroy");
+        dao.close();
+
+    }
+}

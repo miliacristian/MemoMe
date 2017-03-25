@@ -12,6 +12,7 @@ public class  Encrypt {//usare solo encryption e decryption
     private final static String HEX = "0123456789ABCDEF";
     private final static String CRYPTO="Crypto";
     private final static String SHA1="SHA1PRNG";
+
     public static String encryption(String strNormalText,String key){
         String normalTextEnc=Values.EMPTY_STRING;
         try {

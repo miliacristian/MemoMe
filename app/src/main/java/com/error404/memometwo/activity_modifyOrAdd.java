@@ -25,6 +25,7 @@ import static java.security.AccessController.getContext;
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
+    private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
     private Memo currentMemo;
     private int emoji=Values.DEFAULT_EMOJI;
@@ -41,6 +42,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_or_add);
+        dao = new DAO(this);
+        dao.open();
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
         final String password = bun.getString(DAO.PASSWORD);
@@ -61,7 +64,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         colorModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dialogChooseColor();
                 alertDialogChooseColor();
             }
         });
@@ -74,11 +76,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             mode=MODIFY_MODE;
         }
         if(mode.equals(MODIFY_MODE)){
-
-            DAO dao = new DAO(this);
-            dao.open();
             currentMemo= dao.loadMemoByPosition(position);
-            if(currentMemo.getEncryption()== DAO.TRUE){
+            if(currentMemo.getEncryption()== Values.TRUE){
                 //String normalPassword="";//fare la get della password non cifrata
                 dao.decryptText(currentMemo,password);
             }
@@ -96,14 +95,14 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 String title=titleModify.getText().toString();
                 if(!title.equals(Values.EMPTY_STRING)) {
                     String text = textModify.getText().toString();
-                    DAO dao = new DAO(activity_modifyOrAdd.this);
-                    dao.open();
+                    //DAO dao = new DAO(activity_modifyOrAdd.this);
+                    //dao.open();
                     if (mode.equals(ADD_MODE)) {//aggiungi al db
                         dao.addMemoToDB(title, text,emoji, color);//se color non viene modificato che colore ho?
                         // mettere color a valore bianco di default
                         finish();
                     } else {//aggiorna memo con tutti i dati
-                        if (currentMemo.getEncryption() == DAO.TRUE){
+                        if (currentMemo.getEncryption() == Values.TRUE){
                             String toCifrateText = textModify.getText().toString();
                             String cifratedText = Encrypt.encryption(toCifrateText, password);
                             currentMemo.setText(cifratedText);
@@ -132,14 +131,13 @@ public class activity_modifyOrAdd extends AppCompatActivity {
 
     public void alertDialogChooseColor() {
         final String[] items = { getApplicationContext().getResources().getString(R.string.bianco),getApplicationContext().getResources().getString(R.string.rosa),getApplicationContext().getResources().getString(R.string.celeste),getApplicationContext().getResources().getString(R.string.lime)
-                ,getApplicationContext().getResources().getString(R.string.ciano),getApplicationContext().getResources().getString(R.string.rosso),getApplicationContext().getResources().getString(R.string.grigio),getApplicationContext().getResources().getString(R.string.verde),getApplicationContext().getResources().getString(R.string.viola),getApplicationContext().getResources().getString(R.string.indaco),getApplicationContext().getResources().getString(R.string.marrone)};//char sequence o string non da problemi
+                ,getApplicationContext().getResources().getString(R.string.ciano),getApplicationContext().getResources().getString(R.string.rosso),getApplicationContext().getResources().getString(R.string.grigio),getApplicationContext().getResources().getString(R.string.verde),getApplicationContext().getResources().getString(R.string.viola),getApplicationContext().getResources().getString(R.string.indaco),getApplicationContext().getResources().getString(R.string.marrone)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
         builder.setTitle(R.string.chooseColor);
         builder.setIcon(R.mipmap.palette_icon);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                //colorIndex=item;
                 color=Memo.getColors(item);
                 setColorOnTitleAndText();
             }
@@ -170,7 +168,13 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     public void onBackPressed(){
         finish();
     }
+    @Override
+    public void onDestroy(){
+       super.onDestroy();
+        System.out.println("memomodify destroy");
+        dao.close();
 
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items

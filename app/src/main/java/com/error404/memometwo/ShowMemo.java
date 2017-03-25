@@ -24,15 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 //da sistemare,da aggiungere fragment
 public class ShowMemo extends AppCompatActivity {
-    TextView emojitxt;
-    TextView txtViewTitle;
-    TextView txtViewNota;
-    int color;
-    int position;
-    int emoji;
+    private DAO dao;
+    private TextView emojitxt;
+    private TextView txtViewTitle;
+    private TextView txtViewNota;
+    private int color;
+    private int position;
+    private int emoji;
     private String password;
     private static Activity refer;
-    //private String KEY="key";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@ public class ShowMemo extends AppCompatActivity {
         position = bun.getInt(Values.BUNDLE_KEY);
         //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DAO dao = new DAO(this);
+        dao = new DAO(this);
         dao.open();
         Memo m = dao.loadMemoByPosition(position);
         color=m.getColor();
@@ -78,8 +78,8 @@ public class ShowMemo extends AppCompatActivity {
     }
 
     public void deleteThisMemo(){
-        DAO dao=new DAO(this);
-        dao.open();
+        //DAO dao=new DAO(this);
+        //dao.open();
         int id=dao.findIdByPosition(position);
         dao.deleteMemoByIdFromDB(id);
         finish();
@@ -94,23 +94,23 @@ public class ShowMemo extends AppCompatActivity {
     }
     public boolean isEncrypted(){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
-        DAO dao=new DAO(this);
-        dao.open();//necessaria??
+        //DAO dao=new DAO(this);
+        //dao.open();//necessaria??
         return dao.isEncrypted(position);
     }
 
     public void insertEncryptToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         this.password = password;
-        DAO dao=new DAO(this);
-        dao.open();
+        //DAO dao=new DAO(this);
+        //dao.open();
         dao.addEncryptionToPasswordAndText(position,password);
     }
 
     public void deleteEncryptionToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
-        DAO dao=new DAO(this);
-        dao.open();
+        //DAO dao=new DAO(this);
+        //dao.open();
         dao.deleteEncryptionToPasswordAndText(position,password);
     }
 
@@ -177,14 +177,14 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals("")) {
+                                if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals(Values.EMPTY_STRING)) {
                                     insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                     dialog.cancel();
                                     invalidateOptionsMenu();
                                 }else{
                                     Toast.makeText(ShowMemo.this,R.string.pswMatch, Toast.LENGTH_SHORT).show();
-                                    nameEditText.setText("");
-                                    nameEditText2.setText("");
+                                    //nameEditText.setText(Values.EMPTY_STRING);
+                                    //nameEditText2.setText(Values.EMPTY_STRING);
                                 }
                             }
 
@@ -228,6 +228,13 @@ public class ShowMemo extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("show memo destroy");
+        dao.close();
+
     }
 
 }

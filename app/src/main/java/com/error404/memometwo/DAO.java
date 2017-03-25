@@ -12,7 +12,6 @@ import java.util.Calendar;
 public class DAO {
     private DatabaseHelper dbh;
     private SQLiteDatabase database;
-    //private final static String SELECT_ALL="SELECT * FROM memos ";
     private final  String SELECT_ALL="SELECT * FROM memos";
     private final  String SORTTYPE="sorttype";
     private final  String ASCDESC="ascdesc";
@@ -34,13 +33,6 @@ public class DAO {
     public final  static String ONLYUPDATEGUI="onlyUpdateGUI";
     private final  String DELETE_ALL_NOT_ENCRYPTED="delete from memos where encryption<>1";
     private final  String SELECT_SORT="select ascdesc,sorttype from sort";
-    private final  int NUMBER_FORMAT_DATE=3;
-    private final  int INDEX_DAY=0;
-    private final  int INDEX_MONTH=1;
-    private final  int INDEX_YEAR=2;
-    private final  int ERROR_CODE=2;
-    private final  int FALSE=0;
-    public final  static int TRUE=1;
     private final  String DELETE_MEMO="delete from memos";
     private final String ASC="asc";
     private final  String DESC="desc";
@@ -77,7 +69,7 @@ public class DAO {
                 return id;
             }
         }
-        return ERROR_CODE;//non sono riuscito a trovare l'id dalla posizione
+        return Values.ERROR_CODE;//non sono riuscito a trovare l'id dalla posizione
     }
     public Memo loadMemoByPosition(int position){
         int id=findIdByPosition(position);
@@ -118,17 +110,17 @@ public class DAO {
     }
 
     public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
-        int arr[]=new int[NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
-        arr[INDEX_DAY]=c.getInt(c.getColumnIndex(DAYDATECREATION));
-        arr[INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHDATECREATION));
-        arr[INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARDATECREATION));
+        int arr[]=new int[Values.NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
+        arr[Values.INDEX_DAY]=c.getInt(c.getColumnIndex(DAYDATECREATION));
+        arr[Values.INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHDATECREATION));
+        arr[Values.INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARDATECREATION));
         return arr;
     }
     public int[] getLastModify(Cursor c){//ottiene data ultima modifica da cursore
-        int arr[]=new int[NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
-        arr[INDEX_DAY]=c.getInt(c.getColumnIndex(DAYLASTMODIFY));
-        arr[INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHLASTMODIFY));
-        arr[INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARLASTMODIFY));
+        int arr[]=new int[Values.NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
+        arr[Values.INDEX_DAY]=c.getInt(c.getColumnIndex(DAYLASTMODIFY));
+        arr[Values.INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHLASTMODIFY));
+        arr[Values.INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARLASTMODIFY));
         return arr;
     }
 
@@ -259,7 +251,7 @@ public class DAO {
         sqLiteStatement.bindLong(8,day);
         sqLiteStatement.bindLong(9,month);
         sqLiteStatement.bindLong(10,year);
-        sqLiteStatement.bindLong(11,FALSE);
+        sqLiteStatement.bindLong(11,Values.FALSE);
         sqLiteStatement.execute();
         //database.execSQL(sql);
     }
@@ -278,7 +270,7 @@ public class DAO {
     public boolean isEncrypted(int position){
        Memo mem=loadMemoByPosition(position);
        if(mem!=null){
-           if(mem.getEncryption()==TRUE){
+           if(mem.getEncryption()==Values.TRUE){
                return true;
            }
        }
@@ -290,14 +282,14 @@ public class DAO {
     public void addEncryptionToPasswordAndText(int position,String password){//aggiorna i dati nel database cifrando testo,password
         //e settando encryption a 1
         Memo m=loadMemoByPosition(position);
-        m.setEncryption(TRUE);
+        m.setEncryption(Values.TRUE);
         m.setPassword(Encrypt.encryption(password,password));
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
     public void deleteEncryptionToPasswordAndText(int position,String password){
         Memo m=loadMemoByPosition(position);
-        m.setEncryption(FALSE);
+        m.setEncryption(Values.FALSE);
         m.setPassword(Encrypt.decryption(m.getPassword(),password));
         m.setText(Encrypt.decryption(m.getText(),password));
         saveMemo(m,m.getId());
