@@ -145,7 +145,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 setColorOnTitleAndText();
             }
         }).show();
-    }
+    }//
         public void alertChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji2, null, false);
