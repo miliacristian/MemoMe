@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static java.security.AccessController.getContext;
-//da pulire LISTENER ,da aggiungere fragment
+//da ordinare ,da aggiungere fragment
 
 // modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
@@ -56,7 +56,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertTest();
+                alertChooseEmoji();
             }
         });
         colorModify=(ImageView)findViewById(R.id.colorModify);
@@ -143,7 +143,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         }).show();
     }
-        public void alertTest(){
+        public void alertChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView lV=(ListView)customView.findViewById(R.id.listV);

@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import static java.security.AccessController.getContext;
-//ordinata,manca la parte delle emoji in xml
+//finita ordinata
 public class Memo {
     private static final int[]COLORS={R.color.white, R.color.pink,R.color.lightBlue,R.color.lime,R.color.cyan,R.color.red,R.color.grey,R.color.green,R.color.purple,R.color.indigo,R.color.brown};
-    //private static final int[]EMOJIS={R.integer.emojiRide1,R.integer.emojiSbadata2,R.integer.emojiRide3,R.integer.emojiFlirt4,R.integer.emojiLove5};
-    private static final int[]EMOJIS={0x1f604,0x1f605,0x1f606,0x1f609,0x1f60d,0x1F61C,0x1f602};
+    private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
+            MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide3),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
+            MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.tongue),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.funny)};
     private int id;
     private String title;
     private String text;

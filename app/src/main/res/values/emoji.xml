@@ -5,4 +5,6 @@
     <integer name="emojiRide3">0x1f606</integer>
     <integer name="emojiFlirt4">0x1f609</integer>
     <integer name="emojiLove5">0x1f60d</integer>
+    <integer name="tongue">0x1F61C</integer>
+    <integer name="funny">0x1f602</integer>
 </resources>

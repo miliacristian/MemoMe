@@ -30,15 +30,16 @@ public class MemoMeMain extends AppCompatActivity
     private ListView myListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
-
+    private static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_me_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        context=getApplicationContext();
         dao = new DAO(this);
         dao.open();
+        setSupportActionBar(toolbar);
         memoList = dao.loadAllMemo();
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
         buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,9 @@ public class MemoMeMain extends AppCompatActivity
 
     public void deleteAllMemo() {
         dao.deleteAllMemoNotEncrypted();
+    }
+    public static Context getIstanceContext(){
+        return context;
     }
 
     public void updateSortAndGUI(String type) {
