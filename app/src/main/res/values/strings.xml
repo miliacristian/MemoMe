@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MemoMeTwo</string>
+    <string name="app_name">MemoMe</string>
     <string name="action_settings">Impostazioni</string>
     <string name="btnDelete">Elimina</string>
     <string name="btnDeleteAll">Cancella note non cifrate</string>
