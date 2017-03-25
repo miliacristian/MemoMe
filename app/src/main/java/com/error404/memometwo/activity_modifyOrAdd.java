@@ -155,6 +155,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             emojiList=Memo.getListEmojis();
             emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiList);
             listView.setAdapter(emAdapt);
+            listView.setScrollbarFadingEnabled(false);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
             builder.setView(customView);
             builder.setTitle(R.string.chooseEmoji);
