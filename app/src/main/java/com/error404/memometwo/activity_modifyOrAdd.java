@@ -96,8 +96,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     //DAO dao = new DAO(activity_modifyOrAdd.this);
                     //dao.open();
                     if (mode.equals(ADD_MODE)) {//aggiungi al db
-                        dao.addMemoToDB(title, text,emoji, color);//se color non viene modificato che colore ho?
-                        // mettere color a valore bianco di default
+                        dao.addMemoToDB(title, text,emoji, color);
                         finish();
                     } else {//aggiorna memo con tutti i dati
                         if (currentMemo.getEncryption() == Values.TRUE){

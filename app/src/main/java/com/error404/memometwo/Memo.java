@@ -79,17 +79,17 @@ public class Memo {
         return lastModify;
     }
 
-    public void setLastModify(Calendar lastModify) {
+    /*public void setLastModify(Calendar lastModify) {
         this.lastModify = lastModify;
-    }
+    }*/
 
     public Calendar getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Calendar dateCreation) {
+    /*public void setDateCreation(Calendar dateCreation) {
         this.dateCreation = dateCreation;
-    }
+    }*/
 
     public int getEncryption() {
         return encryption;

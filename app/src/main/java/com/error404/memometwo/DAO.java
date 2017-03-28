@@ -52,14 +52,14 @@ public class DAO {
 
     public int findIdByPosition(int position){
         int id;
-        Cursor c=getRowSort();
-        if(c!=null) {
-            c.moveToFirst();
-            String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
-            String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
-            String sortMethod = ORDER_BY+ " " + actualSortType + " " + actualAscDesc;
+        RowSort rowSort=getRowSort();
+        if(rowSort!=null) {
+            //c.moveToFirst();
+            //String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
+            //String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
+            String sortMethod = ORDER_BY+ " " + rowSort.getSortType()+ " " + rowSort.getAscDesc();
             String sql = SELECT_ALL +" "+sortMethod;
-            c.close();
+            //c.close();
             Cursor cursor = database.rawQuery(sql, null);
             if (cursor != null) {
                 cursor.moveToFirst();
@@ -166,13 +166,13 @@ public class DAO {
     }
 
     public ArrayList<Memo>loadAllMemo(){//carica tutti i memo secondo l'ordinamento,vedendo dapprima il tipo di ordinamento e poi query
-        Cursor c=getRowSort();//cursori locali chiudibili
-        if(c!=null) {
-            c.moveToFirst();
-            String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
-            String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
-            String sortMethod = ORDER_BY+" "+actualSortType+" "+ actualAscDesc;
-            c.close();
+        RowSort rowSort=getRowSort();//cursori locali chiudibili
+        if(rowSort!=null) {
+            //c.moveToFirst();
+            //String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
+            //String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
+            String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
+            //c.close();
             String sql = SELECT_ALL +" "+sortMethod;
             Cursor tabAllMemos = database.rawQuery(sql, null);
             if(tabAllMemos!=null) {
@@ -190,21 +190,31 @@ public class DAO {
         if(newSortType.equals(ONLYUPDATEGUI)){
             return;
         }
-        Cursor c=getRowSort();//cursore locale chiudibile
-        if(c!=null) {
-            c.moveToFirst();
-            String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
-            String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
-            c.close();
-            if (actualSortType.equals(newSortType)) {
-                switchAscDescIntoDB(actualAscDesc);
+        RowSort rowSort=getRowSort();//cursore locale chiudibile
+        if(rowSort!=null) {
+            //c.moveToFirst();
+            //String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
+            //String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
+            //c.close();
+            if (rowSort.getSortType().equals(newSortType)) {
+                switchAscDescIntoDB(rowSort.getAscDesc());
             } else {
                 updateOnlySortTypeIntoDB(newSortType);
             }
         }
         return;
     }
-    public Cursor getRowSort(){
+    public RowSort getRowSort(){
+        //cursore locale da ritornare non chiudibile
+        Cursor c=getCursorRowSort();
+        c.moveToFirst();
+        String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
+        String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
+        c.close();
+        RowSort rowsort=new RowSort(actualAscDesc,actualSortType);
+        return rowsort;
+    }
+    public Cursor getCursorRowSort(){
         Cursor c=null;//cursore locale da ritornare non chiudibile
         c = database.rawQuery(SELECT_SORT, null);
         return c;
