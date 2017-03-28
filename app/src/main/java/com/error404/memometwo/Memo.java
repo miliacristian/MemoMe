@@ -11,7 +11,7 @@ import static java.security.AccessController.getContext;
 //finita ordinata
 public class Memo {
     private static final int[]COLORS={R.color.white, R.color.pink,R.color.lightBlue,R.color.lime,R.color.cyan,R.color.red,R.color.grey,R.color.green,R.color.purple,R.color.indigo,R.color.brown};
-    private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
+    private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
             MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide3),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
             MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.tongue),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.funny)};
     private int id;

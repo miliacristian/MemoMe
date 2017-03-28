@@ -29,7 +29,12 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
         }
         TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
         if (emojis != null){
-            emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
+            if(position==0){
+                emojis.setText("NO EMOJI");
+            }
+            else {
+                emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
+            }
         }
         return rowView;
     }

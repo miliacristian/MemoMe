@@ -83,7 +83,12 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             titleModify.setText(currentMemo.getTitle());
             color=currentMemo.getColor();
             emoji=currentMemo.getEmoji();
-            emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+            if(emoji==0){
+                emojiModify.setText("click me");
+            }
+            else {
+                emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+            }
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         }
         FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);//floating button
@@ -167,8 +172,17 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
-                    emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-                    alertDialog.dismiss();
+                    if(position==0){
+                        System.out.println(emojiModify.getTextSize());
+                        //emojiModify.setTextSize(30);
+                        emojiModify.setText("click me");
+                        alertDialog.dismiss();
+                    }
+                    //emoji=Memo.getEmoji(position);
+                    else {
+                        emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+                        alertDialog.dismiss();
+                    }
                 }
             });
         }
