@@ -149,8 +149,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji2, null, false);
             ListView listView=(ListView)customView.findViewById(R.id.listV);
-            TextView tv=(TextView)customView.findViewById(R.id.closed);
-            tv.setClickable(true);
             emojiList=Memo.getListEmojis();
             emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiList);
             listView.setAdapter(emAdapt);
@@ -159,18 +157,17 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             builder.setView(customView);
             builder.setTitle(R.string.chooseEmoji);
             builder.setIcon(R.mipmap.smile_icon);
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
             final AlertDialog alertDialog=builder.show();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
                     emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-                    alertDialog.dismiss();
-                }
-            });
-            tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
                     alertDialog.dismiss();
                 }
             });

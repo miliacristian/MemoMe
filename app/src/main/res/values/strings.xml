@@ -10,6 +10,7 @@
     <string name="chooseEmoji">Scegli una emoticon</string>
     <string name="confirmDeleteAll">Sei sicuro di voler eliminare tutte le note non cifrate?</string>
     <string name="confirmDecode"></string>
+    <string name = "emptyPass">Password vuota non ammessa</string>>
     <string name="created">Creato:</string>
     <string name="deleteAllNotEncoded">Elimina note non cifrate</string>
     <string name="decodeText">Sei sicuro di voler decifrare la nota?</string>

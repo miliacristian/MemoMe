@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -177,14 +178,18 @@ public class ShowMemo extends AppCompatActivity {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                if(nameEditText.getText().toString().equals(nameEditText2.getText().toString())&&!nameEditText.equals(Values.EMPTY_STRING)) {
-                                    insertEncryptToPasswordAndText(nameEditText.getText().toString());
-                                    dialog.cancel();
-                                    invalidateOptionsMenu();
-                                }else{
-                                    Toast.makeText(ShowMemo.this,R.string.pswMatch, Toast.LENGTH_SHORT).show();
-                                    //nameEditText.setText(Values.EMPTY_STRING);
-                                    //nameEditText2.setText(Values.EMPTY_STRING);
+                                if(TextUtils.isEmpty(nameEditText.getText())){
+                                    Toast.makeText(ShowMemo.this,R.string.emptyPass, Toast.LENGTH_SHORT).show();
+                                }else {
+                                    if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
+                                        insertEncryptToPasswordAndText(nameEditText.getText().toString());
+                                        dialog.cancel();
+                                        invalidateOptionsMenu();
+                                    } else {
+                                        Toast.makeText(ShowMemo.this, R.string.pswMatch, Toast.LENGTH_SHORT).show();
+                                        //nameEditText.setText(Values.EMPTY_STRING);
+                                        //nameEditText2.setText(Values.EMPTY_STRING);
+                                    }
                                 }
                             }
 
