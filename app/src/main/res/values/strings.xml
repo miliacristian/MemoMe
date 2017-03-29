@@ -56,5 +56,7 @@
     <string name="verde">Verde</string>
     <string name="marrone">Marrone</string>
     <string name="chiudi">Chiudi</string>
+    <string name="nessuna_emoji">No Emoji</string>
+    <string name="clickMe">Click Me</string>
 
 </resources>

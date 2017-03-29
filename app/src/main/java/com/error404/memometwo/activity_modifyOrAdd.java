@@ -50,7 +50,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
         emojiModify.setClickable(true);
-        emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+        //emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+        emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +84,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             titleModify.setText(currentMemo.getTitle());
             color=currentMemo.getColor();
             emoji=currentMemo.getEmoji();
-            if(emoji==0){
-                emojiModify.setText("click me");
+            if(emoji==Values.INDEX_EMPTY_EMOJI){
+                emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
             }
             else {
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
@@ -172,10 +173,10 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
-                    if(position==0){
+                    if(position==Values.INDEX_EMPTY_EMOJI){
                         System.out.println(emojiModify.getTextSize());
                         //emojiModify.setTextSize(30);
-                        emojiModify.setText("click me");
+                        emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
                         alertDialog.dismiss();
                     }
                     //emoji=Memo.getEmoji(position);

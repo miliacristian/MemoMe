@@ -7,7 +7,7 @@ package com.error404.memometwo;
 public class Values {
 
     public final static String EMPTY_STRING="";
-    public  final static int DEFAULT_EMOJI=0x1f604;
+    public  final static int DEFAULT_EMOJI=0x0;
     public  final static int DEFAULT_COLOR = Memo.getColors(0);
     public final static String BUNDLE_KEY="key";
     public final static int NO_POSITION=-1;
@@ -21,4 +21,5 @@ public class Values {
     public final  static int ERROR_CODE=2;
     public final  static int FALSE=0;
     public final  static int TRUE=1;
+    public final static int INDEX_EMPTY_EMOJI=0;
 }

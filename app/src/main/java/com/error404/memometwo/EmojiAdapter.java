@@ -29,8 +29,8 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
         }
         TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
         if (emojis != null){
-            if(position==0){
-                emojis.setText("NO EMOJI");
+            if(position==Values.INDEX_EMPTY_EMOJI){
+                emojis.setText(getContext().getResources().getString(R.string.nessuna_emoji));
             }
             else {
                 emojis.setText(Memo.getEmojiByUnicode(Memo.getEmoji(position)));
