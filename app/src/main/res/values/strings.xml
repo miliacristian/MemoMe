@@ -7,7 +7,7 @@
     <string name="cancel">Annulla</string>
     <string name="confirmDelete">Sei sicuro di voler eliminare la nota?</string>
     <string name="chooseColor">Scegli un colore</string>
-    <string name="chooseEmoji">Scegli una emoticon</string>
+    <string name="chooseEmoji">Scegli una emoji</string>
     <string name="confirmDeleteAll">Sei sicuro di voler eliminare tutte le note non cifrate?</string>
     <string name="confirmDecode"></string>
     <string name = "emptyPass">Password vuota non ammessa</string>>
@@ -56,7 +56,7 @@
     <string name="verde">Verde</string>
     <string name="marrone">Marrone</string>
     <string name="chiudi">Chiudi</string>
-    <string name="nessuna_emoji">No Emoji</string>
-    <string name="clickMe">Click Me</string>
+    <string name="nessuna_emoji">Nessuna Emoji</string>
+    <string name="clickMe">Emoji</string>
 
 </resources>
