@@ -34,6 +34,8 @@ public class ShowMemo extends AppCompatActivity {
     private int emoji;
     private String password;
     private static Activity refer;
+    private Toast emptyToast;
+    private Toast matchTaost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,14 +181,22 @@ public class ShowMemo extends AppCompatActivity {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 if(TextUtils.isEmpty(nameEditText.getText())){
-                                    Toast.makeText(ShowMemo.this,R.string.emptyPass, Toast.LENGTH_SHORT).show();
+                                    if(emptyToast!= null){
+                                        emptyToast.cancel();
+                                    }
+                                    emptyToast=Toast.makeText(ShowMemo.this,R.string.emptyPass, Toast.LENGTH_SHORT);
+                                    emptyToast.show();
                                 }else {
                                     if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
                                         insertEncryptToPasswordAndText(nameEditText.getText().toString());
                                         dialog.cancel();
                                         invalidateOptionsMenu();
                                     } else {
-                                        Toast.makeText(ShowMemo.this, R.string.pswMatch, Toast.LENGTH_SHORT).show();
+                                        if (matchTaost != null){
+                                            matchTaost.cancel();
+                                        }
+                                        matchTaost = Toast.makeText(ShowMemo.this, R.string.pswMatch, Toast.LENGTH_SHORT);
+                                        matchTaost.show();
                                         //nameEditText.setText(Values.EMPTY_STRING);
                                         //nameEditText2.setText(Values.EMPTY_STRING);
                                     }

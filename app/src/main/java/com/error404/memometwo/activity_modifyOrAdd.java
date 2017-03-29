@@ -36,6 +36,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private String mode=Values.EMPTY_STRING;
     private final String ADD_MODE="addMode";
     private final String MODIFY_MODE="modifyMode";
+    private Toast mToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,7 +124,11 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     }
                 }
                 else{
-                        Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT).show();
+                    if (mToast != null){
+                        mToast.cancel();
+                    }
+                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
+                    mToast.show();
                     }
                 }
         });
