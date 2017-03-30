@@ -1,4 +1,4 @@
-package com.error404.memometwo;
+package com.error404.memome;
 
 import java.security.SecureRandom;
 

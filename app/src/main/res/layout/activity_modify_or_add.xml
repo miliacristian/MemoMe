@@ -5,7 +5,7 @@
     android:id="@+id/activity_modify_or_add"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.error404.memometwo.activity_modifyOrAdd">
+    tools:context="com.error404.memome.activity_modifyOrAdd">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">

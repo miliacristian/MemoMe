@@ -1,4 +1,4 @@
-package com.error404.memometwo;
+package com.error404.memome;
 
 import android.app.AlertDialog;
 import android.content.Context;

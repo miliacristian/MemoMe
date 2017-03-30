@@ -1,11 +1,9 @@
-package com.error404.memometwo;
+package com.error404.memome;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 
 public class SplashScreen extends AppCompatActivity {
 

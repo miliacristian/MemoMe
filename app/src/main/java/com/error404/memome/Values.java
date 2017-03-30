@@ -1,4 +1,4 @@
-package com.error404.memometwo;
+package com.error404.memome;
 
 /**
  * Created by cristian on 24/03/17.

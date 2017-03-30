@@ -1,4 +1,4 @@
-package com.error404.memometwo;
+package com.error404.memome;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,11 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 //da sistemare,da aggiungere fragment
