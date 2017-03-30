@@ -23,7 +23,8 @@
             android:name=".ShowMemo"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".SplashScreen">
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

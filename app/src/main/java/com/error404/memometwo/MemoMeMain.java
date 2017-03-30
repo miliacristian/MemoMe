@@ -69,7 +69,7 @@ public class MemoMeMain extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                if (memoList.get(position).getEncryption() == 1) {
+                if (memoList.get(position).getEncryption() == Values.TRUE) {
                     //alert dialog che prende in input la password e la verifica
                     alertEncrypted(position);
 
@@ -259,7 +259,7 @@ public class MemoMeMain extends AppCompatActivity
                 public void run() {
                     doubleBackPressed = false;
                 }
-            }, 2000);
+            },Values.EXIT_TIMEOUT);
         }
 
     }
