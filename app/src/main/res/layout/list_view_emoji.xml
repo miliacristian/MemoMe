@@ -9,14 +9,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="1"
-        tools:ignore="UselessParent">
+        >
 
         <ListView
             android:id="@+id/listV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.97"
-            tools:ignore="InefficientWeight" />
+             />
 
     </LinearLayout>
 

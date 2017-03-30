@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         app:srcCompat="@android:drawable/ic_menu_edit"
-        android:layout_weight="0.92"
         app:elevation="4dp"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
@@ -30,6 +29,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="39dp"
         android:scaleType="center"
-        tools:ignore="ObsoleteLayoutParam" />
+         />
 
 </RelativeLayout>

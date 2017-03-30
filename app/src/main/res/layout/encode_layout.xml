@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="top|center"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        >
 
         <EditText
             android:id="@+id/nameEditText"
