@@ -10,17 +10,17 @@
     <string name="chooseColor">Scegli un colore</string>
     <string name="chooseEmoji">Scegli una emoji</string>
     <string name="confirmDeleteAll">Sei sicuro di voler eliminare tutte le note non cifrate?</string>
-    <string name="confirmDecode"></string>
+    <string name="confirmDecode" translatable="false"></string>
     <string name="emptyPass">Password vuota non ammessa</string>>
     <string name="created">Creato:</string>
     <string name="deleteAllNotEncoded">Elimina note non cifrate</string>
     <string name="decodeText">Sei sicuro di voler decifrare la nota?</string>
-    <string name="developers">Credits:DelloVicario Milia DeTurris</string>
+    <string name="developers" translatable="false">Credits:DelloVicario Milia DeTurris</string>
     <string name="delete">Elimina</string>
     <string name="decode">Decifra</string>
     <string name="encodeBtn">Encode</string>
     <string name="decodeBtn">Decode</string>
-    <string name="emojiProva">0x1f604</string>
+    <string name="emojiProva" translatable="false">0x1f604</string>
     <string name="handler_notes">Gestisci note</string>
     <string name="insertText">Inserisci testo qui</string>
     <string name="incorrectPsw">Password errata</string>
@@ -28,11 +28,11 @@
     <string name="insertTitle">Inserisci titolo</string>
     <string name="memoMe">MemoMe</string>
     <string name="modified">Modificato:</string>
-    <string name="nothing"></string>
+    <string name="nothing" translatable="false"></string>
     <string name="needTitle">Inserisci Titolo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="ok">Ok</string>
+    <string name="ok" translatable="false">Ok</string>
     <string name="pswMatch">Le password non coincidono!</string>
     <string name="sortBy">Ordina per:</string>
     <string name="sortTitle">Titolo</string>
@@ -42,7 +42,7 @@
     <string name="sortEmoji">Emoji</string>
     <string name="type_your_password">Inserisci la tua password...</string>
     <string name="type_password">Inserisci Password...</string>
-    <string name="textview">TextView</string>
+    <string name="textview" translatable="false">TextView</string>
     <string name="warningMemoEncoded">Nota cifrata!</string>
     <string name="warningMemoEncodedText">La nota è cifrata,inserisci la password per visualizzarla.</string>
     <string name="bianco">Bianco</string>
