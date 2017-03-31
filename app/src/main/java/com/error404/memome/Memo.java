@@ -128,4 +128,8 @@ public class Memo {
         }
         return listEmojis;
     }
+    @Override
+    public String toString() {
+        return this.title.toLowerCase();
+    }
 }

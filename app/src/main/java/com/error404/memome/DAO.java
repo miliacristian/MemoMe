@@ -89,6 +89,8 @@ public class DAO {
         return memo;
     }
 
+
+
      public Memo loadMemoByCursorOneRow(Cursor c){//cursore chiuso nella loadMemoById
         //per loadAllMemo
         if(c!=null) {//cursore preso come parametro,chiudibile??
