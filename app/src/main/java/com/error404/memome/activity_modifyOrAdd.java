@@ -33,6 +33,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private TextView emojiModify;
     private ImageView colorModify;//a ch emi serve??
     private EmojiAdapter emAdapt;
+    private ColorAdapter colorAdapt;
     private String mode=Values.EMPTY_STRING;
     private final String ADD_MODE="addMode";
     private final String MODIFY_MODE="modifyMode";
@@ -138,10 +139,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
 
     public void alertDialogChooseColor() {
-        final String[] items = { getApplicationContext().getResources().getString(R.string.bianco),getApplicationContext().getResources().getString(R.string.rosa),getApplicationContext().getResources().getString(R.string.celeste),getApplicationContext().getResources().getString(R.string.lime)
-                ,getApplicationContext().getResources().getString(R.string.ciano),getApplicationContext().getResources().getString(R.string.rosso),getApplicationContext().getResources().getString(R.string.grigio),getApplicationContext().getResources().getString(R.string.verde),getApplicationContext().getResources().getString(R.string.viola),getApplicationContext().getResources().getString(R.string.indaco),getApplicationContext().getResources().getString(R.string.marrone)};
-
+        ArrayList<Integer> colorsList;
+        LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+        View customView = inflater.inflate(R.layout.list_view_color, null, false);
+        ListView listView=(ListView)customView.findViewById(R.id.listColor);
+        colorsList=Memo.getColorsList();
+        colorAdapt =new ColorAdapter(activity_modifyOrAdd.this,R.layout.color_layout,colorsList);
+        listView.setAdapter(colorAdapt);
+        listView.setScrollbarFadingEnabled(false);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
+        builder.setView(customView);
         builder.setTitle(R.string.chooseColor);
         builder.setIcon(R.mipmap.palette_icon);
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -149,13 +156,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                color=Memo.getColors(item);
+        final AlertDialog alertDialog=builder.show();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                color=Memo.getColors(position);
                 setColorOnTitleAndText();
+                    alertDialog.dismiss();
             }
-        }).show();
-    }//
+        });
+    }
         public void alertChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);

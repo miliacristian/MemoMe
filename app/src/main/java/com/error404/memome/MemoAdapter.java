@@ -59,15 +59,15 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
         }
         return rowView;
     }
-    @Override
+    /*@Override
     public Filter getFilter() {
         if (taskFilter == null)
             taskFilter = new TaskFilter();
 
         return taskFilter;
-    }
+    }*/
 
-    private class TaskFilter extends Filter {
+    /*private class TaskFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering (CharSequence constraint) {
@@ -107,5 +107,5 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
     {
         return memoList.size();
     }
-
+*/
 }

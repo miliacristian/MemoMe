@@ -33,6 +33,7 @@ public class MemoMeMain extends AppCompatActivity
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
     private static Context context;
+    private SearchView searchView;
     private boolean doubleBackPressed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +105,7 @@ public class MemoMeMain extends AppCompatActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.memo_me_main, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
-        SearchView searchView = (SearchView)item.getActionView();
+        searchView = (SearchView)item.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -114,8 +115,11 @@ public class MemoMeMain extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mem.getFilter().filter(newText);
-
+                //System.out.println(newText);
+                ArrayList<Memo> filteredMemos=getFilteredMemos(newText);
+                mem = new MemoAdapter(MemoMeMain.this, R.layout.rawlayout,filteredMemos);
+                myListView.setAdapter(mem);
+                //mem.getFilter().filter(newText);
                 return false;
             }
         });
@@ -249,6 +253,20 @@ public class MemoMeMain extends AppCompatActivity
                 .show();
 
     }
+    public ArrayList<Memo> getFilteredMemos(String newText){
+        ArrayList<Memo> filteredMemos=new ArrayList<Memo>();
+        ArrayList<Memo> allMemo=dao.loadAllMemo();
+        if(newText.equals("")){
+            filteredMemos=allMemo;
+            return filteredMemos;
+        }
+        for(int i=0;i<allMemo.size();i++){
+            if(allMemo.get(i).getTitle().contains(newText)){
+                filteredMemos.add(allMemo.get(i));
+            }
+        }
+        return filteredMemos;
+    }
 
     @Override
     public void onResume() {
@@ -262,6 +280,10 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(searchView!=null && !searchView.isIconified()){
+            searchView.onActionViewCollapsed();
+            return;
+        }
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
