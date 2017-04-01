@@ -17,10 +17,12 @@ import java.util.ArrayList;
 //finita e ordinata
 public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
     private ArrayList<Memo> memoList;
+    private ArrayList<Memo> filteredMemo;
     private Filter taskFilter;
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
         super(c,textViewId,memoList);
         this.memoList=memoList;//ho tutti i riferimenti alle memo
+        this.filteredMemo = memoList;
     }
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
@@ -69,7 +71,7 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
 
     private class TaskFilter extends Filter {
 
-        @Override
+       /* @Override
         protected FilterResults performFiltering (CharSequence constraint) {
             FilterResults results = new FilterResults();
             if (constraint == null) {
@@ -85,7 +87,35 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
                 results.values = newTaskList;
                 results.count = newTaskList.size();
             } return results;
-        }
+        }*/
+       @Override
+       protected FilterResults performFiltering(CharSequence constraint){
+           FilterResults results = new FilterResults();
+           String prefix = constraint.toString().toLowerCase();
+
+           if (prefix == null || prefix.length() == 0){
+               ArrayList<Memo> list = new ArrayList<Memo>(memoList);
+               results.values = list;
+               results.count = list.size();
+           }else{
+               final ArrayList<Memo> list = new ArrayList<Memo>(memoList);
+               final ArrayList<Memo> nlist = new ArrayList<Memo>();
+               int count = list.size();
+               System.out.println(count);
+
+               for (int i = 0; i<count; i++){
+                   final Memo memo = list.get(i);
+                   final String value = memo.getTitle().toLowerCase();
+
+                   if(value.contains(prefix)){
+                       nlist.add(memo);
+                   }
+                   results.values = nlist;
+                   results.count = nlist.size();
+               }
+           }
+           return results;
+       }
 
         @SuppressWarnings("unchecked")
         @Override
