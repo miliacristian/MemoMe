@@ -42,7 +42,6 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
             LinearLayout rowListView=(LinearLayout)rowView.findViewById(R.id.linearExternal);
             if(rowListView!=null) {
                 rowListView.setBackgroundColor(ContextCompat.getColor(getContext(),memo.getColor()));
-
             }
             if (emoji != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
                 emoji.setText(Memo.getEmojiByUnicode(memo.getEmoji()));
@@ -88,54 +87,4 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
                 results.count = newTaskList.size();
             } return results;
         }*/
-       @Override
-       protected FilterResults performFiltering(CharSequence constraint){
-           FilterResults results = new FilterResults();
-           String prefix = constraint.toString().toLowerCase();
-
-           if (prefix == null || prefix.length() == 0){
-               ArrayList<Memo> list = new ArrayList<Memo>(memoList);
-               results.values = list;
-               results.count = list.size();
-           }else{
-               final ArrayList<Memo> list = new ArrayList<Memo>(memoList);
-               final ArrayList<Memo> nlist = new ArrayList<Memo>();
-               int count = list.size();
-               System.out.println(count);
-
-               for (int i = 0; i<count; i++){
-                   final Memo memo = list.get(i);
-                   final String value = memo.getTitle().toLowerCase();
-
-                   if(value.contains(prefix)){
-                       nlist.add(memo);
-                   }
-                   results.values = nlist;
-                   results.count = nlist.size();
-               }
-           }
-           return results;
-       }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint,
-                                      FilterResults results) {
-
-            // Now we have to inform the adapter about the new list filtered
-            if (results.count == 0)
-                notifyDataSetInvalidated();
-            else {
-                memoList = (ArrayList<Memo>)results.values;
-                notifyDataSetChanged();
-            }
-
-        }
-    }
-    @Override
-    public int getCount()
-    {
-        return memoList.size();
-    }
-*/
 }
