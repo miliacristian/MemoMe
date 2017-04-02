@@ -40,11 +40,18 @@ public class ShowMemo extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         position = bun.getInt(Values.BUNDLE_KEY);
+        int id=bun.getInt(Values.IS_FILTERED);
         //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dao = new DAO(this);
         dao.open();
-        Memo m = dao.loadMemoByPosition(position);
+        Memo m;
+        if(id==Values.MEMO_NOT_FILTERED){
+            m = dao.loadMemoByPosition(position);
+        }
+        else{
+            m=dao.loadMemoById(id);
+        }
         color=m.getColor();
         emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
@@ -54,7 +61,7 @@ public class ShowMemo extends AppCompatActivity {
         //inizializzare opportunamente emoji
         setColorOnTitleAndText();
         // if encrypted
-        if (dao.isEncrypted(position)){
+        if (m.isEncrypted()){
             password = bun.getString(DAO.PASSWORD);
             dao.decryptText(m, password);
         }

@@ -23,4 +23,6 @@ public class Values {
     public final  static int TRUE=1;
     public final static int INDEX_EMPTY_EMOJI=0;
     public final static int EXIT_TIMEOUT=2000;
+    public final static int MEMO_NOT_FILTERED=-3;
+    public final static String IS_FILTERED="is filtered?";
 }

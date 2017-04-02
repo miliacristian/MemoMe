@@ -144,6 +144,12 @@ public class Memo {
         }
         return listColors;
     }
+    public boolean isEncrypted(){
+        if(this.encryption==1){
+            return true;
+        }
+        return false;
+    }
     @Override
     public String toString() {
         return this.title.toLowerCase();
