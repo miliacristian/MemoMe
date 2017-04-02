@@ -85,7 +85,7 @@ public class MemoMeMain extends AppCompatActivity
                     myIntent.putExtras(bun);
                     startActivity(myIntent);
                 }*/
-                goToShowMemoActivity(position,Values.MEMO_NOT_FILTERED);
+                goToShowMemoActivity(position,memoList.get(position).getId());
             }
         });
     }
@@ -93,12 +93,7 @@ public class MemoMeMain extends AppCompatActivity
         System.out.println(position);
         System.out.println(id);
         Memo m;
-        if(id==Values.MEMO_NOT_FILTERED) {
-            m = memoList.get(position);
-        }
-        else {
-            m=dao.loadMemoById(id);
-        }
+        m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
             //alert dialog che prende in input la password e la verifica
             alertEncrypted(position,id);

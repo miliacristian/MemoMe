@@ -68,16 +68,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogChooseColor();
             }
         });
-        int position=bun.getInt(Values.BUNDLE_KEY);
+        int id=bun.getInt(Values.BUNDLE_KEY);
 
-        if(position==Values.NO_POSITION){
+        if(id==Values.NO_POSITION){
             mode=ADD_MODE;
         }
         else{
             mode=MODIFY_MODE;
         }
         if(mode.equals(MODIFY_MODE)){
-            currentMemo= dao.loadMemoByPosition(position);
+            currentMemo= dao.loadMemoById(id);
             if(currentMemo.getEncryption()== Values.TRUE){
                 //String normalPassword="";//fare la get della password non cifrata
                 dao.decryptText(currentMemo,password);
