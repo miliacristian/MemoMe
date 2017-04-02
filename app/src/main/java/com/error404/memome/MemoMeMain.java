@@ -302,7 +302,7 @@ public class MemoMeMain extends AppCompatActivity
             return filteredMemos;
         }
         for(int i=0;i<allMemo.size();i++){
-            if(allMemo.get(i).getTitle().contains(newText)){
+            if(allMemo.get(i).getTitle().toLowerCase().contains(newText.toLowerCase())){
                 filteredMemos.add(allMemo.get(i));
             }
         }
