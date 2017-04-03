@@ -35,4 +35,13 @@
         </menu>
     </item>
 
+    <item android:title="@string/about">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@mipmap/info_icon"
+                android:title="@string/info"
+                />
+        </menu>
+    </item>
 </menu>

@@ -202,10 +202,29 @@ public class MemoMeMain extends AppCompatActivity
                 updateSortAndGUI(DAO.EMOJI);
             }
             //ordina per emoji
+        } else if (id == R.id.nav_about){
+            alertAbout();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void alertAbout(){
+        new AlertDialog.Builder(MemoMeMain.this)
+                .setTitle("Che titolo mettiamo?")
+                .setMessage("Che\nmettiamo\nqui\ninvece?")
+                .setIcon(R.mipmap.info_icon)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @TargetApi(11)
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+
+
+                        }
+                )
+                .show();
     }
 
     public void alertEncrypted(int id) {

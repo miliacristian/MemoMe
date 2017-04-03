@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class ShowMemo extends AppCompatActivity {
     private static Activity refer;
     private Toast emptyToast;
     private Toast matchTaost;
+    private Toast nougatToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +167,7 @@ public class ShowMemo extends AppCompatActivity {
                         .show();
                 return true;
             case R.id.action_encode:
+                if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
@@ -214,7 +217,14 @@ public class ShowMemo extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
-                        .show();
+                        .show();}
+                else{
+                    if (nougatToast != null){
+                        nougatToast.cancel();
+                    }
+                    nougatToast = Toast.makeText(ShowMemo.this,R.string.nougatToast, Toast.LENGTH_SHORT);
+                    nougatToast.show();
+                }
                 return true;
             case R.id.action_decode:
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
