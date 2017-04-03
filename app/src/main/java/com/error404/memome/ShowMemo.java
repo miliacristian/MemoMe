@@ -27,6 +27,7 @@ public class ShowMemo extends AppCompatActivity {
     private TextView txtViewNota;
     private int color;
     private int position;
+    private int id;
     private int emoji;
     private String password;
     private static Activity refer;
@@ -39,8 +40,8 @@ public class ShowMemo extends AppCompatActivity {
         refer = this;
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
-        position = bun.getInt(Values.BUNDLE_KEY);
-        final int id=bun.getInt(Values.IS_FILTERED);
+        id = bun.getInt(Values.BUNDLE_KEY);
+        //final int id=bun.getInt(Values.IS_FILTERED);
         //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dao = new DAO(this);
@@ -81,7 +82,7 @@ public class ShowMemo extends AppCompatActivity {
     public void deleteThisMemo(){
         //DAO dao=new DAO(this);
         //dao.open();
-        int id=dao.findIdByPosition(position);
+        //int id=dao.findIdByPosition(position);
         dao.deleteMemoByIdFromDB(id);
         finish();
     }
@@ -97,7 +98,8 @@ public class ShowMemo extends AppCompatActivity {
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         //DAO dao=new DAO(this);
         //dao.open();//necessaria??
-        return dao.isEncrypted(position);
+        //return dao.isEncrypted(position);
+        return dao.isEncrypted2(id);
     }
 
     public void insertEncryptToPasswordAndText(String password){
@@ -105,14 +107,16 @@ public class ShowMemo extends AppCompatActivity {
         this.password = password;
         //DAO dao=new DAO(this);
         //dao.open();
-        dao.addEncryptionToPasswordAndText(position,password);
+        //dao.addEncryptionToPasswordAndText(position,password);
+        dao.addEncryptionToPasswordAndText2(id,password);
     }
 
     public void deleteEncryptionToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         //DAO dao=new DAO(this);
         //dao.open();
-        dao.deleteEncryptionToPasswordAndText(position,password);
+        //dao.deleteEncryptionToPasswordAndText(position,password);
+        dao.deleteEncryptionToPasswordAndText2(id,password);
     }
 
     // inflata il pulsante elimina ed encripta

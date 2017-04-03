@@ -33,7 +33,7 @@ public class MemoMeMain extends AppCompatActivity
     private ListView mySearchListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
-    private MemoAdapter mem2;
+    //private MemoAdapter mem2;
     private static Context context;
     private SearchView searchView;
     private boolean doubleBackPressed;
@@ -54,7 +54,7 @@ public class MemoMeMain extends AppCompatActivity
                 Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
                 b.putInt(Values.BUNDLE_KEY, Values.NO_POSITION);
-                b.putInt(Values.IS_FILTERED,Values.MEMO_NOT_FILTERED);
+                //b.putInt(Values.IS_FILTERED,Values.MEMO_NOT_FILTERED);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -85,24 +85,24 @@ public class MemoMeMain extends AppCompatActivity
                     myIntent.putExtras(bun);
                     startActivity(myIntent);
                 }*/
-                goToShowMemoActivity(position,memoList.get(position).getId());
+                goToShowMemoActivity(memoList.get(position).getId());
             }
         });
     }
-    public void goToShowMemoActivity(int position,int id){
-        System.out.println(position);
+    public void goToShowMemoActivity(int id){
+        //System.out.println(position);
         System.out.println(id);
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
             //alert dialog che prende in input la password e la verifica
-            alertEncrypted(position,id);
+            alertEncrypted(id);
         }else {
                 //vado alla nuova activity
                 Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                 Bundle bun = new Bundle();
-                bun.putInt(Values.BUNDLE_KEY, position);
-                bun.putInt(Values.IS_FILTERED, id);
+                bun.putInt(Values.BUNDLE_KEY,id);
+                //bun.putInt(Values.IS_FILTERED, id);
                 myIntent.putExtras(bun);
                 startActivity(myIntent);
             }
@@ -144,7 +144,7 @@ public class MemoMeMain extends AppCompatActivity
                 myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        goToShowMemoActivity(position,filteredMemos.get(position).getId());
+                        goToShowMemoActivity(filteredMemos.get(position).getId());
                     }
                 });
                 //mem.getFilter().filter(newText);
@@ -208,7 +208,7 @@ public class MemoMeMain extends AppCompatActivity
         return true;
     }
 
-    public void alertEncrypted(final int position,int id) {
+    public void alertEncrypted(int id) {
         //alert dialog che prende in input la password e la verifica
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -228,17 +228,12 @@ public class MemoMeMain extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int id) {
                                 String passFromDB;
                                 String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                if(idMemo==Values.MEMO_NOT_FILTERED) {
-                                    passFromDB = "" + memoList.get(position).getPassword();
-                                }
-                                else{
                                     passFromDB=""+dao.loadMemoById(idMemo).getPassword();
-                                }
                                 if (cifratedPassword.equals(passFromDB)) {
                                     Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
-                                    bun.putInt(Values.BUNDLE_KEY, position);
-                                    bun.putInt(Values.IS_FILTERED,idMemo);
+                                    bun.putInt(Values.BUNDLE_KEY,idMemo);
+                                    //bun.putInt(Values.IS_FILTERED,idMemo);
                                     bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);
@@ -313,7 +308,7 @@ public class MemoMeMain extends AppCompatActivity
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    goToShowMemoActivity(position,Values.MEMO_NOT_FILTERED);
+                    goToShowMemoActivity(memoList.get(position).getId());
                 }
             });
             //mySearchListView=null;
@@ -332,7 +327,7 @@ public class MemoMeMain extends AppCompatActivity
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    goToShowMemoActivity(position,Values.MEMO_NOT_FILTERED);
+                    goToShowMemoActivity(memoList.get(position).getId());
                 }
             });
             //mySearchListView=null;

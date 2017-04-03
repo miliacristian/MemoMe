@@ -69,7 +69,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         });
         int id=bun.getInt(Values.BUNDLE_KEY);
-
         if(id==Values.NO_POSITION){
             mode=ADD_MODE;
         }
@@ -189,7 +188,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
                     if(position==Values.INDEX_EMPTY_EMOJI){
-                        System.out.println(emojiModify.getTextSize());
+                       // System.out.println(emojiModify.getTextSize());
                         //emojiModify.setTextSize(30);
                         emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
                         alertDialog.dismiss();

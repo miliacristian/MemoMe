@@ -78,6 +78,7 @@ public class DAO {
     }
 
     public Memo loadMemoById(int id){//carico memo da id(chiave primaria),cursore locale chiudibile
+        System.out.println("l'id è"+id);
         Memo memo=null;
         String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;
         Cursor c=database.rawQuery(sql,null);
@@ -288,6 +289,15 @@ public class DAO {
        }
        return false;
    }
+    public boolean isEncrypted2(int id){
+        Memo mem=loadMemoById(id);
+        if(mem!=null){
+            if(mem.getEncryption()==Values.TRUE){
+                return true;
+            }
+        }
+        return false;
+    }
     public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
         memo.setText(Encrypt.decryption(memo.getText(),password));
     }
@@ -299,8 +309,23 @@ public class DAO {
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
+    public void addEncryptionToPasswordAndText2(int id,String password){//aggiorna i dati nel database cifrando testo,password
+        //e settando encryption a 1
+        Memo m=loadMemoById(id);
+        m.setEncryption(Values.TRUE);
+        m.setPassword(Encrypt.encryption(password,password));
+        m.setText(Encrypt.encryption(m.getText(),password));
+        saveMemo(m,m.getId());
+    }
     public void deleteEncryptionToPasswordAndText(int position,String password){
         Memo m=loadMemoByPosition(position);
+        m.setEncryption(Values.FALSE);
+        m.setPassword(Encrypt.decryption(m.getPassword(),password));
+        m.setText(Encrypt.decryption(m.getText(),password));
+        saveMemo(m,m.getId());
+    }
+    public void deleteEncryptionToPasswordAndText2(int id,String password){
+        Memo m=loadMemoById(id);
         m.setEncryption(Values.FALSE);
         m.setPassword(Encrypt.decryption(m.getPassword(),password));
         m.setText(Encrypt.decryption(m.getText(),password));
