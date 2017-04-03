@@ -212,8 +212,8 @@ public class MemoMeMain extends AppCompatActivity
 
     private void alertAbout(){
         new AlertDialog.Builder(MemoMeMain.this)
-                .setTitle("Che titolo mettiamo?")
-                .setMessage("Che\nmettiamo\nqui\ninvece?")
+                .setTitle(R.string.infoTitle)
+                .setMessage(R.string.infoText)
                 .setIcon(R.mipmap.info_icon)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
