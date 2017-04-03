@@ -15,14 +15,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 //finita e ordinata
-public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
+public class MemoAdapter extends ArrayAdapter<Memo>  {
     private ArrayList<Memo> memoList;
-    private ArrayList<Memo> filteredMemo;
-    private Filter taskFilter;
+
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
         super(c,textViewId,memoList);
         this.memoList=memoList;//ho tutti i riferimenti alle memo
-        this.filteredMemo = memoList;
     }
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
@@ -60,31 +58,4 @@ public class MemoAdapter extends ArrayAdapter<Memo> implements Filterable {
         }
         return rowView;
     }
-    /*@Override
-    public Filter getFilter() {
-        if (taskFilter == null)
-            taskFilter = new TaskFilter();
-
-        return taskFilter;
-    }*/
-
-    /*private class TaskFilter extends Filter {
-
-       /* @Override
-        protected FilterResults performFiltering (CharSequence constraint) {
-            FilterResults results = new FilterResults();
-            if (constraint == null) {
-                results.values = memoList;
-                results.count = memoList.size();
-            } else {
-                ArrayList<Memo> newTaskList = new ArrayList<Memo>();
-                for (Memo t : memoList) {
-                    if (t.getTitle().toLowerCase().contains(constraint.toString())) {
-                        newTaskList.add(t);
-                    }
-                }
-                results.values = newTaskList;
-                results.count = newTaskList.size();
-            } return results;
-        }*/
 }

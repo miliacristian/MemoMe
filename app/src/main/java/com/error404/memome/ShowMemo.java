@@ -136,15 +136,12 @@ public class ShowMemo extends AppCompatActivity {
     // onClick per il pulsante elimina e encode
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_delete:
                 AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
-                        //set message, title, and icon
                         .setTitle(R.string.delete)
                         .setMessage(R.string.confirmDelete)
                         .setIcon(R.mipmap.delete_finale)
-
                         .setPositiveButton(R.string.btnDelete, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -154,30 +151,24 @@ public class ShowMemo extends AppCompatActivity {
                             }
 
                         })
-
-
-
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
-
                             }
                         })
                         .show();
                 return true;
+
             case R.id.action_encode:
                 if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
-
                 final EditText nameEditText = (EditText) formElementsView
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
-
                 //alert dialog
                 new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
                         .setTitle(R.string.insertPsw)
@@ -259,7 +250,6 @@ public class ShowMemo extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        System.out.println("show memo destroy");
         dao.close();
 
     }

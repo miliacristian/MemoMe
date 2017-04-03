@@ -73,24 +73,11 @@ public class MemoMeMain extends AppCompatActivity
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                /*System.out.println(position);
-                if (memoList.get(position).getEncryption() == Values.TRUE) {
-                    //alert dialog che prende in input la password e la verifica
-                    alertEncrypted(position);
-                } else {
-                    //vado alla nuova activity
-                    Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
-                    Bundle bun = new Bundle();
-                    bun.putInt(Values.BUNDLE_KEY, position);
-                    myIntent.putExtras(bun);
-                    startActivity(myIntent);
-                }*/
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
     }
     public void goToShowMemoActivity(int id){
-        //System.out.println(position);
         System.out.println(id);
         Memo m;
         m=dao.loadMemoById(id);
@@ -137,7 +124,6 @@ public class MemoMeMain extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(final String newText) {
-                //System.out.println(newText);
                 final ArrayList<Memo> filteredMemos=getFilteredMemos(newText);
                 mem= new MemoAdapter(MemoMeMain.this, R.layout.rawlayout,filteredMemos);
                 myListView.setAdapter(mem);
@@ -147,7 +133,6 @@ public class MemoMeMain extends AppCompatActivity
                         goToShowMemoActivity(filteredMemos.get(position).getId());
                     }
                 });
-                //mem.getFilter().filter(newText);
                 return false;
             }
         });
@@ -158,21 +143,14 @@ public class MemoMeMain extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.menuSearch) {
         }
         return super.onOptionsItemSelected(item);
     }
 
-    //@SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.sort_title) {//ordina per titolo
@@ -374,7 +352,6 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onDestroy() {
         super.onDestroy();
-        System.out.println("memomain destroy");
         dao.close();
 
     }

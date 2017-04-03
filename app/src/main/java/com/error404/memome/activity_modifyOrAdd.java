@@ -188,12 +188,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     emoji=Memo.getEmoji(position);
                     if(position==Values.INDEX_EMPTY_EMOJI){
-                       // System.out.println(emojiModify.getTextSize());
-                        //emojiModify.setTextSize(30);
                         emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
                         alertDialog.dismiss();
                     }
-                    //emoji=Memo.getEmoji(position);
                     else {
                         emojiModify.setText(Memo.getEmojiByUnicode(emoji));
                         alertDialog.dismiss();
@@ -208,13 +205,11 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     @Override
     public void onDestroy(){
        super.onDestroy();
-        System.out.println("memo modify destroy");
         dao.close();
 
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

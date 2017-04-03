@@ -78,7 +78,6 @@ public class DAO {
     }
 
     public Memo loadMemoById(int id){//carico memo da id(chiave primaria),cursore locale chiudibile
-        System.out.println("l'id è"+id);
         Memo memo=null;
         String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;
         Cursor c=database.rawQuery(sql,null);
@@ -162,9 +161,7 @@ public class DAO {
         cv.put(ENCRYPTION,encryption);
         cv.put(PASSWORD,password);
         //String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
-        //System.out.println(sql);
         database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
-        //System.out.println("save password"+password);
         //database.execSQL(sql);
     }
 
