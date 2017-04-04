@@ -39,6 +39,7 @@ public class ShowMemo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memo);
+        getSupportActionBar().setTitle(R.string.showMemoTitle);
         refer = this;
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
@@ -104,6 +105,11 @@ public class ShowMemo extends AppCompatActivity {
         return dao.isEncrypted2(id);
     }
 
+    public boolean isFavorite(){
+        //controlla se la nota sia preferita o meno
+        return true;
+    }
+
     public void insertEncryptToPasswordAndText(String password){
         //mostra alert dialog ,sull ok memorizza la password nella stringa password
         this.password = password;
@@ -125,12 +131,17 @@ public class ShowMemo extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        if(isFavorite()) {
+            inflater.inflate(R.menu.menu_favorite, menu);
+        }else{
+        inflater.inflate(R.menu.menu_not_favorite, menu);}
         // se la nota è criptata carico un menu, altrimenti l'altro
         if (isEncrypted()){
             inflater.inflate(R.menu.show_memo_decode, menu);
         }else{
             inflater.inflate(R.menu.show_memo_encode, menu);
         }
+
         return super.onCreateOptionsMenu(menu);
     }
     // onClick per il pulsante elimina e encode
@@ -243,6 +254,49 @@ public class ShowMemo extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_favorite:
+                AlertDialog removeFromFavorite =new AlertDialog.Builder(this)
+                        //set message, title, and icon
+                        .setTitle(R.string.favoriteBtn)
+                        .setMessage(R.string.confirmNotFavorite)
+                        .setIcon(R.mipmap.icon_empy_star)
+
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //togliere la nota dai preferiti
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                return true;
+            case R.id.action_not_favorite:
+                AlertDialog addToFavorite =new AlertDialog.Builder(this)
+                        //set message, title, and icon
+                        .setTitle(R.string.notFavoriteBtn)
+                        .setMessage(R.string.confirmFavorite)
+                        .setIcon(R.mipmap.star_icon)
+
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //togliere la nota dai preferiti
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             default:
                 return super.onOptionsItemSelected(item);
         }

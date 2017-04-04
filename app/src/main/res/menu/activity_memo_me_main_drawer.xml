@@ -31,6 +31,10 @@
                 android:id="@+id/nav_delete_all"
                 android:icon="@mipmap/delete_finale"
                 android:title="@string/btnDeleteAll" />
+            <item
+                android:id="@+id/nav_favorites"
+                android:icon="@mipmap/star_icon"
+                android:title="@string/favoriteBtn" />
 
         </menu>
     </item>

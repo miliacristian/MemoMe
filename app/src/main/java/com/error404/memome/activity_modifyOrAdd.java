@@ -93,6 +93,12 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         }
+        if (mode.equals(MODIFY_MODE)){
+            getSupportActionBar().setTitle(R.string.modifyMemo);
+        }else{
+            getSupportActionBar().setTitle(R.string.createMemo);
+        }
+
         FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);//floating button
         buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
             @Override
