@@ -10,12 +10,12 @@ import java.util.Calendar;
 import static java.security.AccessController.getContext;
 //finita ordinata
 public class Memo {
-    private static final int[]COLORS={R.color.white, R.color.pink,R.color.lightBlue,R.color.lime,R.color.cyan,R.color.red,R.color.grey,R.color.green,R.color.purple,R.color.indigo,R.color.brown};
+    private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
     private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
             MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide3),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
             MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.tongue),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.funny)};
-    private static final String[] COLORS_NAME = { MemoMeMain.getIstanceContext().getResources().getString(R.string.bianco),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosa),MemoMeMain.getIstanceContext().getResources().getString(R.string.celeste),MemoMeMain.getIstanceContext().getResources().getString(R.string.lime)
-            ,MemoMeMain.getIstanceContext().getResources().getString(R.string.ciano),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosso),MemoMeMain.getIstanceContext().getResources().getString(R.string.grigio),MemoMeMain.getIstanceContext().getResources().getString(R.string.verde),MemoMeMain.getIstanceContext().getResources().getString(R.string.viola),MemoMeMain.getIstanceContext().getResources().getString(R.string.indaco),MemoMeMain.getIstanceContext().getResources().getString(R.string.marrone)};
+    private static final String[] COLORS_NAME = { MemoMeMain.getIstanceContext().getResources().getString(R.string.bianco),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosso),MemoMeMain.getIstanceContext().getResources().getString(R.string.viola),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosa),MemoMeMain.getIstanceContext().getResources().getString(R.string.lime),MemoMeMain.getIstanceContext().getResources().getString(R.string.celeste),MemoMeMain.getIstanceContext().getResources().getString(R.string.indaco),
+            MemoMeMain.getIstanceContext().getResources().getString(R.string.grigio),MemoMeMain.getIstanceContext().getResources().getString(R.string.verde),MemoMeMain.getIstanceContext().getResources().getString(R.string.ciano),MemoMeMain.getIstanceContext().getResources().getString(R.string.marrone)};
     private int id;
     private String title;
     private String text;

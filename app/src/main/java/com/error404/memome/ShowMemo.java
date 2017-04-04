@@ -101,7 +101,7 @@ public class ShowMemo extends AppCompatActivity {
         //DAO dao=new DAO(this);
         //dao.open();//necessaria??
         //return dao.isEncrypted(position);
-        return dao.isEncrypted2(id);
+        return dao.isEncrypted(id);
     }
 
     public void insertEncryptToPasswordAndText(String password){
@@ -110,7 +110,7 @@ public class ShowMemo extends AppCompatActivity {
         //DAO dao=new DAO(this);
         //dao.open();
         //dao.addEncryptionToPasswordAndText(position,password);
-        dao.addEncryptionToPasswordAndText2(id,password);
+        dao.addEncryptionToPasswordAndText(id,password);
     }
 
     public void deleteEncryptionToPasswordAndText(String password){
@@ -118,7 +118,7 @@ public class ShowMemo extends AppCompatActivity {
         //DAO dao=new DAO(this);
         //dao.open();
         //dao.deleteEncryptionToPasswordAndText(position,password);
-        dao.deleteEncryptionToPasswordAndText2(id,password);
+        dao.deleteEncryptionToPasswordAndText(id,password);
     }
 
     // inflata il pulsante elimina ed encripta
