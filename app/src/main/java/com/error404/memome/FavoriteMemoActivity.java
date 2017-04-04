@@ -105,6 +105,13 @@ public class FavoriteMemoActivity extends AppCompatActivity {
 
     }
     @Override
+    public void onResume(){
+        super.onResume();
+        memoList = dao.loadAllFavoriteMemo();
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+        myListView.setAdapter(mem);
+    }
+    @Override
     public void onBackPressed() {
         finish();
     }
