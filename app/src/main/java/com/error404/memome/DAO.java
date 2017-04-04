@@ -188,6 +188,16 @@ public class DAO {
         }
         return null;
     }
+    public ArrayList<Memo>loadAllFavoriteMemo(){
+        ArrayList<Memo> favoriteMemos=new ArrayList<Memo>();
+        ArrayList<Memo> allMemo=loadAllMemo();
+        for(int i=0;i<allMemo.size();i++){
+            if(allMemo.get(i).getFavorite()==1){
+                favoriteMemos.add(allMemo.get(i));
+            }
+        }
+        return favoriteMemos;
+    }
 
     public void updateSort(String newSortType){//il menu optionbar deve passare la stringa newsortype alla
         //funzione update sort e fare il refresh della grafica;

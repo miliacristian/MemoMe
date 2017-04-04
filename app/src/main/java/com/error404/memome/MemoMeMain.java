@@ -181,6 +181,10 @@ public class MemoMeMain extends AppCompatActivity
         } else if (id == R.id.nav_about){
             alertAbout();
         }
+        else if(id==R.id.nav_favorites){
+            Intent myIntent=new Intent(MemoMeMain.this,FavoriteMemoActivity.class);
+                    startActivity(myIntent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

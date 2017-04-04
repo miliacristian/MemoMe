@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MemoMe</string>
-    <string name = "back_again">Premi di nuovo per uscire</string>
+    <string name="back_again">Premi di nuovo per uscire</string>
     <string name="action_settings">Impostazioni</string>
     <string name="btnDelete">Elimina</string>
     <string name="btnDeleteAll">Cancella note non cifrate</string>
@@ -59,18 +59,18 @@
     <string name="chiudi">Chiudi</string>
     <string name="nessuna_emoji">Nessuna Emoji</string>
     <string name="clickMe">Emoji</string>
-    <string name = "nougatToast">Funzione non ancora supportata su questa versione di Android.</string>
-    <string name = "about">Su di noi:</string>
-    <string name = "info">Info</string>
+    <string name="nougatToast">Funzione non ancora supportata su questa versione di Android.</string>
+    <string name="about">Su di noi:</string>
+    <string name="info">Info</string>
     <string name="infoTitle">titoloooo</string>
     <string name="infoText">jwsedvjcsdjvjb</string>
-    <string name= "favoriteBtn">Nota preferita</string>
-    <string name= "notFavoriteBtn">Nota non preferita</string>
-    <string name = "confirmNotFavorite">Sicuro di voler rimuovere questa nota dai preferiti?</string>
-    <string name = "confirmFavorite">Vuoi aggiungere questa nota ai preferiti?</string>
-    <string name = "showMemoTitle">La tua nota</string>
-    <string name = "modifyMemo">Modifica la tua nota</string>
-    <string name = "createMemo">Crea una nota</string>
-    <string name = "navFavorite">Mostra le note preferite</string>
+    <string name="favoriteBtn">Nota preferita</string>
+    <string name="notFavoriteBtn">Nota non preferita</string>
+    <string name="confirmNotFavorite">Sicuro di voler rimuovere questa nota dai preferiti?</string>
+    <string name="confirmFavorite">Vuoi aggiungere questa nota ai preferiti?</string>
+    <string name="showMemoTitle">La tua nota</string>
+    <string name="modifyMemo">Modifica la tua nota</string>
+    <string name="createMemo">Crea una nota</string>
+    <string name="navFavorite">Mostra le note preferite</string>
 
 </resources>
