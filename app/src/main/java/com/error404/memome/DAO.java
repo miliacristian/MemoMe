@@ -277,16 +277,8 @@ public class DAO {
         database.execSQL(DELETE_ALL_NOT_ENCRYPTED);
         return;
     }
-    public boolean isEncrypted(int position){
-       Memo mem=loadMemoByPosition(position);
-       if(mem!=null){
-           if(mem.getEncryption()==Values.TRUE){
-               return true;
-           }
-       }
-       return false;
-   }
-    public boolean isEncrypted2(int id){
+
+    public boolean isEncrypted(int id){
         Memo mem=loadMemoById(id);
         if(mem!=null){
             if(mem.getEncryption()==Values.TRUE){
@@ -298,15 +290,8 @@ public class DAO {
     public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
         memo.setText(Encrypt.decryption(memo.getText(),password));
     }
-    public void addEncryptionToPasswordAndText(int position,String password){//aggiorna i dati nel database cifrando testo,password
-        //e settando encryption a 1
-        Memo m=loadMemoByPosition(position);
-        m.setEncryption(Values.TRUE);
-        m.setPassword(Encrypt.encryption(password,password));
-        m.setText(Encrypt.encryption(m.getText(),password));
-        saveMemo(m,m.getId());
-    }
-    public void addEncryptionToPasswordAndText2(int id,String password){//aggiorna i dati nel database cifrando testo,password
+
+    public void addEncryptionToPasswordAndText(int id,String password){//aggiorna i dati nel database cifrando testo,password
         //e settando encryption a 1
         Memo m=loadMemoById(id);
         m.setEncryption(Values.TRUE);
@@ -314,14 +299,8 @@ public class DAO {
         m.setText(Encrypt.encryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
-    public void deleteEncryptionToPasswordAndText(int position,String password){
-        Memo m=loadMemoByPosition(position);
-        m.setEncryption(Values.FALSE);
-        m.setPassword(Encrypt.decryption(m.getPassword(),password));
-        m.setText(Encrypt.decryption(m.getText(),password));
-        saveMemo(m,m.getId());
-    }
-    public void deleteEncryptionToPasswordAndText2(int id,String password){
+
+    public void deleteEncryptionToPasswordAndText(int id,String password){
         Memo m=loadMemoById(id);
         m.setEncryption(Values.FALSE);
         m.setPassword(Encrypt.decryption(m.getPassword(),password));
