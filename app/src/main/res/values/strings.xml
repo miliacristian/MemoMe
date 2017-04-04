@@ -62,7 +62,7 @@
     <string name = "nougatToast">Funzione non ancora supportata su questa versione di Android.</string>
     <string name = "about">Su di noi:</string>
     <string name = "info">Info</string>
-    <string name="infoTitle">titoloooo</string>
-    <string name="infoText">jwsedvjcsdjvjb</string>
+    <string name="infoTitle">Attenzione</string>
+    <string name="infoText">Non aprite quella nota [cit]</string>
 
 </resources>
