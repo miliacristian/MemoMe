@@ -60,9 +60,11 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
             if(star!=null){
                 if(memoList.get(position).getFavorite()==1){
                     //setta immagine stella piena
+                    star.setImageResource(R.mipmap.star_icon);
                 }
                 else{
                     //setta immagine stella vuota
+                    star.setImageResource(R.mipmap.icon_empy_star);
                 }
 
             }
