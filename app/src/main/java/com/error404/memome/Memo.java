@@ -23,10 +23,11 @@ public class Memo {
     private int emoji;
     private Calendar dateCreation;
     private Calendar lastModify;
+    private int favorite;
     private int encryption;
     private String password;
 
-    public Memo(int id,String title,String text,int color,int emoji,int datecreation[],int datelastmodify[],int encryption,String password){
+    public Memo(int id,String title,String text,int color,int emoji,int datecreation[],int datelastmodify[],int encryption,String password,int favorite){
 
         this.title = title;
         this.id = id;
@@ -39,6 +40,7 @@ public class Memo {
         this.lastModify=Calendar.getInstance();
         this.dateCreation.set(datecreation[Values.INDEX_YEAR], datecreation[Values.INDEX_MONTH]+1, datecreation[Values.INDEX_DAY]);
         this.lastModify.set(datelastmodify[Values.INDEX_YEAR], datelastmodify[Values.INDEX_MONTH]+1, datelastmodify[Values.INDEX_DAY]);
+        this.favorite=favorite;
     }
 
     public int getId() {
@@ -92,7 +94,12 @@ public class Memo {
     /*public void setDateCreation(Calendar dateCreation) {
         this.dateCreation = dateCreation;
     }*/
-
+    public void setFavorite(int favorite){
+        this.favorite=favorite;
+    }
+    public int getFavorite(){
+        return this.favorite;
+    }
     public int getEncryption() {
         return encryption;
     }

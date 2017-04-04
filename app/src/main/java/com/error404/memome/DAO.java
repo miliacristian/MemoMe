@@ -23,6 +23,7 @@ public class DAO {
     public final  static String COLOR="color";
     public final  static String EMOJI="emoji";
     public final  static String PASSWORD="password";
+    public final  static String FAVORITE="favorite";
     private final  String ENCRYPTION="encryption";
     private final  String DAYDATECREATION="daydatecreation";
     private final  String MONTHDATECREATION="monthdatecreation";
@@ -105,7 +106,8 @@ public class DAO {
             lastmodify = getLastModify(c);
             int encryption = c.getInt(c.getColumnIndex(ENCRYPTION));
             String password = c.getString(c.getColumnIndex(PASSWORD));
-            Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password);
+            int favorite=c.getInt(c.getColumnIndex(FAVORITE));
+            Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password,favorite);
             return memo;
         }
         return null;
@@ -146,6 +148,7 @@ public class DAO {
         int color=memo.getColor();
         String password=memo.getPassword();
         int  encryption=memo.getEncryption();
+        int favorite=memo.getFavorite();
         Calendar date=Calendar.getInstance();
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);
@@ -160,6 +163,7 @@ public class DAO {
         cv.put(YEARLASTMODIFY,year);
         cv.put(ENCRYPTION,encryption);
         cv.put(PASSWORD,password);
+        cv.put(FAVORITE,favorite);
         //String sql="update memos set title="+Apex.open+title+Apex.close+","+"text="+Apex.open+text+Apex.close+","+"color="+color+","+"emoji="+emoji+","+"daylastmodify="+day+","+"monthlastmodify="+month+","+"yearlastmodify="+year+","+"encryption="+encryption+","+"password="+Apex.open+password+Apex.close+" where _id="+id;
         database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
         //database.execSQL(sql);
@@ -287,6 +291,15 @@ public class DAO {
         }
         return false;
     }
+    public boolean isFavorite(int id){
+        Memo mem=loadMemoById(id);
+        if(mem!=null){
+            if(mem.getFavorite()==Values.TRUE){
+                return true;
+            }
+        }
+        return false;
+    }
     public void decryptText(Memo memo,String password){//una volta messa la password,solo il testo verrà decifrato
         memo.setText(Encrypt.decryption(memo.getText(),password));
     }
@@ -307,5 +320,14 @@ public class DAO {
         m.setText(Encrypt.decryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
-
+    public void addToFavorites(int id){
+        Memo m=loadMemoById(id);
+        m.setFavorite(Values.TRUE);
+        saveMemo(m,id);
+    }
+    public void deleteFromFavorites(int id){
+        Memo m=loadMemoById(id);
+        m.setFavorite(Values.FALSE);
+        saveMemo(m,id);
+    }
 }

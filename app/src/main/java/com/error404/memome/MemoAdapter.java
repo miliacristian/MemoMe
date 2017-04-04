@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
         }
         Memo memo= memoList.get(position);//prendo il memo in posizione i-esima
         if (memo != null) {
+            ImageView star=(ImageView)rowView.findViewById(R.id.imageFavorite);
             TextView emoji = (TextView) rowView.findViewById(R.id.emoji1);
             TextView dateCreation = (TextView) rowView.findViewById(R.id.datecreation);
             TextView title = (TextView) rowView.findViewById(R.id.title1);
@@ -54,6 +56,15 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
             }
             if(title!=null){
                 title.setText(memo.getTitle());
+            }
+            if(star!=null){
+                if(memoList.get(position).getFavorite()==1){
+                    //setta immagine stella piena
+                }
+                else{
+                    //setta immagine stella vuota
+                }
+
             }
         }
         return rowView;

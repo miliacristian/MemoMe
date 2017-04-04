@@ -30,10 +30,8 @@ public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
     private ListView myListView;
-    private ListView mySearchListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
-    //private MemoAdapter mem2;
     private static Context context;
     private SearchView searchView;
     private boolean doubleBackPressed;

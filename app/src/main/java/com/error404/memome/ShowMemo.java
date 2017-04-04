@@ -27,7 +27,6 @@ public class ShowMemo extends AppCompatActivity {
     private TextView txtViewTitle;
     private TextView txtViewNota;
     private int color;
-    private int position;
     private int id;
     private int emoji;
     private String password;
@@ -106,8 +105,7 @@ public class ShowMemo extends AppCompatActivity {
     }
 
     public boolean isFavorite(){
-        //controlla se la nota sia preferita o meno
-        return true;
+        return dao.isFavorite(id);
     }
 
     public void insertEncryptToPasswordAndText(String password){
@@ -125,6 +123,13 @@ public class ShowMemo extends AppCompatActivity {
         //dao.open();
         //dao.deleteEncryptionToPasswordAndText(position,password);
         dao.deleteEncryptionToPasswordAndText(id,password);
+    }
+    public void addToFavorites(){
+        dao.addToFavorites(id);
+        return;
+    }
+    public void deleteFromFavorites(){
+        dao.deleteFromFavorites(id);
     }
 
     // inflata il pulsante elimina ed encripta
@@ -255,14 +260,15 @@ public class ShowMemo extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                AlertDialog removeFromFavorite =new AlertDialog.Builder(this)
+                System.out.println("nota non preferita");
+                deleteFromFavorites();
+                invalidateOptionsMenu();
+                /*AlertDialog removeFromFavorite =new AlertDialog.Builder(this)
                         //set message, title, and icon
                         .setTitle(R.string.favoriteBtn)
                         .setMessage(R.string.confirmNotFavorite)
                         .setIcon(R.mipmap.icon_empy_star)
-
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //togliere la nota dai preferiti
                                 dialog.dismiss();
@@ -274,10 +280,13 @@ public class ShowMemo extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         })
-                        .show();
+                        .show();*/
                 return true;
             case R.id.action_not_favorite:
-                AlertDialog addToFavorite =new AlertDialog.Builder(this)
+                System.out.println("nota non preferita");
+                addToFavorites();
+                invalidateOptionsMenu();
+                /*AlertDialog addToFavorite =new AlertDialog.Builder(this)
                         //set message, title, and icon
                         .setTitle(R.string.notFavoriteBtn)
                         .setMessage(R.string.confirmFavorite)
@@ -296,7 +305,7 @@ public class ShowMemo extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         })
-                        .show();
+                        .show();*/
             default:
                 return super.onOptionsItemSelected(item);
         }
