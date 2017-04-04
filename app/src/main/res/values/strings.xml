@@ -64,5 +64,13 @@
     <string name = "info">Info</string>
     <string name="infoTitle">titoloooo</string>
     <string name="infoText">jwsedvjcsdjvjb</string>
+    <string name= "favoriteBtn">Nota preferita</string>
+    <string name= "notFavoriteBtn">Nota non preferita</string>
+    <string name = "confirmNotFavorite">Sicuro di voler rimuovere questa nota dai preferiti?</string>
+    <string name = "confirmFavorite">Vuoi aggiungere questa nota ai preferiti?</string>
+    <string name = "showMemoTitle">La tua nota</string>
+    <string name = "modifyMemo">Modifica la tua nota</string>
+    <string name = "createMemo">Crea una nota</string>
+    <string name = "navFavorite">Mostra le note preferite</string>
 
 </resources>
