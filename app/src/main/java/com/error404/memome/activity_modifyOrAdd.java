@@ -69,7 +69,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         });
         int id=bun.getInt(Values.BUNDLE_KEY);
-        if(id==Values.NO_POSITION){
+        if(id==Values.NO_ID){
             mode=ADD_MODE;
         }
         else{

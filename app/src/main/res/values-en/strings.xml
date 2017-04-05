@@ -54,4 +54,6 @@
     <string name="viola">Purple</string>
     <string name="warningMemoEncoded">Crypted note!</string>
     <string name="warningMemoEncodedText">This note is crypted, insert password to read it</string>
+    <string name="nougatNotSupported">This feature is still not available on your Android version</string>
+    <string name="about">About:</string>
 </resources>

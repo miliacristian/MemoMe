@@ -10,7 +10,7 @@ public class Values {
     public  final static int DEFAULT_EMOJI=0x0;
     public  final static int DEFAULT_COLOR = Memo.getColors(0);
     public final static String BUNDLE_KEY="key";
-    public final static int NO_POSITION=-1;
+    public final static int NO_ID=-1;
     public final static String SORT_CREATION="yeardatecreation,monthdatecreation,daydatecreation";
     public final static String SORT_LAST_MODIFY="yearlastmodify,monthlastmodify,daylastmodify";
     public final static String ERROR="ERROR IN DECODE";

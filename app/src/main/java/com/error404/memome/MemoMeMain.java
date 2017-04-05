@@ -51,7 +51,7 @@ public class MemoMeMain extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
-                b.putInt(Values.BUNDLE_KEY, Values.NO_POSITION);
+                b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
                 //b.putInt(Values.IS_FILTERED,Values.MEMO_NOT_FILTERED);
                 intent.putExtras(b);
                 startActivity(intent);

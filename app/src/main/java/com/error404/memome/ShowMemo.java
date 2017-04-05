@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class ShowMemo extends AppCompatActivity {
     private Toast emptyToast;
     private Toast matchTaost;
     private Toast nougatToast;
+    private Toast deleteToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +148,21 @@ public class ShowMemo extends AppCompatActivity {
         }else{
             inflater.inflate(R.menu.show_memo_encode, menu);
         }
+
+        //manda in crash la show memo, dovrebbe gestire il longClick
+       /*MenuItem delete = menu.findItem(R.id.action_delete);
+        delete.getActionView().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (deleteToast != null){
+                    deleteToast.cancel();
+                }
+                deleteToast = Toast.makeText(ShowMemo.this, "", Toast.LENGTH_SHORT);
+                deleteToast.show();
+                return false;
+            }
+        });*/
+
 
         return super.onCreateOptionsMenu(menu);
     }

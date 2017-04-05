@@ -54,4 +54,6 @@
     <string name="warningMemoEncodedText">La nota è cifrata, inserisci la password per visualizzarla</string>
     <string name="handler_notes">Gestisci note</string>
     <string name="memoMe">MemoMe</string>
+    <string name="nougatNotSupported">Questa funzione non è ancora disponibile sulla tua versione di Android</string>
+    <string name="about">Su di noi:</string>
 </resources>

@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -25,10 +27,12 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_memo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
         dao = new DAO(this);
         dao.open();
         memoList = dao.loadAllFavoriteMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+        mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
         myListView = (ListView) findViewById(R.id.listOfNotes);
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,7 +112,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         memoList = dao.loadAllFavoriteMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+        mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
         myListView.setAdapter(mem);
     }
     @Override
@@ -117,10 +121,20 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         dao.close();
 
     }
-
 }

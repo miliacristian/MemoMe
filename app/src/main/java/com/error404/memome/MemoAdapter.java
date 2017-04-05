@@ -18,10 +18,12 @@ import java.util.ArrayList;
 //finita e ordinata
 public class MemoAdapter extends ArrayAdapter<Memo>  {
     private ArrayList<Memo> memoList;
+    private int textViewId;
 
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
         super(c,textViewId,memoList);
         this.memoList=memoList;//ho tutti i riferimenti alle memo
+        this.textViewId = textViewId;
     }
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
@@ -30,7 +32,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
         if(rowView==null){
             LayoutInflater inflater = (LayoutInflater)
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.rawlayout, null);
+            rowView = inflater.inflate(textViewId, null);
         }
         Memo memo= memoList.get(position);//prendo il memo in posizione i-esima
         if (memo != null) {
