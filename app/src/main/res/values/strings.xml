@@ -75,7 +75,7 @@
     <string name="modifyMemo">Modifica la tua nota</string>
     <string name="createMemo">Crea una nota</string>
     <string name="navFavorite">Mostra le note preferite</string>
-    <string name = "favoriteActivityTitle">Note preferite</string>
+    <string name ="favoriteActivityTitle">Note preferite</string>
 
 
 </resources>

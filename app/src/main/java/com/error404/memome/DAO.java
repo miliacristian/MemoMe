@@ -168,6 +168,20 @@ public class DAO {
         database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
         //database.execSQL(sql);
     }
+    public ArrayList<Memo> loadAllMemoByTitle(){
+        RowSort rowSort=new RowSort("asc","title");
+        String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
+        //c.close();
+        String sql = SELECT_ALL +" "+sortMethod;
+        Cursor tabAllMemos = database.rawQuery(sql, null);
+        if(tabAllMemos!=null) {
+            ArrayList<Memo> arrMemo = new ArrayList<Memo>();
+            fromCursorToList(arrMemo, tabAllMemos);//aggiunge i memo all'arraylist
+            tabAllMemos.close();
+            return arrMemo;
+        }
+        return null;
+    }
 
     public ArrayList<Memo>loadAllMemo(){//carica tutti i memo secondo l'ordinamento,vedendo dapprima il tipo di ordinamento e poi query
         RowSort rowSort=getRowSort();//cursori locali chiudibili
@@ -190,7 +204,7 @@ public class DAO {
     }
     public ArrayList<Memo>loadAllFavoriteMemo(){
         ArrayList<Memo> favoriteMemos=new ArrayList<Memo>();
-        ArrayList<Memo> allMemo=loadAllMemo();
+        ArrayList<Memo> allMemo=loadAllMemoByTitle();
         for(int i=0;i<allMemo.size();i++){
             if(allMemo.get(i).getFavorite()==1){
                 favoriteMemos.add(allMemo.get(i));
