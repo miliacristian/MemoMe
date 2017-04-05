@@ -149,44 +149,46 @@ public class MemoMeMain extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         int id = item.getItemId();
-
         if (id == R.id.sort_title) {//ordina per titolo
             if (dao != null) {
-                //dao.updateSort("title");
+                drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(DAO.TITLE);
             }
         } else if (id == R.id.sort_creation) {//ordinamento data creazione
             if (dao != null) {
+                drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.SORT_CREATION);
             }
-
+        }else if(id==R.id.nav_favorites){
+            Intent myIntent=new Intent(MemoMeMain.this,FavoriteMemoActivity.class);
+            startActivity(myIntent);
         } else if (id == R.id.sort_modify) {//ordinamento ultima modifica
             if (dao != null) {
+                drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.SORT_LAST_MODIFY);
             }
         } else if (id == R.id.sort_color) {//ordinamento colore
             if (dao != null) {
+                drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(DAO.COLOR);
             }
         } else if (id == R.id.nav_delete_all) {
             if (dao != null) {
+                drawer.closeDrawer(GravityCompat.START);
                 deleteAllAlert();
             }
         } else if (id == R.id.sort_emoji) {
             if (dao != null) {
+                drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(DAO.EMOJI);
             }
             //ordina per emoji
         } else if (id == R.id.nav_about){
+            drawer.closeDrawer(GravityCompat.START);
             alertAbout();
         }
-        else if(id==R.id.nav_favorites){
-            Intent myIntent=new Intent(MemoMeMain.this,FavoriteMemoActivity.class);
-                    startActivity(myIntent);
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
