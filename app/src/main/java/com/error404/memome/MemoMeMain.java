@@ -1,5 +1,4 @@
 package com.error404.memome;
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -191,7 +190,6 @@ public class MemoMeMain extends AppCompatActivity
                 .setMessage(R.string.infoText)
                 .setIcon(R.mipmap.info_icon)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -215,7 +213,6 @@ public class MemoMeMain extends AppCompatActivity
                 .setMessage(R.string.warningMemoEncodedText)
                 .setIcon(R.mipmap.lock_finale)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 String passFromDB;
                                 String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
@@ -239,7 +236,6 @@ public class MemoMeMain extends AppCompatActivity
                         }
                 )
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @TargetApi(11)
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -253,9 +249,7 @@ public class MemoMeMain extends AppCompatActivity
                 .setTitle(R.string.deleteAllNotEncoded)
                 .setMessage(R.string.confirmDeleteAll)
                 .setIcon(R.mipmap.delete_finale)
-
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int whichButton) {
                         deleteAllMemo();
                         updateSortAndGUI(DAO.ONLYUPDATEGUI);
