@@ -7,12 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
-/**
- * Created by cristian on 01/04/17.
- */
 
 public class ColorAdapter extends ArrayAdapter<Integer> {
     public ColorAdapter(Context c, int textViewId, ArrayList<Integer> colorList){

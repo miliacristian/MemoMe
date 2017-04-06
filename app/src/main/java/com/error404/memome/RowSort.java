@@ -1,6 +1,6 @@
 package com.error404.memome;
-//chi la usa???
-//finita e ordinata
+
+
 public class RowSort {// asc/desc+colore/titolo/datacreazione/datamodifica
 
     private String ascDesc;

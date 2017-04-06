@@ -1,21 +1,15 @@
 package com.error404.memome;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-//finita e ordinata
+
 public class MemoAdapter extends ArrayAdapter<Memo>  {
     private ArrayList<Memo> memoList;
     private int textViewId;
@@ -45,7 +39,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
             if(rowListView!=null) {
                 rowListView.setBackgroundColor(ContextCompat.getColor(getContext(),memo.getColor()));
             }
-            if (emoji != null){//per ogni variabile grafica(es textView) fare if e settare con valori opportuni
+            if (emoji != null){//per ogni variabile grafica settarla con valori opportuni
                 emoji.setText(Memo.getEmojiByUnicode(memo.getEmoji()));
 
             }
@@ -60,12 +54,10 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
                 title.setText(memo.getTitle());
             }
             if(star!=null){
-                if(memoList.get(position).getFavorite()==1){
-                    //setta immagine stella piena
+                if(memoList.get(position).getFavorite()==Values.TRUE){
                     star.setImageResource(R.mipmap.star_icon);
                 }
                 else{
-                    //setta immagine stella vuota
                     star.setImageResource(R.mipmap.icon_empy_star);
                 }
 

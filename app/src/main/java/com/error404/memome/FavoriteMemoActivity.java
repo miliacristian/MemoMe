@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,20 +46,16 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
-            //alert dialog che prende in input la password e la verifica
             alertEncrypted(id);
         }else {
-            //vado alla nuova activity
             Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
             Bundle bun = new Bundle();
             bun.putInt(Values.BUNDLE_KEY,id);
-            //bun.putInt(Values.IS_FILTERED, id);
             myIntent.putExtras(bun);
             startActivity(myIntent);
         }
     }
     public void alertEncrypted(int id) {
-        //alert dialog che prende in input la password e la verifica
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -68,8 +63,6 @@ public class FavoriteMemoActivity extends AppCompatActivity {
 
         final EditText nameEditText = (EditText) formElementsView
                 .findViewById(R.id.nameEditText);
-
-        //alert dialog
         new AlertDialog.Builder(FavoriteMemoActivity.this).setView(formElementsView)
                 .setTitle(R.string.warningMemoEncoded)
                 .setMessage(R.string.warningMemoEncodedText)
@@ -84,7 +77,6 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                                     Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    //bun.putInt(Values.IS_FILTERED,idMemo);
                                     bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);

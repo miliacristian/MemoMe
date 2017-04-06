@@ -25,7 +25,6 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
-//da sistemare,da aggiungere fragment
 public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
@@ -52,7 +51,6 @@ public class MemoMeMain extends AppCompatActivity
                 Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
                 b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
-                //b.putInt(Values.IS_FILTERED,Values.MEMO_NOT_FILTERED);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -64,9 +62,8 @@ public class MemoMeMain extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);//adapter deve essere un arraylist di memo
-        myListView = (ListView) findViewById(R.id.listOfNotes);//id della list view nella prima activity
-        //mySearchListView=(ListView) findViewById(R.id.listOfNotes);
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+        myListView = (ListView) findViewById(R.id.listOfNotes);
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,18 +73,14 @@ public class MemoMeMain extends AppCompatActivity
         });
     }
     public void goToShowMemoActivity(int id){
-        System.out.println(id);
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
-            //alert dialog che prende in input la password e la verifica
             alertEncrypted(id);
         }else {
-                //vado alla nuova activity
                 Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                 Bundle bun = new Bundle();
                 bun.putInt(Values.BUNDLE_KEY,id);
-                //bun.putInt(Values.IS_FILTERED, id);
                 myIntent.putExtras(bun);
                 startActivity(myIntent);
             }
@@ -210,7 +203,6 @@ public class MemoMeMain extends AppCompatActivity
     }
 
     public void alertEncrypted(int id) {
-        //alert dialog che prende in input la password e la verifica
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -218,8 +210,6 @@ public class MemoMeMain extends AppCompatActivity
 
         final EditText nameEditText = (EditText) formElementsView
                 .findViewById(R.id.nameEditText);
-
-        //alert dialog
         new AlertDialog.Builder(MemoMeMain.this).setView(formElementsView)
                 .setTitle(R.string.warningMemoEncoded)
                 .setMessage(R.string.warningMemoEncodedText)
@@ -234,7 +224,6 @@ public class MemoMeMain extends AppCompatActivity
                                     Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    //bun.putInt(Values.IS_FILTERED,idMemo);
                                     bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);
@@ -261,7 +250,6 @@ public class MemoMeMain extends AppCompatActivity
 
     public void deleteAllAlert() {
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
-                //set message, title, and icon
                 .setTitle(R.string.deleteAllNotEncoded)
                 .setMessage(R.string.confirmDeleteAll)
                 .setIcon(R.mipmap.delete_finale)
@@ -288,7 +276,7 @@ public class MemoMeMain extends AppCompatActivity
     public ArrayList<Memo> getFilteredMemos(String newText){
         ArrayList<Memo> filteredMemos=new ArrayList<Memo>();
         ArrayList<Memo> allMemo=dao.loadAllMemo();
-        if(newText.equals("")){
+        if(newText.equals(Values.EMPTY_STRING)){
             filteredMemos=allMemo;
             return filteredMemos;
         }
@@ -312,12 +300,8 @@ public class MemoMeMain extends AppCompatActivity
                     goToShowMemoActivity(memoList.get(position).getId());
                 }
             });
-            //mySearchListView=null;
             return;
         }
-        //memoList=dao.loadAllMemo();
-        //mem = new MemoAdapter(this, R.layout.rawlayout,memoList);
-        //myListView.setAdapter(mem);
     }
 
     @Override
@@ -331,7 +315,6 @@ public class MemoMeMain extends AppCompatActivity
                     goToShowMemoActivity(memoList.get(position).getId());
                 }
             });
-            //mySearchListView=null;
             return;
         }
         if (drawer.isDrawerOpen(GravityCompat.START)) {

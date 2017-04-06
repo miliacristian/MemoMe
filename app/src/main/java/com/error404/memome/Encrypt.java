@@ -1,13 +1,11 @@
 package com.error404.memome;
 
 import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-//finita e ordinata
-public class  Encrypt {//usare solo encryption e decryption
+public class  Encrypt {
     private final static String AES="AES";
     private final static String HEX = "0123456789ABCDEF";
     private final static String CRYPTO="Crypto";
@@ -23,7 +21,6 @@ public class  Encrypt {//usare solo encryption e decryption
         return normalTextEnc;
     }
     public static String decryption(String strEncryptedText,String key){
-        //String seedValue = "YourSecKey";
         String strDecryptedText=Values.EMPTY_STRING;
         try {
             strDecryptedText = Encrypt.decrypt(key, strEncryptedText);
@@ -51,7 +48,7 @@ public class  Encrypt {//usare solo encryption e decryption
         KeyGenerator kgen = KeyGenerator.getInstance(AES);
         SecureRandom sr = SecureRandom.getInstance(SHA1,CRYPTO);
         sr.setSeed(seed);
-        kgen.init(128, sr); // 192 and 256 bits may not be available
+        kgen.init(128, sr);
         SecretKey skey = kgen.generateKey();
         byte[] raw = skey.getEncoded();
         return raw;
@@ -74,12 +71,12 @@ public class  Encrypt {//usare solo encryption e decryption
         return decrypted;
     }
 
-    public static String toHex(String txt) {
+    /*public static String toHex(String txt) {
         return toHex(txt.getBytes());
     }
     public static String fromHex(String hex) {
         return new String(toByte(hex));
-    }
+    }*/
 
     public static byte[] toByte(String hexString) {
         int len = hexString.length()/2;

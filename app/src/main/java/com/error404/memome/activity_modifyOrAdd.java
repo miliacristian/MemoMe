@@ -19,9 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-//da ordinare ,da aggiungere fragment
 
-// modifica o crea solo colore testo titolo ed emoji la cifratura e la delete della nota si fa nell'activity show!
 public class activity_modifyOrAdd extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
@@ -31,7 +29,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private EditText textModify;
     private EditText titleModify;
     private TextView emojiModify;
-    private ImageView colorModify;//a ch emi serve??
+    private ImageView colorModify;
     private EmojiAdapter emAdapt;
     private ColorAdapter colorAdapt;
     private String mode=Values.EMPTY_STRING;
@@ -52,7 +50,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
         emojiModify.setClickable(true);
-        //emojiModify.setText(Memo.getEmojiByUnicode(emoji));
         emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +75,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         if(mode.equals(MODIFY_MODE)){
             currentMemo= dao.loadMemoById(id);
             if(currentMemo.getEncryption()== Values.TRUE){
-                //String normalPassword="";//fare la get della password non cifrata
                 dao.decryptText(currentMemo,password);
             }
             textModify.setText(currentMemo.getText());
@@ -99,19 +95,17 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.createMemo);
         }
 
-        FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);//floating button
+        FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);
         buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String title=titleModify.getText().toString();
                 if(!title.equals(Values.EMPTY_STRING)) {
                     String text = textModify.getText().toString();
-                    //DAO dao = new DAO(activity_modifyOrAdd.this);
-                    //dao.open();
-                    if (mode.equals(ADD_MODE)) {//aggiungi al db
+                    if (mode.equals(ADD_MODE)) {
                         dao.addMemoToDB(title, text,emoji, color);
                         finish();
-                    } else {//aggiorna memo con tutti i dati
+                    } else {
                         if (currentMemo.getEncryption() == Values.TRUE){
                             String toCifrateText = textModify.getText().toString();
                             String cifratedText = Encrypt.encryption(toCifrateText, password);
@@ -119,9 +113,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         }else{
                             currentMemo.setText(textModify.getText().toString());
                         }
-
                         currentMemo.setTitle(titleModify.getText().toString());
-
                         currentMemo.setEmoji(emoji);
                         currentMemo.setColor(color);
                         dao.saveMemo(currentMemo, currentMemo.getId());

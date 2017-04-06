@@ -1,14 +1,8 @@
 package com.error404.memome;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.v4.content.ContextCompat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static java.security.AccessController.getContext;
-//finita ordinata
 public class Memo {
     private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
     private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
@@ -83,17 +77,9 @@ public class Memo {
         return lastModify;
     }
 
-    /*public void setLastModify(Calendar lastModify) {
-        this.lastModify = lastModify;
-    }*/
-
     public Calendar getDateCreation() {
         return dateCreation;
     }
-
-    /*public void setDateCreation(Calendar dateCreation) {
-        this.dateCreation = dateCreation;
-    }*/
     public void setFavorite(int favorite){
         this.favorite=favorite;
     }

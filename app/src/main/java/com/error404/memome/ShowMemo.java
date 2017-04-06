@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +20,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-//da sistemare,da aggiungere fragment
+
+
 public class ShowMemo extends AppCompatActivity {
     private DAO dao;
     private TextView emojitxt;
@@ -35,7 +35,7 @@ public class ShowMemo extends AppCompatActivity {
     private Toast emptyToast;
     private Toast matchTaost;
     private Toast nougatToast;
-    private Toast deleteToast;
+    private Toast deleteToast;//?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +45,6 @@ public class ShowMemo extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         id = bun.getInt(Values.BUNDLE_KEY);
-        //final int id=bun.getInt(Values.IS_FILTERED);
-        //Aggiunge il pulsante back alla action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dao = new DAO(this);
         dao.open();
@@ -57,10 +55,7 @@ public class ShowMemo extends AppCompatActivity {
         emojitxt = (TextView) findViewById(R.id.emojitxt);
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
-        //imageView2 = (ImageView) findViewById(R.id.imageView2);
-        //inizializzare opportunamente emoji
         setColorOnTitleAndText();
-        // if encrypted
         if (m.isEncrypted()){
             password = bun.getString(DAO.PASSWORD);
             dao.decryptText(m, password);
@@ -68,7 +63,7 @@ public class ShowMemo extends AppCompatActivity {
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
         emojitxt.setText(Memo.getEmojiByUnicode(emoji));
-        FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);//floating button
+        FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);
         buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,15 +73,11 @@ public class ShowMemo extends AppCompatActivity {
                 b.putString(DAO.PASSWORD, password);
                 intent.putExtras(b);
                 startActivity(intent);
-                //vai all'activity della creazione/modifica in modalità modifica;
             }
         });
     }
 
     public void deleteThisMemo(){
-        //DAO dao=new DAO(this);
-        //dao.open();
-        //int id=dao.findIdByPosition(position);
         dao.deleteMemoByIdFromDB(id);
         finish();
     }
@@ -99,10 +90,6 @@ public class ShowMemo extends AppCompatActivity {
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
     public boolean isEncrypted(){
-        //mostra alert dialog ,sull ok memorizza la password nella stringa password
-        //DAO dao=new DAO(this);
-        //dao.open();//necessaria??
-        //return dao.isEncrypted(position);
         return dao.isEncrypted(id);
     }
 
@@ -111,19 +98,12 @@ public class ShowMemo extends AppCompatActivity {
     }
 
     public void insertEncryptToPasswordAndText(String password){
-        //mostra alert dialog ,sull ok memorizza la password nella stringa password
+
         this.password = password;
-        //DAO dao=new DAO(this);
-        //dao.open();
-        //dao.addEncryptionToPasswordAndText(position,password);
         dao.addEncryptionToPasswordAndText(id,password);
     }
 
     public void deleteEncryptionToPasswordAndText(String password){
-        //mostra alert dialog ,sull ok memorizza la password nella stringa password
-        //DAO dao=new DAO(this);
-        //dao.open();
-        //dao.deleteEncryptionToPasswordAndText(position,password);
         dao.deleteEncryptionToPasswordAndText(id,password);
     }
     public void addToFavorites(){
@@ -133,8 +113,6 @@ public class ShowMemo extends AppCompatActivity {
     public void deleteFromFavorites(){
         dao.deleteFromFavorites(id);
     }
-
-    // inflata il pulsante elimina ed encripta
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -142,31 +120,13 @@ public class ShowMemo extends AppCompatActivity {
             inflater.inflate(R.menu.menu_favorite, menu);
         }else{
         inflater.inflate(R.menu.menu_not_favorite, menu);}
-        // se la nota è criptata carico un menu, altrimenti l'altro
         if (isEncrypted()){
             inflater.inflate(R.menu.show_memo_decode, menu);
         }else{
             inflater.inflate(R.menu.show_memo_encode, menu);
         }
-
-        //manda in crash la show memo, dovrebbe gestire il longClick
-       /*MenuItem delete = menu.findItem(R.id.action_delete);
-        delete.getActionView().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (deleteToast != null){
-                    deleteToast.cancel();
-                }
-                deleteToast = Toast.makeText(ShowMemo.this, "", Toast.LENGTH_SHORT);
-                deleteToast.show();
-                return false;
-            }
-        });*/
-
-
         return super.onCreateOptionsMenu(menu);
     }
-    // onClick per il pulsante elimina e encode
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -194,7 +154,6 @@ public class ShowMemo extends AppCompatActivity {
 
             case R.id.action_encode:
                 if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-                //Inizio alert
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
@@ -202,7 +161,6 @@ public class ShowMemo extends AppCompatActivity {
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
-                //alert dialog
                 new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
                         .setTitle(R.string.insertPsw)
                         .setIcon(R.mipmap.lock_finale)
@@ -226,8 +184,6 @@ public class ShowMemo extends AppCompatActivity {
                                         }
                                         matchTaost = Toast.makeText(ShowMemo.this, R.string.pswMatch, Toast.LENGTH_SHORT);
                                         matchTaost.show();
-                                        //nameEditText.setText(Values.EMPTY_STRING);
-                                        //nameEditText2.setText(Values.EMPTY_STRING);
                                     }
                                 }
                             }
@@ -252,7 +208,6 @@ public class ShowMemo extends AppCompatActivity {
                 return true;
             case R.id.action_decode:
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
-                        //set message, title, and icon
                         .setTitle(R.string.decode)
                         .setMessage(R.string.decodeText)
                         .setIcon(R.mipmap.unlock_finale)
@@ -280,49 +235,11 @@ public class ShowMemo extends AppCompatActivity {
                 System.out.println("nota non preferita");
                 deleteFromFavorites();
                 invalidateOptionsMenu();
-                /*AlertDialog removeFromFavorite =new AlertDialog.Builder(this)
-                        //set message, title, and icon
-                        .setTitle(R.string.favoriteBtn)
-                        .setMessage(R.string.confirmNotFavorite)
-                        .setIcon(R.mipmap.icon_empy_star)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                //togliere la nota dai preferiti
-                                dialog.dismiss();
-                            }
-
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();*/
                 return true;
             case R.id.action_not_favorite:
                 System.out.println("nota non preferita");
                 addToFavorites();
                 invalidateOptionsMenu();
-                /*AlertDialog addToFavorite =new AlertDialog.Builder(this)
-                        //set message, title, and icon
-                        .setTitle(R.string.notFavoriteBtn)
-                        .setMessage(R.string.confirmFavorite)
-                        .setIcon(R.mipmap.star_icon)
-
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                //togliere la nota dai preferiti
-                                dialog.dismiss();
-                            }
-
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -331,7 +248,6 @@ public class ShowMemo extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         dao.close();
-
     }
 
 }

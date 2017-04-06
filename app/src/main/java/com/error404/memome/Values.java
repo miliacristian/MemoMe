@@ -1,9 +1,5 @@
 package com.error404.memome;
 
-/**
- * Created by cristian on 24/03/17.
- */
-
 public class Values {
 
     public final static String EMPTY_STRING="";
@@ -18,7 +14,7 @@ public class Values {
     public final  static int INDEX_DAY=0;
     public final  static int INDEX_MONTH=1;
     public final  static int INDEX_YEAR=2;
-    public final  static int ERROR_CODE=2;
+    //public final  static int ERROR_CODE=2;
     public final  static int FALSE=0;
     public final  static int TRUE=1;
     public final static int INDEX_EMPTY_EMOJI=0;
