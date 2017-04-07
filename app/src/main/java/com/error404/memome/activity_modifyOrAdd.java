@@ -222,15 +222,36 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         }
     @Override
     public void onBackPressed(){
-        alertCloseActivity();
-        //finish();
+        if (mode.equals(MODIFY_MODE)){
+            if(modifiedMemo()) {
+                alertCloseActivity();
+            //finish();
+            }else{
+                finish();
+            }
+        }else{
+            alertCloseActivity();
+        }
     }
+
+    public boolean modifiedMemo(){
+     if(currentMemo.getTitle().equals(titleModify.getText().toString())
+             && currentMemo.getText().equals(textModify.getText().toString())
+             && currentMemo.getEmoji() == emoji
+             && currentMemo.getColor() == color){
+         return false;
+     }else{
+         return true;
+     }
+    }
+
     @Override
     public void onDestroy(){
        super.onDestroy();
         dao.close();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -241,6 +262,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     public void alertCloseActivity(){
         new AlertDialog.Builder(activity_modifyOrAdd.this)
                 .setTitle(R.string.confirm_close_title)
