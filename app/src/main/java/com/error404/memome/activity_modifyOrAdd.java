@@ -36,6 +36,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private final String ADD_MODE="addMode";
     private final String MODIFY_MODE="modifyMode";
     private Toast mToast;
+    private String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         dao.open();
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
-        final String password = bun.getString(DAO.PASSWORD);
+        password = bun.getString(DAO.PASSWORD);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
@@ -101,8 +102,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             public void onClick(View view) {
                 String title=titleModify.getText().toString();
                 if(!title.equals(Values.EMPTY_STRING)) {
-                    String text = textModify.getText().toString();
-                    if (mode.equals(ADD_MODE)) {
+                    saveMemo();
+                    //String text = textModify.getText().toString();
+                    /*if (mode.equals(ADD_MODE)) {
                         dao.addMemoToDB(title, text,emoji, color);
                         finish();
                     } else {
@@ -119,7 +121,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                         dao.saveMemo(currentMemo, currentMemo.getId());
                         ShowMemo.getInstance().finish();
                         finish();
-                    }
+                    }*/
                 }
                 else{
                     if (mToast != null){
@@ -196,9 +198,32 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 }
             });
         }
+        public void saveMemo(){
+            String title=titleModify.getText().toString();
+                String text = textModify.getText().toString();
+            if (mode.equals(ADD_MODE)) {
+                dao.addMemoToDB(title, text,emoji, color);
+                finish();
+            } else {
+                if (currentMemo.getEncryption() == Values.TRUE){
+                    String toCifrateText = textModify.getText().toString();
+                    String cifratedText = Encrypt.encryption(toCifrateText, password);
+                    currentMemo.setText(cifratedText);
+                }else{
+                    currentMemo.setText(textModify.getText().toString());
+                }
+                currentMemo.setTitle(titleModify.getText().toString());
+                currentMemo.setEmoji(emoji);
+                currentMemo.setColor(color);
+                dao.saveMemo(currentMemo, currentMemo.getId());
+                ShowMemo.getInstance().finish();
+                finish();
+            }
+        }
     @Override
     public void onBackPressed(){
-        finish();
+        alertCloseActivity();
+        //finish();
     }
     @Override
     public void onDestroy(){
@@ -215,5 +240,40 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    public void alertCloseActivity(){
+        new AlertDialog.Builder(activity_modifyOrAdd.this)
+                .setTitle(R.string.confirm_close_title)
+                .setMessage(R.string.confirm_close_text)
+                .setIcon(R.mipmap.info_icon)
+                .setPositiveButton(R.string.confirm_close_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String title = titleModify.getText().toString();
+                                if (!title.equals(Values.EMPTY_STRING)) {
+                                    saveMemo();
+                                    dialog.cancel();
+                                }
+                                else{
+                                    if (mToast != null){
+                                        mToast.cancel();
+                                    }
+                                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
+                                    mToast.show();
+                                }
+                            }
+                        }
+                )
+                .setNegativeButton(R.string.confirm_close_no,new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        dialog.cancel();
+                    }
+        })
+                .setNeutralButton(R.string.cancel,new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 }

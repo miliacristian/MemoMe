@@ -76,6 +76,12 @@
     <string name="createMemo">Crea una nota</string>
     <string name="navFavorite">Mostra le note preferite</string>
     <string name ="favoriteActivityTitle">Note preferite</string>
+    <string name="confirm_close_title">Salvare prima di uscire?</string>
+    <string name="confirm_close_text">Vuoi salvare le modifiche prima di uscire?</string>
+    <string name="confirm_close_yes">si</string>
+    <string name="confirm_close_no">no</string>
+
+
 
 
 </resources>
