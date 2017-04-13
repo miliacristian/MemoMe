@@ -48,28 +48,7 @@ public class DAO {
         database.close();
     }
 
-    /*public int findIdByPosition(int position){
-        int id;
-        RowSort rowSort=getRowSort();
-        if(rowSort!=null) {
-            String sortMethod = ORDER_BY+ " " + rowSort.getSortType()+ " " + rowSort.getAscDesc();
-            String sql = SELECT_ALL +" "+sortMethod;
-            Cursor cursor = database.rawQuery(sql, null);
-            if (cursor != null) {
-                cursor.moveToFirst();
-                cursor.moveToPosition(position);
-                id = cursor.getInt(cursor.getColumnIndex(ID));
-                cursor.close();
-                return id;
-            }
-        }
-        return Values.ERROR_CODE;//error
-    }*/
-    /*public Memo loadMemoByPosition(int position){
-        int id=findIdByPosition(position);
-        Memo m=loadMemoById(id);
-        return m;
-    }*/
+
     public Memo loadMemoById(int id){//carico memo da id chiave primaria
         Memo memo=null;
         String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;
@@ -182,7 +161,7 @@ public class DAO {
         ArrayList<Memo> favoriteMemos=new ArrayList<Memo>();
         ArrayList<Memo> allMemo=loadAllMemoByTitle();
         for(int i=0;i<allMemo.size();i++){
-            if(allMemo.get(i).getFavorite()==1){
+            if(allMemo.get(i).getFavorite()==Values.TRUE){
                 favoriteMemos.add(allMemo.get(i));
             }
         }

@@ -138,7 +138,7 @@ public class Memo {
         return listColors;
     }
     public boolean isEncrypted(){
-        if(this.encryption==1){
+        if(this.encryption==Values.TRUE){
             return true;
         }
         return false;

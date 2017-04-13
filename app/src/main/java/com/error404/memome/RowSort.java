@@ -13,13 +13,9 @@ public class RowSort {// asc/desc+colore/titolo/datacreazione/datamodifica
     public String getAscDesc() {
         return ascDesc;
     }
-    public void setAscDesc(String ascDesc) {
-        this.ascDesc = ascDesc;
-    }
+
     public String getSortType() {
         return sortType;
     }
-    public void setSortType(String sortType) {
-        this.sortType = sortType;
-    }
+    
 }

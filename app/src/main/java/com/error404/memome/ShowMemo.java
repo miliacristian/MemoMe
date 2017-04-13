@@ -21,7 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+//snellire oncreate
 public class ShowMemo extends AppCompatActivity {
     private DAO dao;
     private TextView emojitxt;
@@ -35,7 +35,6 @@ public class ShowMemo extends AppCompatActivity {
     private Toast emptyToast;
     private Toast matchTaost;
     private Toast nougatToast;
-    private Toast deleteToast;//?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -232,12 +231,10 @@ public class ShowMemo extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_favorite:
-                System.out.println("nota non preferita");
                 deleteFromFavorites();
                 invalidateOptionsMenu();
                 return true;
             case R.id.action_not_favorite:
-                System.out.println("nota non preferita");
                 addToFavorites();
                 invalidateOptionsMenu();
             default:

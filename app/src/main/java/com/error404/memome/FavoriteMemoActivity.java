@@ -42,7 +42,6 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         });
     }
     public void goToShowMemoActivity(int id){
-        System.out.println(id);
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
@@ -71,8 +70,8 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
                                 String passFromDB;
-                                String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                passFromDB=""+dao.loadMemoById(idMemo).getPassword();
+                                String cifratedPassword =Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
+                                passFromDB=dao.loadMemoById(idMemo).getPassword();
                                 if (cifratedPassword.equals(passFromDB)) {
                                     Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
@@ -82,8 +81,6 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                                     startActivity(myIntent);
                                     dialog.cancel();
                                 } else {
-                                    System.out.println(cifratedPassword);
-                                    System.out.println(passFromDB);
                                     Toast.makeText(FavoriteMemoActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                 }
                             }

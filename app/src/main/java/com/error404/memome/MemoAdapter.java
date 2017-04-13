@@ -60,7 +60,6 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
                 else{
                     star.setImageResource(R.mipmap.icon_empy_star);
                 }
-
             }
         }
         return rowView;

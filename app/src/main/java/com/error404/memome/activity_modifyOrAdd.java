@@ -103,25 +103,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 String title=titleModify.getText().toString();
                 if(!title.equals(Values.EMPTY_STRING)) {
                     saveMemo();
-                    //String text = textModify.getText().toString();
-                    /*if (mode.equals(ADD_MODE)) {
-                        dao.addMemoToDB(title, text,emoji, color);
-                        finish();
-                    } else {
-                        if (currentMemo.getEncryption() == Values.TRUE){
-                            String toCifrateText = textModify.getText().toString();
-                            String cifratedText = Encrypt.encryption(toCifrateText, password);
-                            currentMemo.setText(cifratedText);
-                        }else{
-                            currentMemo.setText(textModify.getText().toString());
-                        }
-                        currentMemo.setTitle(titleModify.getText().toString());
-                        currentMemo.setEmoji(emoji);
-                        currentMemo.setColor(color);
-                        dao.saveMemo(currentMemo, currentMemo.getId());
-                        ShowMemo.getInstance().finish();
-                        finish();
-                    }*/
                 }
                 else{
                     if (mToast != null){
@@ -225,7 +206,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         if (mode.equals(MODIFY_MODE)){
             if(modifiedMemo()) {
                 alertCloseActivity();
-            //finish();
             }else{
                 finish();
             }

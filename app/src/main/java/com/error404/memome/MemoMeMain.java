@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 import java.util.ArrayList;
-
+//snellire oncreate
 public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
@@ -226,13 +226,9 @@ public class MemoMeMain extends AppCompatActivity
                                     startActivity(myIntent);
                                     dialog.cancel();
                                 } else {
-                                    System.out.println(cifratedPassword);
-                                    System.out.println(passFromDB);
                                     Toast.makeText(MemoMeMain.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                 }
                             }
-
-
                         }
                 )
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

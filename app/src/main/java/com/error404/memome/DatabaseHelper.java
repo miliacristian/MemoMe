@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final static String NAME_SORT_TABLE = "sort";
     private final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
     private final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +
-            "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//da non toccare incrementa automaticamente.
+            "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//attributo incrementato automaticamerte
             "\ttitle\tTEXT NOT NULL,\n"+
             "\ttext\tTEXT,\n"+
             "\tcolor\tINTEGER NOT NULL,\n" +
