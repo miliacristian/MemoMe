@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+//snellire oncreate
 public class FavoriteMemoActivity extends AppCompatActivity {
     private DAO dao;
     private ListView myListView;
@@ -125,5 +125,25 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         super.onDestroy();
         dao.close();
 
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        Memo.reLoadNameColor();
     }
 }

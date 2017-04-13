@@ -278,21 +278,7 @@ public class MemoMeMain extends AppCompatActivity
         return filteredMemos;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateSortAndGUI(DAO.ONLYUPDATEGUI);
-        if(searchView!=null && !searchView.isIconified()){
-            searchView.onActionViewCollapsed();
-            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    goToShowMemoActivity(memoList.get(position).getId());
-                }
-            });
-            return;
-        }
-    }
+
 
     @Override
     public void onBackPressed() {
@@ -325,11 +311,47 @@ public class MemoMeMain extends AppCompatActivity
         }
 
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("resume");
+        updateSortAndGUI(DAO.ONLYUPDATEGUI);
+        if(searchView!=null && !searchView.isIconified()){
+            searchView.onActionViewCollapsed();
+            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    goToShowMemoActivity(memoList.get(position).getId());
+                }
+            });
+            return;
+        }
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
         dao.close();
 
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        Memo.reLoadNameColor();
     }
 }

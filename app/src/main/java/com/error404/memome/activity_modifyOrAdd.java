@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+//snellire oncreate
 public class activity_modifyOrAdd extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
@@ -225,12 +225,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
      }
     }
 
-    @Override
-    public void onDestroy(){
-       super.onDestroy();
-        dao.close();
 
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -277,5 +272,31 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        dao.close();
+
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        Memo.reLoadNameColor();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        Memo.reLoadNameColor();
     }
 }
