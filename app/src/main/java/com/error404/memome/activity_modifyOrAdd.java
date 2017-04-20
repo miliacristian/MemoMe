@@ -146,7 +146,8 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
         });
     }
-        public void alertChooseEmoji(){
+
+    public void alertChooseEmoji(){
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView listView=(ListView)customView.findViewById(R.id.listV);
@@ -209,8 +210,23 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }else{
                 finish();
             }
-        }else{
+        }else if(mode.equals(ADD_MODE)){
+            if (NotEmptyMemoExit()){
+                alertCloseActivity();
+            }else{
+                finish();
+            }
+        }else {
             alertCloseActivity();
+        }
+    }
+
+    public boolean NotEmptyMemoExit(){
+        if(Values.EMPTY_STRING.equals(titleModify.getText().toString())
+                && Values.EMPTY_STRING.equals(textModify.getText().toString())){
+            return false;
+        }else{
+            return true;
         }
     }
 
