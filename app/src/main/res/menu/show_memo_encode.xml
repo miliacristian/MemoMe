@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_encode"
-        android:icon="@mipmap/lock_finale"
+        android:icon="@mipmap/lock_white"
         android:orderInCategory="100"
         android:title="@string/encodeBtn"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete"
-        android:icon="@mipmap/delete_finale"
+        android:icon="@mipmap/delete_white"
         android:orderInCategory="100"
         android:title="@string/delete"
         app:showAsAction="always" />

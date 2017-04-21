@@ -1,5 +1,7 @@
 package com.error404.memome;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -140,5 +142,21 @@ public class Memo {
     @Override
     public String toString() {
         return this.title.toLowerCase();
+    }
+
+    public static int darkerColor(int color){
+        int darkColor;
+        if (color != R.color.white){
+            float ratio = 1.0f - 0.2f;
+            int a = (color >> 24) & 0xFF;
+            int r = (int) (((color >> 16) & 0xFF) * ratio);
+            int g = (int) (((color >> 8) & 0xFF) * ratio);
+            int b = (int) ((color & 0xFF) * ratio);
+            darkColor =  (a << 24) | (r << 16) | (g << 8) | b;
+        }else{
+            int value = 210;
+            darkColor = Color.rgb(value, value, value);
+        }
+        return darkColor;
     }
 }
