@@ -23,6 +23,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Locale;
+
 //snellire oncreate
 public class MemoMeMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +56,7 @@ public class MemoMeMain extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        Values.language=Locale.getDefault().getLanguage();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -314,7 +317,6 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("resume");
         updateSortAndGUI(DAO.ONLYUPDATEGUI);
         if(searchView!=null && !searchView.isIconified()){
             searchView.onActionViewCollapsed();
@@ -334,7 +336,7 @@ public class MemoMeMain extends AppCompatActivity
 
     }
 
-    @Override
+   /* @Override
     public void onRestart(){
         super.onRestart();
         Memo.reLoadNameColor();
@@ -353,5 +355,5 @@ public class MemoMeMain extends AppCompatActivity
     public void onStop(){
         super.onStop();
         Memo.reLoadNameColor();
-    }
+    }*/
 }

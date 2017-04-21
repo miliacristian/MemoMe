@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 //snellire oncreate
 public class ShowMemo extends AppCompatActivity {
     private DAO dao;
@@ -246,7 +248,10 @@ public class ShowMemo extends AppCompatActivity {
         super.onDestroy();
         dao.close();
     }
-    @Override
+
+    //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia e si ritorna indietro dalla modify
+
+    /*@Override
     public void onRestart(){
         super.onRestart();
         Memo.reLoadNameColor();
@@ -265,6 +270,6 @@ public class ShowMemo extends AppCompatActivity {
     public void onStop(){
         super.onStop();
         Memo.reLoadNameColor();
-    }
+    }*/
 
 }

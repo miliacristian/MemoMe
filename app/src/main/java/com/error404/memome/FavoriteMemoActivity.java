@@ -126,7 +126,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         dao.close();
 
     }
-    @Override
+   /* @Override
     public void onRestart(){
         super.onRestart();
         Memo.reLoadNameColor();
@@ -145,5 +145,5 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     public void onStop(){
         super.onStop();
         Memo.reLoadNameColor();
-    }
+    }*/
 }
