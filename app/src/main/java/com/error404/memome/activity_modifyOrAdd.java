@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
 //snellire oncreate
 public class activity_modifyOrAdd extends AppCompatActivity {
     private DAO dao;
@@ -229,7 +231,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             return true;
         }
     }
-
     public boolean modifiedMemo(){
      if(currentMemo.getTitle().equals(titleModify.getText().toString())
              && currentMemo.getText().equals(textModify.getText().toString())
@@ -240,9 +241,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
          return true;
      }
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -253,7 +251,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
     public void alertCloseActivity(){
         new AlertDialog.Builder(activity_modifyOrAdd.this)
                 .setTitle(R.string.confirm_close_title)
@@ -294,25 +291,5 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         super.onDestroy();
         dao.close();
 
-    }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        Memo.reLoadNameColor();
     }
 }

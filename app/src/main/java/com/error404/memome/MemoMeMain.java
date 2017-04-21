@@ -56,7 +56,6 @@ public class MemoMeMain extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        Values.language=Locale.getDefault().getLanguage();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -242,7 +241,6 @@ public class MemoMeMain extends AppCompatActivity
                 .show();
 
     }
-
     public void deleteAllAlert() {
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
                 .setTitle(R.string.deleteAllNotEncoded)
@@ -280,9 +278,6 @@ public class MemoMeMain extends AppCompatActivity
         }
         return filteredMemos;
     }
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -335,25 +330,4 @@ public class MemoMeMain extends AppCompatActivity
         dao.close();
 
     }
-
-   /* @Override
-    public void onRestart(){
-        super.onRestart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        Memo.reLoadNameColor();
-    }*/
 }

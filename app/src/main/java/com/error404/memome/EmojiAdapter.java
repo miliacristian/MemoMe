@@ -12,7 +12,6 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
         super(c,textViewId,emojiList);
     }
-
     @Override
     public View getView(int position , View convertView, ViewGroup parent){
         View rowView=convertView;

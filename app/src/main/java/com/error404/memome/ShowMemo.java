@@ -248,28 +248,5 @@ public class ShowMemo extends AppCompatActivity {
         super.onDestroy();
         dao.close();
     }
-
-    //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia e si ritorna indietro dalla modify
-
-    /*@Override
-    public void onRestart(){
-        super.onRestart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        Memo.reLoadNameColor();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        Memo.reLoadNameColor();
-    }*/
-
+    //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia cliccando tasto indietro dalla modify
 }

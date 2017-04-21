@@ -18,5 +18,4 @@ public class Values {
     public final  static int TRUE=1;
     public final static int INDEX_EMPTY_EMOJI=0;
     public final static int EXIT_TIMEOUT=2000;
-    public static String language;
 }
