@@ -170,6 +170,9 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
             }
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+            int actionColor = Memo.darkerColor(color);
+            ActionBar bar = getSupportActionBar();
+            bar.setBackgroundDrawable(new ColorDrawable(actionColor));
         }
         if (mode.equals(MODIFY_MODE)){
             getSupportActionBar().setTitle(R.string.modifyMemo);
@@ -194,6 +197,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 }
             }
         });
+
         return;
     }
     public void handleBundleFromPreviousActivity(){
