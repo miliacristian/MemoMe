@@ -30,6 +30,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private Memo currentMemo;
     private int emoji=Values.DEFAULT_EMOJI;
     private int color=Values.DEFAULT_COLOR;
+    private int id;
     private EditText textModify;
     private EditText titleModify;
     private TextView emojiModify;
@@ -45,12 +46,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_or_add);
-        dao = new DAO(this);
-        dao.open();
-        Intent intent=getIntent();
+        openDB();
+        //dao = new DAO(this);
+        //dao.open();
+        handleBundleFromPreviousActivity();
+        /*Intent intent=getIntent();
         Bundle bun=intent.getExtras();
         password = bun.getString(DAO.PASSWORD);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        id=bun.getInt(Values.BUNDLE_KEY);*/
+        initializeGuiAndListener();
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
@@ -70,7 +75,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 alertDialogChooseColor();
             }
         });
-        int id=bun.getInt(Values.BUNDLE_KEY);
+
         if(id==Values.NO_ID){
             mode=ADD_MODE;
         }
@@ -119,7 +124,89 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     mToast.show();
                     }
                 }
+        });*/
+    }
+    public void initializeGuiAndListener(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        textModify=(EditText)findViewById(R.id.textModify);
+        titleModify=(EditText)findViewById(R.id.titleModify);
+        emojiModify=(TextView) findViewById(R.id.emojiModify);
+        emojiModify.setClickable(true);
+        emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
+        emojiModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertChooseEmoji();
+            }
         });
+        colorModify=(ImageView)findViewById(R.id.colorModify);
+        colorModify.setClickable(true);
+        colorModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogChooseColor();
+            }
+        });
+
+        if(id==Values.NO_ID){
+            mode=ADD_MODE;
+        }
+        else{
+            mode=MODIFY_MODE;
+        }
+        if(mode.equals(MODIFY_MODE)){
+            currentMemo= dao.loadMemoById(id);
+            if(currentMemo.getEncryption()== Values.TRUE){
+                dao.decryptText(currentMemo,password);
+            }
+            textModify.setText(currentMemo.getText());
+            titleModify.setText(currentMemo.getTitle());
+            color=currentMemo.getColor();
+            emoji=currentMemo.getEmoji();
+            if(emoji==Values.INDEX_EMPTY_EMOJI){
+                emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
+            }
+            else {
+                emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+            }
+            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+        }
+        if (mode.equals(MODIFY_MODE)){
+            getSupportActionBar().setTitle(R.string.modifyMemo);
+        }else{
+            getSupportActionBar().setTitle(R.string.createMemo);
+        }
+
+        FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);
+        buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title=titleModify.getText().toString();
+                if(!title.equals(Values.EMPTY_STRING)) {
+                    saveMemo();
+                }
+                else{
+                    if (mToast != null){
+                        mToast.cancel();
+                    }
+                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
+                    mToast.show();
+                }
+            }
+        });
+        return;
+    }
+    public void handleBundleFromPreviousActivity(){
+        Intent intent=getIntent();
+        Bundle bun=intent.getExtras();
+        password = bun.getString(DAO.PASSWORD);
+        id=bun.getInt(Values.BUNDLE_KEY);
+        return;
+    }
+    public void openDB(){
+        dao = new DAO(this);
+        dao.open();
+        return;
     }
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));

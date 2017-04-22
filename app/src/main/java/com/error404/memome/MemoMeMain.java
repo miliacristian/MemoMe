@@ -39,10 +39,54 @@ public class MemoMeMain extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo_me_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        openDB();
+        initializeGuiAndListener();
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         context=getApplicationContext();
+
+        //dao = new DAO(this);
+        //dao.open();
+        setSupportActionBar(toolbar);
+        memoList = dao.loadAllMemo();
+        FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
+        buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
+                Bundle b = new Bundle();
+                b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+        myListView = (ListView) findViewById(R.id.listOfNotes);
+        myListView.setAdapter(mem);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                goToShowMemoActivity(memoList.get(position).getId());
+            }
+        });*/
+    }
+    public void openDB(){
         dao = new DAO(this);
         dao.open();
+        return;
+    }
+    public void initializeGuiAndListener(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        context=getApplicationContext();
+        openDB();
+        //dao = new DAO(this);
+        //dao.open();
         setSupportActionBar(toolbar);
         memoList = dao.loadAllMemo();
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
@@ -72,6 +116,7 @@ public class MemoMeMain extends AppCompatActivity
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
+        return;
     }
     public void goToShowMemoActivity(int id){
         Memo m;

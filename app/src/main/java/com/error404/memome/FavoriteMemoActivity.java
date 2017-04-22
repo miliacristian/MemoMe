@@ -26,10 +26,28 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_memo);
+        openDB();
+        initializeGuiAndListener();
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
+        //dao = new DAO(this);
+        //dao.open();
+        memoList = dao.loadAllFavoriteMemo();
+        mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
+        myListView = (ListView) findViewById(R.id.listOfNotes);
+        myListView.setAdapter(mem);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                goToShowMemoActivity(memoList.get(position).getId());
+            }
+        });*/
+    }
+    public void initializeGuiAndListener(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
-        dao = new DAO(this);
-        dao.open();
+        //dao = new DAO(this);
+        //dao.open();
         memoList = dao.loadAllFavoriteMemo();
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
         myListView = (ListView) findViewById(R.id.listOfNotes);
@@ -40,6 +58,11 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
+    }
+    public void openDB(){
+        dao = new DAO(this);
+        dao.open();
+        return;
     }
     public void goToShowMemoActivity(int id){
         Memo m;

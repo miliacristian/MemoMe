@@ -43,16 +43,18 @@ public class ShowMemo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_memo);
-        getSupportActionBar().setTitle(R.string.showMemoTitle);
         refer = this;
-        Intent intent = getIntent();
-        Bundle bun = intent.getExtras();
-        id = bun.getInt(Values.BUNDLE_KEY);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        dao = new DAO(this);
-        dao.open();
-        Memo m;
-        m=dao.loadMemoById(id);
+        openDB();
+        //Intent intent = getIntent();
+        //Bundle bun = intent.getExtras();
+        //id = bun.getInt(Values.BUNDLE_KEY);
+        handleBundleFromPreviousActivity();
+        initializeGuiAndListener();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle(R.string.showMemoTitle);
+        //dao = new DAO(this);
+        //dao.open();
+        /*Memo m=dao.loadMemoById(id);
         color=m.getColor();
         emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
@@ -60,7 +62,39 @@ public class ShowMemo extends AppCompatActivity {
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
         setColorOnTitleAndText();
         if (m.isEncrypted()){
-            password = bun.getString(DAO.PASSWORD);
+            //password = bun.getString(DAO.PASSWORD);
+            dao.decryptText(m, password);
+        }
+        txtViewNota.setText(m.getText());
+        txtViewTitle.setText(m.getTitle());
+        emojitxt.setText(Memo.getEmojiByUnicode(emoji));
+        FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);
+        buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
+                Bundle b = new Bundle();
+                b.putInt(Values.BUNDLE_KEY, id);
+                b.putString(DAO.PASSWORD, password);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });*/
+    }
+    public void initializeGuiAndListener(){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.showMemoTitle);
+        //dao = new DAO(this);
+        //dao.open();
+        Memo m=dao.loadMemoById(id);
+        color=m.getColor();
+        emoji=m.getEmoji();
+        emojitxt = (TextView) findViewById(R.id.emojitxt);
+        txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
+        txtViewNota = (TextView) findViewById(R.id.txtViewNota);
+        setColorOnTitleAndText();
+        if (m.isEncrypted()){
+            //password = bun.getString(DAO.PASSWORD);
             dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
@@ -82,7 +116,18 @@ public class ShowMemo extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(actionColor));
     }
-
+    public void handleBundleFromPreviousActivity(){
+        Intent intent = getIntent();
+        Bundle bun = intent.getExtras();
+        id = bun.getInt(Values.BUNDLE_KEY);
+        password = bun.getString(DAO.PASSWORD);//può essere null
+        return;
+    }
+    public void openDB(){
+        dao = new DAO(this);
+        dao.open();
+        return;
+    }
     public void deleteThisMemo(){
         dao.deleteMemoByIdFromDB(id);
         finish();
