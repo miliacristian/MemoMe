@@ -78,7 +78,6 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:layout_weight="0.92"
         android:scaleType="center"
         app:elevation="4dp"
         app:srcCompat="@android:drawable/ic_menu_edit" />

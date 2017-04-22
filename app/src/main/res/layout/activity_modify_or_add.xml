@@ -50,7 +50,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.13"
                 android:background="@android:color/transparent"
-                app:srcCompat="@mipmap/color_choice" />
+                app:srcCompat="@mipmap/color_choice"
+                android:contentDescription="@string/chooseColor" />
 
         </LinearLayout>
 
@@ -83,7 +84,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="center"
-        android:layout_weight="0.92"
         app:elevation="4dp"
         app:srcCompat="@android:drawable/ic_menu_save" />
 </RelativeLayout>

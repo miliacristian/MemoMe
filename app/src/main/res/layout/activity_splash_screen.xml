@@ -10,5 +10,6 @@
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/index" />
+        app:srcCompat="@drawable/index"
+        android:contentDescription="@string/about" />
 </RelativeLayout>
