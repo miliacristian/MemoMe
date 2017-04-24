@@ -48,93 +48,14 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("create of modify");
         if(savedInstanceState!=null){
-            //rinizializza le variabili e termina
             bundleState=savedInstanceState;
-            System.out.println(bundleState.getString("saluto"));
         }
         setContentView(R.layout.activity_modify_or_add);
         openDB();
-        //dao = new DAO(this);
-        //dao.open();
         handleBundleFromPreviousActivity();
-        /*Intent intent=getIntent();
-        Bundle bun=intent.getExtras();
-        password = bun.getString(DAO.PASSWORD);
-        id=bun.getInt(Values.BUNDLE_KEY);*/
         initializeGuiAndListener();
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        textModify=(EditText)findViewById(R.id.textModify);
-        titleModify=(EditText)findViewById(R.id.titleModify);
-        emojiModify=(TextView) findViewById(R.id.emojiModify);
-        emojiModify.setClickable(true);
-        emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
-        emojiModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertChooseEmoji();
-            }
-        });
-        colorModify=(ImageView)findViewById(R.id.colorModify);
-        colorModify.setClickable(true);
-        colorModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialogChooseColor();
-            }
-        });
-
-        if(id==Values.NO_ID){
-            mode=ADD_MODE;
-        }
-        else{
-            mode=MODIFY_MODE;
-        }
-        if(mode.equals(MODIFY_MODE)){
-            currentMemo= dao.loadMemoById(id);
-            if(currentMemo.getEncryption()== Values.TRUE){
-                dao.decryptText(currentMemo,password);
-            }
-            textModify.setText(currentMemo.getText());
-            titleModify.setText(currentMemo.getTitle());
-            color=currentMemo.getColor();
-            emoji=currentMemo.getEmoji();
-            if(emoji==Values.INDEX_EMPTY_EMOJI){
-                emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
-            }
-            else {
-                emojiModify.setText(Memo.getEmojiByUnicode(emoji));
-            }
-            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-            int actionColor = Memo.darkerColor(color);
-            ActionBar bar = getSupportActionBar();
-            bar.setBackgroundDrawable(new ColorDrawable(actionColor));
-        }
-        if (mode.equals(MODIFY_MODE)){
-            getSupportActionBar().setTitle(R.string.modifyMemo);
-        }else{
-            getSupportActionBar().setTitle(R.string.createMemo);
-        }
-
-        FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);
-        buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String title=titleModify.getText().toString();
-                if(!title.equals(Values.EMPTY_STRING)) {
-                    saveMemo();
-                }
-                else{
-                    if (mToast != null){
-                        mToast.cancel();
-                    }
-                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
-                    mToast.show();
-                    }
-                }
-        });*/
     }
-    public void initializeGuiAndListener(){//dove opportuno verificare che bundle!=null e eseguire codice
-        //opportuno sia per add sia per modify
+    public void initializeGuiAndListener(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
@@ -414,32 +335,13 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     public void onDestroy(){
         super.onDestroy();
         dao.close();
-
-    }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        System.out.println("restart");
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        System.out.println("start");
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        System.out.println("pause");
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        System.out.println("stop");
+        return;
     }
     @Override
     public void onSaveInstanceState(Bundle keepState){
         super.onSaveInstanceState(keepState);
         keepState.putInt("color",color);
         keepState.putInt("emoji",emoji);
+        return;
     }
 }

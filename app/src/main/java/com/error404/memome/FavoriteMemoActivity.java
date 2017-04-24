@@ -29,26 +29,10 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite_memo);
         openDB();
         initializeGuiAndListener();
-        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
-        //dao = new DAO(this);
-        //dao.open();
-        memoList = dao.loadAllFavoriteMemo();
-        mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
-        myListView = (ListView) findViewById(R.id.listOfNotes);
-        myListView.setAdapter(mem);
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                goToShowMemoActivity(memoList.get(position).getId());
-            }
-        });*/
     }
     public void initializeGuiAndListener(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
-        //dao = new DAO(this);
-        //dao.open();
         memoList = dao.loadAllFavoriteMemo();
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
         myListView = (ListView) findViewById(R.id.listOfNotes);
@@ -151,21 +135,5 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         super.onDestroy();
         dao.close();
 
-    }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
     }
 }

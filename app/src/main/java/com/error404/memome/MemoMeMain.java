@@ -42,40 +42,6 @@ public class MemoMeMain extends AppCompatActivity
         setContentView(R.layout.activity_memo_me_main);
         openDB();
         initializeGuiAndListener();
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        context=getApplicationContext();
-
-        //dao = new DAO(this);
-        //dao.open();
-        setSupportActionBar(toolbar);
-        memoList = dao.loadAllMemo();
-        FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
-        buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
-                Bundle b = new Bundle();
-                b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
-                intent.putExtras(b);
-                startActivity(intent);
-            }
-        });
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
-        myListView = (ListView) findViewById(R.id.listOfNotes);
-        myListView.setAdapter(mem);
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                goToShowMemoActivity(memoList.get(position).getId());
-            }
-        });*/
     }
     public void openDB(){
         dao = new DAO(this);
@@ -86,8 +52,6 @@ public class MemoMeMain extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         context=getApplicationContext();
         openDB();
-        //dao = new DAO(this);
-        //dao.open();
         setSupportActionBar(toolbar);
         memoList = dao.loadAllMemo();
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
@@ -124,12 +88,14 @@ public class MemoMeMain extends AppCompatActivity
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
             alertEncrypted(id);
+            return;
         }else {
                 Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                 Bundle bun = new Bundle();
                 bun.putInt(Values.BUNDLE_KEY,id);
                 myIntent.putExtras(bun);
                 startActivity(myIntent);
+                return;
             }
         }
 
@@ -179,13 +145,13 @@ public class MemoMeMain extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menuSearch) {
-        }
+        //int id = item.getItemId();
+        //if (id == R.id.menuSearch) {
+        //}
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -377,21 +343,5 @@ public class MemoMeMain extends AppCompatActivity
         super.onDestroy();
         dao.close();
 
-    }
-    @Override
-    public void onRestart(){
-        super.onRestart();
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
     }
 }

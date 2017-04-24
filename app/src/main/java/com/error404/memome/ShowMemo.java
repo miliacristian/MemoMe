@@ -39,54 +39,23 @@ public class ShowMemo extends AppCompatActivity {
     private Toast emptyToast;
     private Toast matchTaost;
     private Toast nougatToast;
+    private Bundle bundleState=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("create");
+        if(savedInstanceState!=null){
+            bundleState=savedInstanceState;
+        }
         setContentView(R.layout.activity_show_memo);
         refer = this;
         openDB();
-        //Intent intent = getIntent();
-        //Bundle bun = intent.getExtras();
-        //id = bun.getInt(Values.BUNDLE_KEY);
         handleBundleFromPreviousActivity();
         initializeGuiAndListener();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setTitle(R.string.showMemoTitle);
-        //dao = new DAO(this);
-        //dao.open();
-        /*Memo m=dao.loadMemoById(id);
-        color=m.getColor();
-        emoji=m.getEmoji();
-        emojitxt = (TextView) findViewById(R.id.emojitxt);
-        txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
-        txtViewNota = (TextView) findViewById(R.id.txtViewNota);
-        setColorOnTitleAndText();
-        if (m.isEncrypted()){
-            //password = bun.getString(DAO.PASSWORD);
-            dao.decryptText(m, password);
-        }
-        txtViewNota.setText(m.getText());
-        txtViewTitle.setText(m.getTitle());
-        emojitxt.setText(Memo.getEmojiByUnicode(emoji));
-        FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);
-        buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
-                Bundle b = new Bundle();
-                b.putInt(Values.BUNDLE_KEY, id);
-                b.putString(DAO.PASSWORD, password);
-                intent.putExtras(b);
-                startActivity(intent);
-            }
-        });*/
     }
     public void initializeGuiAndListener(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.showMemoTitle);
-        //dao = new DAO(this);
-        //dao.open();
         Memo m=dao.loadMemoById(id);
         color=m.getColor();
         emoji=m.getEmoji();
@@ -94,9 +63,10 @@ public class ShowMemo extends AppCompatActivity {
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
         setColorOnTitleAndText();
+        System.out.println("la password è:"+password);
         if (m.isEncrypted()){
             //password = bun.getString(DAO.PASSWORD);
-            dao.decryptText(m, password);
+                dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
@@ -121,7 +91,12 @@ public class ShowMemo extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
         id = bun.getInt(Values.BUNDLE_KEY);
-        password = bun.getString(DAO.PASSWORD);//può essere null
+        if(bundleState!=null){
+            password=bundleState.getString("password");
+        }
+        else {
+            password = bun.getString(DAO.PASSWORD);//può essere null
+        }
         return;
     }
     public void openDB(){
@@ -300,26 +275,11 @@ public class ShowMemo extends AppCompatActivity {
         super.onDestroy();
         dao.close();
     }
-
     @Override
-    public void onRestart(){
-        super.onRestart();
-        System.out.println("restart");
-    }
-    @Override
-    public void onStart(){
-        super.onStart();
-        System.out.println("start");
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        System.out.println("pause");
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        System.out.println("stop");
+    public void onSaveInstanceState(Bundle keepState){
+        super.onSaveInstanceState(keepState);
+        keepState.putString("password",password);
+        return;
     }
     //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia cliccando tasto indietro dalla modify
 }
