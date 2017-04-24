@@ -42,6 +42,7 @@ public class ShowMemo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("create");
         setContentView(R.layout.activity_show_memo);
         refer = this;
         openDB();
@@ -298,6 +299,27 @@ public class ShowMemo extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         dao.close();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        System.out.println("restart");
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        System.out.println("start");
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        System.out.println("pause");
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        System.out.println("stop");
     }
     //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia cliccando tasto indietro dalla modify
 }

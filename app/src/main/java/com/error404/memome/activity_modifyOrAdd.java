@@ -42,9 +42,16 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     private final String MODIFY_MODE="modifyMode";
     private Toast mToast;
     private String password;
+    private Bundle bundleState=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("create of modify");
+        if(savedInstanceState!=null){
+            //rinizializza le variabili e termina
+            bundleState=savedInstanceState;
+            System.out.println(bundleState.getString("saluto"));
+        }
         setContentView(R.layout.activity_modify_or_add);
         openDB();
         //dao = new DAO(this);
@@ -126,13 +133,27 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 }
         });*/
     }
-    public void initializeGuiAndListener(){
+    public void initializeGuiAndListener(){//dove opportuno verificare che bundle!=null e eseguire codice
+        //opportuno sia per add sia per modify
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
         emojiModify.setClickable(true);
-        emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
+        if(bundleState!=null){
+            emoji=bundleState.getInt("emoji");
+            color=bundleState.getInt("color");
+            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+            if(emoji==Values.INDEX_EMPTY_EMOJI){
+                emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
+            }
+            else {
+                emojiModify.setText(Memo.getEmojiByUnicode(emoji));
+            }
+        }
+        else {
+            emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
+        }
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,8 +182,14 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             }
             textModify.setText(currentMemo.getText());
             titleModify.setText(currentMemo.getTitle());
-            color=currentMemo.getColor();
-            emoji=currentMemo.getEmoji();
+            if(bundleState!=null){
+                color=bundleState.getInt("color");
+                emoji=bundleState.getInt("emoji");
+            }
+            else {
+                color = currentMemo.getColor();
+                emoji = currentMemo.getEmoji();
+            }
             if(emoji==Values.INDEX_EMPTY_EMOJI){
                 emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
             }
@@ -173,13 +200,11 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             int actionColor = Memo.darkerColor(color);
             ActionBar bar = getSupportActionBar();
             bar.setBackgroundDrawable(new ColorDrawable(actionColor));
-        }
-        if (mode.equals(MODIFY_MODE)){
             getSupportActionBar().setTitle(R.string.modifyMemo);
-        }else{
+        }
+        else{
             getSupportActionBar().setTitle(R.string.createMemo);
         }
-
         FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);
         buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -390,5 +415,31 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         super.onDestroy();
         dao.close();
 
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        System.out.println("restart");
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        System.out.println("start");
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        System.out.println("pause");
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        System.out.println("stop");
+    }
+    @Override
+    public void onSaveInstanceState(Bundle keepState){
+        super.onSaveInstanceState(keepState);
+        keepState.putInt("color",color);
+        keepState.putInt("emoji",emoji);
     }
 }

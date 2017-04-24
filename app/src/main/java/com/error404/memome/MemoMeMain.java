@@ -38,6 +38,7 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("create");
         setContentView(R.layout.activity_memo_me_main);
         openDB();
         initializeGuiAndListener();
@@ -376,5 +377,21 @@ public class MemoMeMain extends AppCompatActivity
         super.onDestroy();
         dao.close();
 
+    }
+    @Override
+    public void onRestart(){
+        super.onRestart();
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
     }
 }
