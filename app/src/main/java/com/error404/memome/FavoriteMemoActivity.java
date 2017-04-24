@@ -92,10 +92,12 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @TargetApi(11)
                             public void onClick(DialogInterface dialog, int id) {
-                                String passFromDB;
+                                /*String passFromDB;
                                 String cifratedPassword =Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
                                 passFromDB=dao.loadMemoById(idMemo).getPassword();
-                                if (cifratedPassword.equals(passFromDB)) {
+                                if (cifratedPassword.equals(passFromDB))*/
+                                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                                if (nameEditText.getText().toString().equals(decryptedFromDB)){
                                     Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);

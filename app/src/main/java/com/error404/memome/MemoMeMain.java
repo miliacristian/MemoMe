@@ -261,10 +261,12 @@ public class MemoMeMain extends AppCompatActivity
                 .setIcon(R.mipmap.lock_finale)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                String passFromDB;
+                                /*String passFromDB;
                                 String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                    passFromDB=""+dao.loadMemoById(idMemo).getPassword();
-                                if (cifratedPassword.equals(passFromDB)) {
+                                    passFromDB=""+dao.loadMemoById(idMemo).getPassword();*/
+                                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                                if (//cifratedPassword.equals(passFromDB
+                                        nameEditText.getText().toString().equals(decryptedFromDB)) {
                                     Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);

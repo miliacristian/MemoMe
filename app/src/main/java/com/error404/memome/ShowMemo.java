@@ -204,7 +204,8 @@ public class ShowMemo extends AppCompatActivity {
                 return true;
 
             case R.id.action_encode:
-                if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+                if (//android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.N
+                    true ) {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);

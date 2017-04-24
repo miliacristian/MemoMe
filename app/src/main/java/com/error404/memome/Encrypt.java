@@ -5,6 +5,9 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+
+import tgio.rncryptor.RNCryptorNative;
+
 public class  Encrypt {
     private final static String AES="AES";
     private final static String HEX = "0123456789ABCDEF";
@@ -12,6 +15,19 @@ public class  Encrypt {
     private final static String SHA1="SHA1PRNG";
 
     public static String encryption(String strNormalText,String key){
+        RNCryptorNative criptor = new RNCryptorNative();
+        String encrypted = new String(criptor.encrypt(strNormalText, key));
+        return encrypted;
+    }
+    public static String decryption(String strEncryptedText,String key){
+        RNCryptorNative criptor = new RNCryptorNative();
+        String decrypted = new String(criptor.decrypt(strEncryptedText, key));
+        return decrypted;
+    }
+
+    //se la nuova libreria va, tutto il codice sottostante, è inutile, insieme agli attributi soprastanti
+
+    /*public static String encryption(String strNormalText,String key){
         String normalTextEnc=Values.EMPTY_STRING;
         try {
             normalTextEnc = Encrypt.encrypt(key, strNormalText);
@@ -30,7 +46,7 @@ public class  Encrypt {
         }
 
         return strDecryptedText;
-    }
+    }*/
     public static String encrypt(String seed, String cleartext) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] result = encrypt(rawKey, cleartext.getBytes());
