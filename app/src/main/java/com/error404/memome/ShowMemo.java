@@ -38,7 +38,6 @@ public class ShowMemo extends AppCompatActivity {
     private static Activity refer;
     private Toast emptyToast;
     private Toast matchTaost;
-    private Toast nougatToast;
     private Bundle bundleState=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +179,6 @@ public class ShowMemo extends AppCompatActivity {
                 return true;
 
             case R.id.action_encode:
-                if (//android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.N
-                    true ) {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
@@ -225,14 +222,7 @@ public class ShowMemo extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
-                        .show();}
-                else{
-                    if (nougatToast != null){
-                        nougatToast.cancel();
-                    }
-                    nougatToast = Toast.makeText(ShowMemo.this,R.string.nougatToast, Toast.LENGTH_SHORT);
-                    nougatToast.show();
-                }
+                        .show();
                 return true;
             case R.id.action_decode:
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
