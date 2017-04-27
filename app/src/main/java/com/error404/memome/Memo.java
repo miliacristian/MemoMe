@@ -154,8 +154,7 @@ public class Memo {
             int b = (int) ((color & 0xFF) * ratio);
             darkColor =  (a << 24) | (r << 16) | (g << 8) | b;
         }else{
-            int value = 210;
-            darkColor = Color.rgb(value, value, value);
+            darkColor = R.color.colorAccent;
         }
         return darkColor;
     }

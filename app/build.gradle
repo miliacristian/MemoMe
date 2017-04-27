@@ -5,12 +5,11 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.error404.memome"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        minSdkVersion 19
     }
     buildTypes {
         release {

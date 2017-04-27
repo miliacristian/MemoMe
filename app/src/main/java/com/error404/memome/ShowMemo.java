@@ -19,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,9 +84,15 @@ public class ShowMemo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        int actionColor = Memo.darkerColor(color);
-        ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(actionColor));
+        //if (color != R.color.white){
+            int actionColor = Memo.darkerColor(color);
+        System.out.println(actionColor);
+            ActionBar bar = getSupportActionBar();
+            bar.setBackgroundDrawable(new ColorDrawable(actionColor));
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(actionColor);
+        //}
     }
     public void handleBundleFromPreviousActivity(){
         Intent intent = getIntent();
