@@ -120,11 +120,6 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             else {
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
             }
-            /*getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-            int actionColor = Memo.darkerColor(color);
-            ActionBar bar = getSupportActionBar();
-            bar.setBackgroundDrawable(new ColorDrawable(actionColor));
-            getSupportActionBar().setTitle(R.string.modifyMemo);*/
             setColorOnTitleAndText();
         }
         else{
