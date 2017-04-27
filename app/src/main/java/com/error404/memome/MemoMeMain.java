@@ -160,7 +160,7 @@ public class MemoMeMain extends AppCompatActivity
         if (id == R.id.sort_title) {//ordina per titolo
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
-                updateSortAndGUI(DAO.TITLE);
+                updateSortAndGUI(Values.TITLE);
             }
         } else if (id == R.id.sort_creation) {//ordinamento data creazione
             if (dao != null) {
@@ -178,7 +178,7 @@ public class MemoMeMain extends AppCompatActivity
         } else if (id == R.id.sort_color) {//ordinamento colore
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
-                updateSortAndGUI(DAO.COLOR);
+                updateSortAndGUI(Values.COLOR);
             }
         } else if (id == R.id.nav_delete_all) {
             if (dao != null) {
@@ -188,7 +188,7 @@ public class MemoMeMain extends AppCompatActivity
         } else if (id == R.id.sort_emoji) {
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
-                updateSortAndGUI(DAO.EMOJI);
+                updateSortAndGUI(Values.EMOJI);
             }
             //ordina per emoji
         } else if (id == R.id.nav_about){
@@ -237,7 +237,7 @@ public class MemoMeMain extends AppCompatActivity
                                     Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
+                                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);
                                     dialog.cancel();
@@ -263,7 +263,7 @@ public class MemoMeMain extends AppCompatActivity
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         deleteAllMemo();
-                        updateSortAndGUI(DAO.ONLYUPDATEGUI);
+                        updateSortAndGUI(Values.ONLYUPDATEGUI);
                         dialog.dismiss();
                     }
 
@@ -326,7 +326,7 @@ public class MemoMeMain extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        updateSortAndGUI(DAO.ONLYUPDATEGUI);
+        updateSortAndGUI(Values.ONLYUPDATEGUI);
         if(searchView!=null && !searchView.isIconified()){
             searchView.onActionViewCollapsed();
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

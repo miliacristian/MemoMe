@@ -86,7 +86,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                                     Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    bun.putString(DAO.PASSWORD, nameEditText.getText().toString());
+                                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
                                     myIntent.putExtras(bun);
                                     startActivity(myIntent);
                                     dialog.cancel();

@@ -79,7 +79,7 @@ public class ShowMemo extends AppCompatActivity {
                 Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
                 Bundle b = new Bundle();
                 b.putInt(Values.BUNDLE_KEY, id);
-                b.putString(DAO.PASSWORD, password);
+                b.putString(Values.PASSWORD, password);
                 intent.putExtras(b);
                 startActivity(intent);
             }
@@ -101,7 +101,7 @@ public class ShowMemo extends AppCompatActivity {
             password=bundleState.getString("password");
         }
         else {
-            password = bun.getString(DAO.PASSWORD);//può essere null
+            password = bun.getString(Values.PASSWORD);//può essere null
         }
         return;
     }

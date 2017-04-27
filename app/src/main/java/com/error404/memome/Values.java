@@ -1,7 +1,7 @@
 package com.error404.memome;
 
 
-//valori costanti
+//valori costanti globali dell'applicazione
 public class Values {
 
     public final static String EMPTY_STRING="";
@@ -21,4 +21,10 @@ public class Values {
     public final static int INDEX_EMPTY_EMOJI=0;
     public final static int EXIT_TIMEOUT=2000;
     public final static int SPLASH_TIME_OUT = 1000;
+    public final  static String ONLYUPDATEGUI="onlyUpdateGUI";
+    public final  static String TITLE="title";
+    public final  static String COLOR="color";
+    public final  static String EMOJI="emoji";
+    public final  static String PASSWORD="password";
+    public final  static String FAVORITE="favorite";
 }

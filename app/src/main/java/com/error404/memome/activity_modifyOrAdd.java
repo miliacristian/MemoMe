@@ -148,7 +148,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     public void handleBundleFromPreviousActivity(){
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
-        password = bun.getString(DAO.PASSWORD);
+        password = bun.getString(Values.PASSWORD);
         id=bun.getInt(Values.BUNDLE_KEY);
         return;
     }

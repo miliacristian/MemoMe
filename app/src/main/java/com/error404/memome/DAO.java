@@ -12,18 +12,13 @@ public class DAO {
     private DatabaseHelper dbh;//riferimento al DatabaseHelper,necessario per  aprire il database
     private SQLiteDatabase database;//riferimento a SQLiteDatabase il quale esegue le istruzioni SQL
 
-    //valori costanti relativi agli attributi delle tabelle
+    //valori privati e costanti relativi agli attributi delle tabelle,
     private final  String SORTTYPE="sorttype";
     private final  String ASCDESC="ascdesc";
     private final  String ORDER_BY="order by";
     private final  String ID="_id";
     private final  String WHERE="where";
-    public final  static String TITLE="title";
     private final  String TEXT="text";
-    public final  static String COLOR="color";
-    public final  static String EMOJI="emoji";
-    public final  static String PASSWORD="password";
-    public final  static String FAVORITE="favorite";
     private final  String ENCRYPTION="encryption";
     private final  String DAYDATECREATION="daydatecreation";
     private final  String MONTHDATECREATION="monthdatecreation";
@@ -33,7 +28,7 @@ public class DAO {
     private final  String YEARLASTMODIFY="yearlastmodify";
     private final String ASC="asc";
     private final  String DESC="desc";
-    public final  static String ONLYUPDATEGUI="onlyUpdateGUI";
+
     //istruzioni SQL
 
     private final  String SELECT_ALL="SELECT * FROM memos";
@@ -71,17 +66,17 @@ public class DAO {
          //istanzia un oggetto memo
         if(c!=null) {
             int id = c.getInt(c.getColumnIndex(ID));
-            String title = c.getString(c.getColumnIndex(TITLE));
+            String title = c.getString(c.getColumnIndex(Values.TITLE));
             String text = c.getString(c.getColumnIndex(TEXT));
-            int color = c.getInt(c.getColumnIndex(COLOR));
-            int emoji = c.getInt(c.getColumnIndex(EMOJI));
+            int color = c.getInt(c.getColumnIndex(Values.COLOR));
+            int emoji = c.getInt(c.getColumnIndex(Values.EMOJI));
             int datecreation[];//day,month,year
             int lastmodify[];//day,month,year
             datecreation = getDateCreation(c);
             lastmodify = getLastModify(c);
             int encryption = c.getInt(c.getColumnIndex(ENCRYPTION));
-            String password = c.getString(c.getColumnIndex(PASSWORD));
-            int favorite=c.getInt(c.getColumnIndex(FAVORITE));
+            String password = c.getString(c.getColumnIndex(Values.PASSWORD));
+            int favorite=c.getInt(c.getColumnIndex(Values.FAVORITE));
             Memo memo = new Memo(id, title, text, color, emoji, datecreation, lastmodify, encryption, password,favorite);
             return memo;
         }
@@ -124,16 +119,16 @@ public class DAO {
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
         ContentValues cv=new ContentValues();//contiene le coppie nome,valore per aggiornare il DB
-        cv.put(TITLE,title);
+        cv.put(Values.TITLE,title);
         cv.put(TEXT,text);
-        cv.put(COLOR,color);
-        cv.put(EMOJI,emoji);
+        cv.put(Values.COLOR,color);
+        cv.put(Values.EMOJI,emoji);
         cv.put(DAYLASTMODIFY,day);
         cv.put(MONTHLASTMODIFY,month);
         cv.put(YEARLASTMODIFY,year);
         cv.put(ENCRYPTION,encryption);
-        cv.put(PASSWORD,password);
-        cv.put(FAVORITE,favorite);
+        cv.put(Values.PASSWORD,password);
+        cv.put(Values.FAVORITE,favorite);
         database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
     }
     public ArrayList<Memo> loadAllMemoByTitle(){//metodo per caricare tutte le note per titolo e metterle in una lista
@@ -177,7 +172,7 @@ public class DAO {
     }
 
     public void updateSort(String newSortType){//metodo per aggiornare il tipo di ordinamento
-        if(newSortType.equals(ONLYUPDATEGUI)){//non fare niente
+        if(newSortType.equals(Values.ONLYUPDATEGUI)){//non fare niente
             return;
         }
         RowSort rowSort=getRowSort();//se vecchio e nuovo ordinamento coincidono allora inverti nel db solo ASC in DESC o viceversa
