@@ -39,13 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {//al momento della creazione del database
-        //esegue le istruzioni SQL ossia crea le tabelle "Memo" e "Sort" e
-        // inizializza la "Sort" con ordinamento per titolo crescente
+        //esegue le query SQL ossia crea le tabelle "Memo" e "Sort" e
+        // inizializza la tabella "Sort" con ordinamento per titolo crescente
         sqLiteDatabase.execSQL(MEMO_TABLE_SQL);//crea tabella Memo
         sqLiteDatabase.execSQL(SORT_TABLE_SQL);//crea tabella Sort
-        sqLiteDatabase.execSQL(SORT_DEFAULT);//ordinamento di default(crescente per titolo)
+        sqLiteDatabase.execSQL(SORT_DEFAULT);//popola la tabella "Sort" con un ordinamento di default(crescente per titolo)
     }
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {//non fare niente
     }
 }

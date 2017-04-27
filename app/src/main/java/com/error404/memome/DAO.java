@@ -176,11 +176,12 @@ public class DAO {
         return favoriteMemos;
     }
 
-    public void updateSort(String newSortType){//metodo per aggiornare tipo di ordinamento
+    public void updateSort(String newSortType){//metodo per aggiornare il tipo di ordinamento
         if(newSortType.equals(ONLYUPDATEGUI)){//non fare niente
             return;
         }
-        RowSort rowSort=getRowSort();//cursore locale chiudibile,
+        RowSort rowSort=getRowSort();//se vecchio e nuovo ordinamento coincidono allora inverti nel db solo ASC in DESC o viceversa
+        //altrimenti cambia il tipo di ordinamento aggiornando il database
         if(rowSort!=null) {
             if (rowSort.getSortType().equals(newSortType)) {
                 switchAscDescIntoDB(rowSort.getAscDesc());
@@ -190,9 +191,8 @@ public class DAO {
         }
         return;
     }
-    public RowSort getRowSort(){
-        //cursore locale da ritornare non chiudibile
-        Cursor c=getCursorRowSort();
+    public RowSort getRowSort(){//metodo che ritorna un oggetto "ordinamento"
+        Cursor c=getCursorRowSort();//cursore locale da ritornare non chiudibile
         c.moveToFirst();
         String actualSortType = c.getString(c.getColumnIndex(SORTTYPE));
         String actualAscDesc = c.getString(c.getColumnIndex(ASCDESC));
@@ -200,12 +200,15 @@ public class DAO {
         RowSort rowsort=new RowSort(actualAscDesc,actualSortType);
         return rowsort;
     }
-    public Cursor getCursorRowSort(){
+    public Cursor getCursorRowSort(){//metodo che ritorna il cursore relativo all'ordinamento,quindi un cursore che contiene
+        //informazioni su tipo ordianemento e ASC/DESC
+
         Cursor c=null;//cursore locale da ritornare non chiudibile
         c = database.rawQuery(SELECT_SORT, null);
         return c;
     }
-    public void switchAscDescIntoDB(String actualAscDesc){
+    public void switchAscDescIntoDB(String actualAscDesc){//metodo che cambia l'ordinamento da ASCENDENTE a DECRESCENTE(Se il vecchio ordianmento era ASC) o da DESC a ASC
+        //(Se il vecchio ordianmento era DESC),per fare ciò esegue una query SQL
         SQLiteStatement sqLiteStatement=database.compileStatement(SWITCH_ASC_DESC);
         if(actualAscDesc.equals(ASC)){
             sqLiteStatement.bindString(1,DESC);
@@ -217,13 +220,15 @@ public class DAO {
         }
         return;
     }
-    public void updateOnlySortTypeIntoDB(String newSortType){
+    public void updateOnlySortTypeIntoDB(String newSortType){//metodo che aggiorna il tipo di ordinamento
+        // di visualizzazione delle note
         SQLiteStatement sqLiteStatement=database.compileStatement(UPDATE_ONLY_SORT_TYPE);
         sqLiteStatement.bindString(1,newSortType);
         sqLiteStatement.execute();
         return;
     }
-    public void addMemoToDB(String title,String text,int emoji,int color){
+    public void addMemoToDB(String title,String text,int emoji,int color){//metodo per aggiungere al DB una nota
+        //
         SQLiteStatement sqLiteStatement=database.compileStatement("insert into memos("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         Calendar date=Calendar.getInstance();
         int month=date.get(Calendar.MONTH);
@@ -243,18 +248,19 @@ public class DAO {
         sqLiteStatement.execute();
     }
 
-    public void deleteMemoByIdFromDB(int id){
+    public void deleteMemoByIdFromDB(int id){//metodo per eliminare una nota dal DB dato un id
         String sql=DELETE_MEMO+" "+WHERE+" "+ID+"="+id;
         database.execSQL(sql);
         return;
     }
 
-    public void deleteAllMemoNotEncrypted(){
+    public void deleteAllMemoNotEncrypted(){//metodo per eliminare tutte le note non cifrate,per quanto riguarda
+        // le note cifrate esse dovranno essere cancellate una per una
         database.execSQL(DELETE_ALL_NOT_ENCRYPTED);
         return;
     }
 
-    public boolean isEncrypted(int id){
+    public boolean isEncrypted(int id){//metodo per verificare se la nota è cifrata
         Memo mem=loadMemoById(id);
         if(mem!=null){
             if(mem.getEncryption()==Values.TRUE){
@@ -263,7 +269,7 @@ public class DAO {
         }
         return false;
     }
-    public boolean isFavorite(int id){
+    public boolean isFavorite(int id){//metodo per verificare se la nota è preferita
         Memo mem=loadMemoById(id);
         if(mem!=null){
             if(mem.getFavorite()==Values.TRUE){
@@ -272,12 +278,15 @@ public class DAO {
         }
         return false;
     }
-    public void decryptText(Memo memo,String password){
+
+    public void decryptText(Memo memo,String password){//metodo che data una nota cifrata e la password di cifratura
+        // decifra il testo della nota
         memo.setText(Encrypt.decryption(memo.getText(),password));
     }
 
-    public void addEncryptionToPasswordAndText(int id,String password){
-        //e settando encryption a 1
+    public void addEncryptionToPasswordAndText(int id,String password){//metodo che dato un id di una nota cifrata
+        // imposta  la cifratura alla nota modificando il DB
+
         Memo m=loadMemoById(id);
         m.setEncryption(Values.TRUE);
         m.setPassword(Encrypt.encryption(password,password));
@@ -285,7 +294,8 @@ public class DAO {
         saveMemo(m,m.getId());
     }
 
-    public void deleteEncryptionToPasswordAndText(int id,String password){
+    public void deleteEncryptionToPasswordAndText(int id,String password){//metodo che dato un id di una nota cifrata
+        // toglie la cifratura alla nota modificando il DB
         Memo m=loadMemoById(id);
         m.setEncryption(Values.FALSE);
         m.setPassword(Encrypt.decryption(m.getPassword(),password));
