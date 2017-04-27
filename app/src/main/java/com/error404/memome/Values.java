@@ -1,5 +1,7 @@
 package com.error404.memome;
 
+
+//valori costanti
 public class Values {
 
     public final static String EMPTY_STRING="";
@@ -18,4 +20,5 @@ public class Values {
     public final  static int TRUE=1;
     public final static int INDEX_EMPTY_EMOJI=0;
     public final static int EXIT_TIMEOUT=2000;
+    public final static int SPLASH_TIME_OUT = 1000;
 }

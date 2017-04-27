@@ -278,5 +278,4 @@ public class ShowMemo extends AppCompatActivity {
         keepState.putString("password",password);
         return;
     }
-    //onresume non fare niente perchè si ritorna qui solo nel caso in cui la nota non cambia cliccando tasto indietro dalla modify
 }

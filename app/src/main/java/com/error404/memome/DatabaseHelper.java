@@ -3,15 +3,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private final static int DB_VERSION = 1;
-    private final static String DATABASE_NAME = "memo.db";
-    public final static String NAME_TABLE_MEMOS = "memos";
+    private final static String DATABASE_NAME = "memo.db";//nome DB
+    public final static String NAME_TABLE_MEMOS = "memos";//nome tabella
     public final static String MEMO_FIELDS_WITHOUT_PASSWORD="title,text,color,emoji,daydatecreation,monthdatecreation,yeardatecreation,daylastmodify,monthlastmodify,yearlastmodify,encryption";
     private final static String NAME_SORT_TABLE = "sort";
     private final static String SORT_DEFAULT="insert into sort VALUES('asc','title')";
-    private final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +
-            "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +//attributo incrementato automaticamerte
+    private final static String MEMO_TABLE_SQL = "CREATE TABLE "+NAME_TABLE_MEMOS+"(\n" +//attributi della tabella memo
+            "\t_id\tINTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n" +
             "\ttitle\tTEXT NOT NULL,\n"+
             "\ttext\tTEXT,\n"+
             "\tcolor\tINTEGER NOT NULL,\n" +
@@ -27,20 +28,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "\tpassword\tTEXT \n"+
             ")";
 
-    public final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +
+    public final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +//attributi della tabella Sort
             "\tascdesc\tTEXT NOT NULL PRIMARY KEY,\n" +
             "\tsorttype\tTEXT NOT NULL\n" +
             ");";
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper(Context context) {//metodo costruttore
         super(context, DATABASE_NAME, null, DB_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {//alla creazione del database
-        //creo le tabelle e decido un ordinamento di default
-        sqLiteDatabase.execSQL(MEMO_TABLE_SQL);
-        sqLiteDatabase.execSQL(SORT_TABLE_SQL);
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {//al momento della creazione del database
+        //esegue le istruzioni SQL ossia crea le tabelle "Memo" e "Sort" e
+        // inizializza la "Sort" con ordinamento per titolo crescente
+        sqLiteDatabase.execSQL(MEMO_TABLE_SQL);//crea tabella Memo
+        sqLiteDatabase.execSQL(SORT_TABLE_SQL);//crea tabella Sort
         sqLiteDatabase.execSQL(SORT_DEFAULT);//ordinamento di default(crescente per titolo)
     }
     @Override

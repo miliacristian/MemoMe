@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DAO {
-    private DatabaseHelper dbh;
-    private SQLiteDatabase database;
-    private final  String SELECT_ALL="SELECT * FROM memos";
+
+    private DatabaseHelper dbh;//riferimento al DatabaseHelper,necessario per  aprire il database
+    private SQLiteDatabase database;//riferimento a SQLiteDatabase il quale esegue le istruzioni SQL
+
+    //valori costanti relativi agli attributi delle tabelle
     private final  String SORTTYPE="sorttype";
     private final  String ASCDESC="ascdesc";
     private final  String ORDER_BY="order by";
@@ -29,38 +31,44 @@ public class DAO {
     private final  String DAYLASTMODIFY="daylastmodify";
     private final  String MONTHLASTMODIFY="monthlastmodify";
     private final  String YEARLASTMODIFY="yearlastmodify";
+    private final String ASC="asc";
+    private final  String DESC="desc";
     public final  static String ONLYUPDATEGUI="onlyUpdateGUI";
+    //istruzioni SQL
+
+    private final  String SELECT_ALL="SELECT * FROM memos";
     private final  String DELETE_ALL_NOT_ENCRYPTED="delete from memos where encryption<>1";
     private final  String SELECT_SORT="select ascdesc,sorttype from sort";
     private final  String DELETE_MEMO="delete from memos";
-    private final String ASC="asc";
-    private final  String DESC="desc";
     private final  String UPDATE_ONLY_SORT_TYPE="update sort SET sorttype=?";
     private final  String SWITCH_ASC_DESC="update sort SET ascdesc=?";
 
-    public DAO(Context context) {
+    public DAO(Context context) {//inizializza il riferimento a DatabaseHelper
         dbh = new DatabaseHelper(context);
     }
-    public void open() {
+    public void open() {//apre il database inizializzando il riferimento a SQLiteDatabase e
+        // sfruttando il riferimento a DataBaseHelper
         database = dbh.getWritableDatabase();
     }
-    public void close() {
+
+    public void close() {//chiude il database
         database.close();
     }
 
 
-    public Memo loadMemoById(int id){//carico memo da id chiave primaria
+    public Memo loadMemoById(int id){//metodo per istanziare un oggetto memo dando una chiave primaria
         Memo memo=null;
-        String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;
+        String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;//seleziona la memo con l'id opportuno
         Cursor c=database.rawQuery(sql,null);
         if(c!=null) {
             c.moveToFirst();
-            memo = loadMemoByCursorOneRow(c);
+            memo = loadMemoByCursorOneRow(c);//istanzia la memo
             c.close();
         }
         return memo;
     }
-     public Memo loadMemoByCursorOneRow(Cursor c){
+     public Memo loadMemoByCursorOneRow(Cursor c){//metodo che dato un cursore legge i vari attributi di una riga e
+         //istanzia un oggetto memo
         if(c!=null) {
             int id = c.getInt(c.getColumnIndex(ID));
             String title = c.getString(c.getColumnIndex(TITLE));
@@ -80,21 +88,21 @@ public class DAO {
         return null;
     }
 
-    public int[] getDateCreation(Cursor c){//ottiene data creazione da cursore
+    public int[] getDateCreation(Cursor c){//metodo per ottenere la dataCreazione dal cursore
         int arr[]=new int[Values.NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
         arr[Values.INDEX_DAY]=c.getInt(c.getColumnIndex(DAYDATECREATION));
         arr[Values.INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHDATECREATION));
         arr[Values.INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARDATECREATION));
         return arr;
     }
-    public int[] getLastModify(Cursor c){//ottiene data ultima modifica da cursore
+    public int[] getLastModify(Cursor c){//metodo per ottenere la dataCreazione dal cursore
         int arr[]=new int[Values.NUMBER_FORMAT_DATE];//cursore non chiudibile,usato successivamente nel metodo loadMemoByCursorOneRow
         arr[Values.INDEX_DAY]=c.getInt(c.getColumnIndex(DAYLASTMODIFY));
         arr[Values.INDEX_MONTH]=c.getInt(c.getColumnIndex(MONTHLASTMODIFY));
         arr[Values.INDEX_YEAR]=c.getInt(c.getColumnIndex(YEARLASTMODIFY));
         return arr;
     }
-    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor) {
+    public void fromCursorToList(ArrayList<Memo> arrMemo,Cursor cursor) {//dato un cursore crea una lista di memo
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -103,7 +111,7 @@ public class DAO {
             }
         }
     }
-    public void saveMemo(Memo memo,int id){
+    public void saveMemo(Memo memo,int id){//aggiorna la memo con id=id prendendo i valori dall'oggetto Memo passato in input
         String title=memo.getTitle();
         int emoji=memo.getEmoji();
         String text=memo.getText();
@@ -115,7 +123,7 @@ public class DAO {
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);
         int day=date.get(Calendar.DAY_OF_MONTH);
-        ContentValues cv=new ContentValues();
+        ContentValues cv=new ContentValues();//contiene le coppie nome,valore per aggiornare il DB
         cv.put(TITLE,title);
         cv.put(TEXT,text);
         cv.put(COLOR,color);
@@ -128,7 +136,7 @@ public class DAO {
         cv.put(FAVORITE,favorite);
         database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
     }
-    public ArrayList<Memo> loadAllMemoByTitle(){
+    public ArrayList<Memo> loadAllMemoByTitle(){//metodo per caricare tutte le note per titolo e metterle in una lista
         RowSort rowSort=new RowSort("asc","title");
         String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
         String sql = SELECT_ALL +" "+sortMethod;
@@ -142,7 +150,7 @@ public class DAO {
         return null;
     }
 
-    public ArrayList<Memo>loadAllMemo(){
+    public ArrayList<Memo>loadAllMemo(){//metodo per caricare tutte le Memo dal DB e metterle in una lista
         RowSort rowSort=getRowSort();//cursori locali chiudibili
         if(rowSort!=null) {
             String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
@@ -157,22 +165,22 @@ public class DAO {
         }
         return null;
     }
-    public ArrayList<Memo>loadAllFavoriteMemo(){
+    public ArrayList<Memo>loadAllFavoriteMemo(){//metodo per caricare tutte le note preferite da una lista di Memo
         ArrayList<Memo> favoriteMemos=new ArrayList<Memo>();
         ArrayList<Memo> allMemo=loadAllMemoByTitle();
         for(int i=0;i<allMemo.size();i++){
-            if(allMemo.get(i).getFavorite()==Values.TRUE){
+            if(allMemo.get(i).getFavorite()==Values.TRUE){//verifica se la nota è preferita
                 favoriteMemos.add(allMemo.get(i));
             }
         }
         return favoriteMemos;
     }
 
-    public void updateSort(String newSortType){
-        if(newSortType.equals(ONLYUPDATEGUI)){
+    public void updateSort(String newSortType){//metodo per aggiornare tipo di ordinamento
+        if(newSortType.equals(ONLYUPDATEGUI)){//non fare niente
             return;
         }
-        RowSort rowSort=getRowSort();//cursore locale chiudibile
+        RowSort rowSort=getRowSort();//cursore locale chiudibile,
         if(rowSort!=null) {
             if (rowSort.getSortType().equals(newSortType)) {
                 switchAscDescIntoDB(rowSort.getAscDesc());
@@ -284,12 +292,12 @@ public class DAO {
         m.setText(Encrypt.decryption(m.getText(),password));
         saveMemo(m,m.getId());
     }
-    public void addToFavorites(int id){
+    public void addToFavorites(int id){//metodo per aggiornare la nota rendendola da non preferita a preferita
         Memo m=loadMemoById(id);
         m.setFavorite(Values.TRUE);
         saveMemo(m,id);
     }
-    public void deleteFromFavorites(int id){
+    public void deleteFromFavorites(int id){//metodo per aggiornare la nota rendendola da preferita a non preferita
         Memo m=loadMemoById(id);
         m.setFavorite(Values.FALSE);
         saveMemo(m,id);

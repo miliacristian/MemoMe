@@ -16,7 +16,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
 
     public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
         super(c,textViewId,memoList);
-        this.memoList=memoList;//ho tutti i riferimenti alle memo
+        this.memoList=memoList;//riferimenti alle memo
         this.textViewId = textViewId;
     }
     @Override
@@ -39,7 +39,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
             if(rowListView!=null) {
                 rowListView.setBackgroundColor(ContextCompat.getColor(getContext(),memo.getColor()));
             }
-            if (emoji != null){//per ogni variabile grafica settarla con valori opportuni
+            if (emoji != null){
                 emoji.setText(Memo.getEmojiByUnicode(memo.getEmoji()));
 
             }

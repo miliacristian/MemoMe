@@ -5,8 +5,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+//Activity SplashScreen è l'Activity principale che dopo SPLASHTIMEOUT secondi fa la finish iniziando l'activity MemoMeMain
 public class SplashScreen extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 1000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +22,10 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, Values.SPLASH_TIME_OUT);
         }
     @Override
     public void onBackPressed() {
-        //nothing to do
+        //non fare niente :)
     }
 }

@@ -1,7 +1,9 @@
 package com.error404.memome;
 
 
-public class RowSort {// asc/desc+colore/titolo/datacreazione/datamodifica
+public class RowSort {//classe che definisce l oggetto "ordinamento" fromato da:
+// tipo ordinamento(colore/titolo/datacreazione/datamodifica/emoji)
+    //crescente/decrescente
 
     private String ascDesc;
     private String sortType;
