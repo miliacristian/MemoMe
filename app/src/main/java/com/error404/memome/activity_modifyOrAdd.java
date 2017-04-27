@@ -120,11 +120,12 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             else {
                 emojiModify.setText(Memo.getEmojiByUnicode(emoji));
             }
-            getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
+            /*getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             int actionColor = Memo.darkerColor(color);
             ActionBar bar = getSupportActionBar();
             bar.setBackgroundDrawable(new ColorDrawable(actionColor));
-            getSupportActionBar().setTitle(R.string.modifyMemo);
+            getSupportActionBar().setTitle(R.string.modifyMemo);*/
+            setColorOnTitleAndText();
         }
         else{
             getSupportActionBar().setTitle(R.string.createMemo);
@@ -163,12 +164,21 @@ public class activity_modifyOrAdd extends AppCompatActivity {
     }
     public void setColorOnTitleAndText(){
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
-        int actionColor = Memo.darkerColor(color);
+        int actionColor;
+        if (color != R.color.white){
+            actionColor = Memo.darkerColor(color);
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(actionColor);
+        }else{
+            actionColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+            int statusColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusColor);
+        }
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(actionColor));
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(actionColor);
     }
 
     public void alertDialogChooseColor() {

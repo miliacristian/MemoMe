@@ -1,9 +1,13 @@
 package com.error404.memome;
 
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static java.security.AccessController.getContext;
 
 public class Memo {
     private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
@@ -146,16 +150,12 @@ public class Memo {
 
     public static int darkerColor(int color){
         int darkColor;
-        if (color != R.color.white){
             float ratio = 1.0f - 0.2f;
             int a = (color >> 24) & 0xFF;
             int r = (int) (((color >> 16) & 0xFF) * ratio);
             int g = (int) (((color >> 8) & 0xFF) * ratio);
             int b = (int) ((color & 0xFF) * ratio);
             darkColor =  (a << 24) | (r << 16) | (g << 8) | b;
-        }else{
-            darkColor = R.color.colorAccent;
-        }
         return darkColor;
     }
 }

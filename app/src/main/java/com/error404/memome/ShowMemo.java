@@ -84,15 +84,14 @@ public class ShowMemo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //if (color != R.color.white){
+        if (color != R.color.white){
             int actionColor = Memo.darkerColor(color);
-        System.out.println(actionColor);
             ActionBar bar = getSupportActionBar();
             bar.setBackgroundDrawable(new ColorDrawable(actionColor));
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(actionColor);
-        //}
+        }
     }
     public void handleBundleFromPreviousActivity(){
         Intent intent = getIntent();
