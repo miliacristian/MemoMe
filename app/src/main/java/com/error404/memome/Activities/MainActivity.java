@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,11 +22,18 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.error404.memome.Adapters.MemoAdapter;
+import com.error404.memome.DB.DAO;
+import com.error404.memome.Utilities.Encrypt;
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
+
 import java.util.ArrayList;
-import java.util.Locale;
 
 //snellire oncreate
-public class MemoMeMain extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
     private ListView myListView;
@@ -58,7 +65,7 @@ public class MemoMeMain extends AppCompatActivity
         buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MemoMeMain.this, activity_modifyOrAdd.class);
+                Intent intent = new Intent(MainActivity.this, ModifyOrAddActivity.class);
                 Bundle b = new Bundle();
                 b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
                 intent.putExtras(b);
@@ -90,7 +97,7 @@ public class MemoMeMain extends AppCompatActivity
             alertEncrypted(id);
             return;
         }else {
-                Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
+                Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
                 Bundle bun = new Bundle();
                 bun.putInt(Values.BUNDLE_KEY,id);
                 myIntent.putExtras(bun);
@@ -129,7 +136,7 @@ public class MemoMeMain extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(final String newText) {
                 final ArrayList<Memo> filteredMemos=getFilteredMemos(newText);
-                mem= new MemoAdapter(MemoMeMain.this, R.layout.rawlayout,filteredMemos);
+                mem= new MemoAdapter(MainActivity.this, R.layout.rawlayout,filteredMemos);
                 myListView.setAdapter(mem);
                 myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -168,7 +175,7 @@ public class MemoMeMain extends AppCompatActivity
                 updateSortAndGUI(Values.SORT_CREATION);
             }
         }else if(id==R.id.nav_favorites){
-            Intent myIntent=new Intent(MemoMeMain.this,FavoriteMemoActivity.class);
+            Intent myIntent=new Intent(MainActivity.this,FavoriteMemoActivity.class);
             startActivity(myIntent);
         } else if (id == R.id.sort_modify) {//ordinamento ultima modifica
             if (dao != null) {
@@ -199,7 +206,7 @@ public class MemoMeMain extends AppCompatActivity
     }
 
     private void alertAbout(){
-        new AlertDialog.Builder(MemoMeMain.this)
+        new AlertDialog.Builder(MainActivity.this)
                 .setTitle(R.string.infoTitle)
                 .setMessage(R.string.infoText)
                 .setIcon(R.mipmap.info_icon)
@@ -222,7 +229,7 @@ public class MemoMeMain extends AppCompatActivity
 
         final EditText nameEditText = (EditText) formElementsView
                 .findViewById(R.id.nameEditText);
-        new AlertDialog.Builder(MemoMeMain.this).setView(formElementsView)
+        new AlertDialog.Builder(MainActivity.this).setView(formElementsView)
                 .setTitle(R.string.warningMemoEncoded)
                 .setMessage(R.string.warningMemoEncodedText)
                 .setIcon(R.mipmap.lock_finale)
@@ -234,7 +241,7 @@ public class MemoMeMain extends AppCompatActivity
                                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
                                 if (//cifratedPassword.equals(passFromDB
                                         nameEditText.getText().toString().equals(decryptedFromDB)) {
-                                    Intent myIntent = new Intent(MemoMeMain.this, ShowMemo.class);
+                                    Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
                                     bun.putString(Values.PASSWORD, nameEditText.getText().toString());
@@ -242,7 +249,7 @@ public class MemoMeMain extends AppCompatActivity
                                     startActivity(myIntent);
                                     dialog.cancel();
                                 } else {
-                                    Toast.makeText(MemoMeMain.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
+
 import java.util.ArrayList;
 
 public class EmojiAdapter extends ArrayAdapter<Integer> {
@@ -22,7 +27,7 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
         }
         TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
         if (emojis != null){
-            if(position==Values.INDEX_EMPTY_EMOJI){
+            if(position== Values.INDEX_EMPTY_EMOJI){
                 emojis.setText(getContext().getResources().getString(R.string.nessuna_emoji));
             }
             else {

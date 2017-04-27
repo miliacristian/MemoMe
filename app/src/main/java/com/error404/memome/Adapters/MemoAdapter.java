@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Adapters;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
+
 import java.util.ArrayList;
 
 public class MemoAdapter extends ArrayAdapter<Memo>  {
@@ -54,7 +59,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
                 title.setText(memo.getTitle());
             }
             if(star!=null){
-                if(memoList.get(position).getFavorite()==Values.TRUE){
+                if(memoList.get(position).getFavorite()== Values.TRUE){
                     star.setImageResource(R.mipmap.star_icon);
                 }
                 else{

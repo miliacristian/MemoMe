@@ -1,21 +1,19 @@
-package com.error404.memome;
+package com.error404.memome.Entities;
 
-import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
+import com.error404.memome.Activities.MainActivity;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static java.security.AccessController.getContext;
-
 public class Memo {
     private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
-    private static final int[]EMOJIS={MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide1),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
-            MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiRide3),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
-            MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.tongue),MemoMeMain.getIstanceContext().getResources().getInteger(R.integer.funny)};
-    private static  String[] COLORS_NAME = { MemoMeMain.getIstanceContext().getResources().getString(R.string.bianco),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosso),MemoMeMain.getIstanceContext().getResources().getString(R.string.viola),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosa),MemoMeMain.getIstanceContext().getResources().getString(R.string.lime),MemoMeMain.getIstanceContext().getResources().getString(R.string.celeste),MemoMeMain.getIstanceContext().getResources().getString(R.string.indaco),
-            MemoMeMain.getIstanceContext().getResources().getString(R.string.grigio),MemoMeMain.getIstanceContext().getResources().getString(R.string.verde),MemoMeMain.getIstanceContext().getResources().getString(R.string.ciano),MemoMeMain.getIstanceContext().getResources().getString(R.string.marrone)};
+    private static final int[]EMOJIS={MainActivity.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiRide1), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
+            MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiRide3), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
+            MainActivity.getIstanceContext().getResources().getInteger(R.integer.tongue), MainActivity.getIstanceContext().getResources().getInteger(R.integer.funny)};
+    private static  String[] COLORS_NAME = { MainActivity.getIstanceContext().getResources().getString(R.string.bianco), MainActivity.getIstanceContext().getResources().getString(R.string.rosso), MainActivity.getIstanceContext().getResources().getString(R.string.viola), MainActivity.getIstanceContext().getResources().getString(R.string.rosa), MainActivity.getIstanceContext().getResources().getString(R.string.lime), MainActivity.getIstanceContext().getResources().getString(R.string.celeste), MainActivity.getIstanceContext().getResources().getString(R.string.indaco),
+            MainActivity.getIstanceContext().getResources().getString(R.string.grigio), MainActivity.getIstanceContext().getResources().getString(R.string.verde), MainActivity.getIstanceContext().getResources().getString(R.string.ciano), MainActivity.getIstanceContext().getResources().getString(R.string.marrone)};
     private int id;
     private String title;
     private String text;

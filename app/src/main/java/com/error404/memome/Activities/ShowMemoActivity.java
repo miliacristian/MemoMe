@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -25,10 +24,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Locale;
+import com.error404.memome.DB.DAO;
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
 
 //snellire oncreate
-public class ShowMemo extends AppCompatActivity {
+public class ShowMemoActivity extends AppCompatActivity {
     private DAO dao;
     private TextView emojitxt;
     private TextView txtViewTitle;
@@ -76,7 +78,7 @@ public class ShowMemo extends AppCompatActivity {
         buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShowMemo.this, activity_modifyOrAdd.class);
+                Intent intent = new Intent(ShowMemoActivity.this, ModifyOrAddActivity.class);
                 Bundle b = new Bundle();
                 b.putInt(Values.BUNDLE_KEY, id);
                 b.putString(Values.PASSWORD, password);
@@ -193,7 +195,7 @@ public class ShowMemo extends AppCompatActivity {
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
-                new AlertDialog.Builder(ShowMemo.this).setView(formElementsView)
+                new AlertDialog.Builder(ShowMemoActivity.this).setView(formElementsView)
                         .setTitle(R.string.insertPsw)
                         .setIcon(R.mipmap.lock_finale)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -203,7 +205,7 @@ public class ShowMemo extends AppCompatActivity {
                                     if(emptyToast!= null){
                                         emptyToast.cancel();
                                     }
-                                    emptyToast=Toast.makeText(ShowMemo.this,R.string.emptyPass, Toast.LENGTH_SHORT);
+                                    emptyToast=Toast.makeText(ShowMemoActivity.this,R.string.emptyPass, Toast.LENGTH_SHORT);
                                     emptyToast.show();
                                 }else {
                                     if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
@@ -214,7 +216,7 @@ public class ShowMemo extends AppCompatActivity {
                                         if (matchTaost != null){
                                             matchTaost.cancel();
                                         }
-                                        matchTaost = Toast.makeText(ShowMemo.this, R.string.pswMatch, Toast.LENGTH_SHORT);
+                                        matchTaost = Toast.makeText(ShowMemoActivity.this, R.string.pswMatch, Toast.LENGTH_SHORT);
                                         matchTaost.show();
                                     }
                                 }

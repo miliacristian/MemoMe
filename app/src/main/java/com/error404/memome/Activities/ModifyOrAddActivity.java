@@ -1,10 +1,9 @@
-package com.error404.memome;
+package com.error404.memome.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,15 +22,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.error404.memome.Adapters.ColorAdapter;
+import com.error404.memome.Adapters.EmojiAdapter;
+import com.error404.memome.DB.DAO;
+import com.error404.memome.Utilities.Encrypt;
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
+
 import java.util.ArrayList;
-import java.util.Locale;
 
 //snellire oncreate
-public class activity_modifyOrAdd extends AppCompatActivity {
+public class ModifyOrAddActivity extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
     private Memo currentMemo;
-    private int emoji=Values.DEFAULT_EMOJI;
+    private int emoji= Values.DEFAULT_EMOJI;
     private int color=Values.DEFAULT_COLOR;
     private int id;
     private EditText textModify;
@@ -137,7 +143,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                     if (mToast != null){
                         mToast.cancel();
                     }
-                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
+                    mToast = Toast.makeText(ModifyOrAddActivity.this, R.string.needTitle, Toast.LENGTH_SHORT);
                     mToast.show();
                 }
             }
@@ -182,10 +188,10 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         View customView = inflater.inflate(R.layout.list_view_color, null, false);
         ListView listView=(ListView)customView.findViewById(R.id.listColor);
         colorsList=Memo.getColorsList();
-        colorAdapt =new ColorAdapter(activity_modifyOrAdd.this,R.layout.color_layout,colorsList);
+        colorAdapt =new ColorAdapter(ModifyOrAddActivity.this,R.layout.color_layout,colorsList);
         listView.setAdapter(colorAdapt);
         listView.setScrollbarFadingEnabled(false);
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ModifyOrAddActivity.this);
         builder.setView(customView);
         builder.setTitle(R.string.chooseColor);
         builder.setIcon(R.mipmap.palette_icon);
@@ -210,10 +216,10 @@ public class activity_modifyOrAdd extends AppCompatActivity {
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView listView=(ListView)customView.findViewById(R.id.listV);
             emojiList=Memo.getListEmojis();
-            emAdapt =new EmojiAdapter(activity_modifyOrAdd.this,R.layout.emoji_layout,emojiList);
+            emAdapt =new EmojiAdapter(ModifyOrAddActivity.this,R.layout.emoji_layout,emojiList);
             listView.setAdapter(emAdapt);
             listView.setScrollbarFadingEnabled(false);
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity_modifyOrAdd.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ModifyOrAddActivity.this);
             builder.setView(customView);
             builder.setTitle(R.string.chooseEmoji);
             builder.setIcon(R.mipmap.smile_icon);
@@ -256,7 +262,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                 currentMemo.setEmoji(emoji);
                 currentMemo.setColor(color);
                 dao.saveMemo(currentMemo, currentMemo.getId());
-                ShowMemo.getInstance().finish();
+                ShowMemoActivity.getInstance().finish();
                 finish();
             }
         }
@@ -308,7 +314,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
         }
     }
     public void alertCloseActivity(){
-        new AlertDialog.Builder(activity_modifyOrAdd.this)
+        new AlertDialog.Builder(ModifyOrAddActivity.this)
                 .setTitle(R.string.confirm_close_title)
                 .setMessage(R.string.confirm_close_text)
                 .setIcon(R.mipmap.info_icon)
@@ -323,7 +329,7 @@ public class activity_modifyOrAdd extends AppCompatActivity {
                                     if (mToast != null){
                                         mToast.cancel();
                                     }
-                                    mToast = Toast.makeText(activity_modifyOrAdd.this, R.string.needTitle, Toast.LENGTH_SHORT);
+                                    mToast = Toast.makeText(ModifyOrAddActivity.this, R.string.needTitle, Toast.LENGTH_SHORT);
                                     mToast.show();
                                 }
                             }

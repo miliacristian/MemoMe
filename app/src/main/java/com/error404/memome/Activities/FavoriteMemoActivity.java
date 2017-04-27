@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Activities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -14,6 +14,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.error404.memome.Adapters.MemoAdapter;
+import com.error404.memome.DB.DAO;
+import com.error404.memome.Utilities.Encrypt;
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
 //snellire oncreate
@@ -55,7 +62,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         if (m.getEncryption() == Values.TRUE) {
             alertEncrypted(id);
         }else {
-            Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
+            Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemoActivity.class);
             Bundle bun = new Bundle();
             bun.putInt(Values.BUNDLE_KEY,id);
             myIntent.putExtras(bun);
@@ -83,7 +90,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                                 if (cifratedPassword.equals(passFromDB))*/
                                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
                                 if (nameEditText.getText().toString().equals(decryptedFromDB)){
-                                    Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemo.class);
+                                    Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemoActivity.class);
                                     Bundle bun = new Bundle();
                                     bun.putInt(Values.BUNDLE_KEY,idMemo);
                                     bun.putString(Values.PASSWORD, nameEditText.getText().toString());

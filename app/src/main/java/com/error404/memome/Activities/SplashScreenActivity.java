@@ -1,12 +1,15 @@
-package com.error404.memome;
+package com.error404.memome.Activities;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-//Activity SplashScreen è l'Activity principale che dopo SPLASHTIMEOUT secondi fa la finish iniziando l'activity MemoMeMain
-public class SplashScreen extends AppCompatActivity {
+import com.error404.memome.R;
+import com.error404.memome.Utilities.Values;
+
+//Activity SplashScreenActivity è l'Activity principale che dopo SPLASHTIMEOUT secondi fa la finish iniziando l'activity MainActivity
+public class SplashScreenActivity extends AppCompatActivity {
 
 
     @Override
@@ -18,7 +21,7 @@ public class SplashScreen extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, MemoMeMain.class);
+                Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
             }

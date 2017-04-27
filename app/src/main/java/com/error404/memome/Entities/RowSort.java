@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Entities;
 
 
 public class RowSort {//classe che definisce l oggetto "ordinamento" formato da:

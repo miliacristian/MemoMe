@@ -1,5 +1,7 @@
-package com.error404.memome;
+package com.error404.memome.Utilities;
 
+
+import com.error404.memome.Entities.Memo;
 
 //valori costanti globali dell'applicazione
 public class Values {

@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.Adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.Activities.MainActivity;
+import com.error404.memome.R;
+
 import java.util.ArrayList;
 
 public class ColorAdapter extends ArrayAdapter<Integer> {
@@ -29,14 +34,14 @@ public class ColorAdapter extends ArrayAdapter<Integer> {
                 colorText.setText(getNameColorsList().get(position));
         }
         if (colorView != null){
-            colorView.setBackgroundColor(ContextCompat.getColor(getContext(),Memo.getColors(position)));
+            colorView.setBackgroundColor(ContextCompat.getColor(getContext(), Memo.getColors(position)));
         }
         return rowView;
     }
 
     public ArrayList<String> getNameColorsList(){
-        final String[] COLORS_NAME = { MemoMeMain.getIstanceContext().getResources().getString(R.string.bianco),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosso),MemoMeMain.getIstanceContext().getResources().getString(R.string.viola),MemoMeMain.getIstanceContext().getResources().getString(R.string.rosa),MemoMeMain.getIstanceContext().getResources().getString(R.string.lime),MemoMeMain.getIstanceContext().getResources().getString(R.string.celeste),MemoMeMain.getIstanceContext().getResources().getString(R.string.indaco),
-                MemoMeMain.getIstanceContext().getResources().getString(R.string.grigio),MemoMeMain.getIstanceContext().getResources().getString(R.string.verde),MemoMeMain.getIstanceContext().getResources().getString(R.string.ciano),MemoMeMain.getIstanceContext().getResources().getString(R.string.marrone)};
+        final String[] COLORS_NAME = { MainActivity.getIstanceContext().getResources().getString(R.string.bianco), MainActivity.getIstanceContext().getResources().getString(R.string.rosso), MainActivity.getIstanceContext().getResources().getString(R.string.viola), MainActivity.getIstanceContext().getResources().getString(R.string.rosa), MainActivity.getIstanceContext().getResources().getString(R.string.lime), MainActivity.getIstanceContext().getResources().getString(R.string.celeste), MainActivity.getIstanceContext().getResources().getString(R.string.indaco),
+                MainActivity.getIstanceContext().getResources().getString(R.string.grigio), MainActivity.getIstanceContext().getResources().getString(R.string.verde), MainActivity.getIstanceContext().getResources().getString(R.string.ciano), MainActivity.getIstanceContext().getResources().getString(R.string.marrone)};
         ArrayList<String> listColors=new ArrayList<String>();
         for(int i=0;i<COLORS_NAME.length;i++){
             listColors.add(COLORS_NAME[i]);

@@ -1,9 +1,15 @@
-package com.error404.memome;
+package com.error404.memome.DB;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+
+import com.error404.memome.Utilities.Encrypt;
+import com.error404.memome.Entities.Memo;
+import com.error404.memome.Entities.RowSort;
+import com.error404.memome.Utilities.Values;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 

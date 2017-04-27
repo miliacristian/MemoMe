@@ -9,18 +9,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MemoMeMain"
+            android:name=".Activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activity_modifyOrAdd"
+            android:name=".Activities.ModifyOrAddActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".ShowMemo"
+            android:name=".Activities.ShowMemoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".Activities.SplashScreenActivity"
             android:theme="@style/Theme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FavoriteMemoActivity"></activity>
+        <activity android:name=".Activities.FavoriteMemoActivity"></activity>
     </application>
 
 </manifest>

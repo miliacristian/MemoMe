@@ -1,4 +1,4 @@
-package com.error404.memome;
+package com.error404.memome.DB;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
