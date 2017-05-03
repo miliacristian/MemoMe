@@ -1,11 +1,8 @@
 package com.error404.memome.Utilities;
-
-
 import com.error404.memome.Entities.Memo;
 
-//valori costanti globali dell'applicazione
+//Classe che contiene i valori costanti e globali dell'applicazione
 public class Values {
-
     public final static String EMPTY_STRING="";
     public  final static int DEFAULT_EMOJI=0x0;
     public  final static int DEFAULT_COLOR = Memo.getColors(0);

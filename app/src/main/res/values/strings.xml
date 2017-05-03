@@ -12,7 +12,7 @@
     <string name="confirmDeleteAll">Sei sicuro di voler eliminare tutte le note non cifrate?</string>
     <string name="confirmDecode" translatable="false"></string>
     <string name="emptyPass">Password vuota non ammessa</string>>
-    <string name="created">Creato:</string>
+    <string name="created">Creata:</string>
     <string name="deleteAllNotEncoded">Elimina note non cifrate</string>
     <string name="decodeText">Sei sicuro di voler decifrare la nota?</string>
     <string name="developers" translatable="false">Credits:DelloVicario Milia DeTurris</string>
@@ -27,7 +27,7 @@
     <string name="insertPsw">Cifra nota</string>
     <string name="insertTitle">Inserisci titolo</string>
     <string name="memoMe">MemoMe</string>
-    <string name="modified">Modificato:</string>
+    <string name="modified">Modificata:</string>
     <string name="nothing" translatable="false"></string>
     <string name="needTitle">Inserisci Titolo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

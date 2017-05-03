@@ -13,7 +13,8 @@ import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
 
-public class EmojiAdapter extends ArrayAdapter<Integer> {
+public class EmojiAdapter extends ArrayAdapter<Integer> {//Classe adapter per Creare una lista di emoji
+    // dove ogni riga è composta da una emoji
     public EmojiAdapter(Context c, int textViewId, ArrayList<Integer> emojiList){
         super(c,textViewId,emojiList);
     }
@@ -23,9 +24,10 @@ public class EmojiAdapter extends ArrayAdapter<Integer> {
         if(rowView==null){
             LayoutInflater inflater = (LayoutInflater)
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.emoji_layout, null);
+            rowView = inflater.inflate(R.layout.emoji_layout, null);//gonfia il layout emoji_Layout
         }
         TextView emojis = (TextView) rowView.findViewById(R.id.emojiV);
+        //inizializza GUI
         if (emojis != null){
             if(position== Values.INDEX_EMPTY_EMOJI){
                 emojis.setText(getContext().getResources().getString(R.string.nessuna_emoji));

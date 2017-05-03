@@ -14,7 +14,8 @@ import com.error404.memome.R;
 
 import java.util.ArrayList;
 
-public class ColorAdapter extends ArrayAdapter<Integer> {
+public class ColorAdapter extends ArrayAdapter<Integer> {//Classe adapter per Creare una lista di colori
+    // dove ogni riga è composta da un colore e il suo nome
     public ColorAdapter(Context c, int textViewId, ArrayList<Integer> colorList){
         super(c,textViewId,colorList);
     }
@@ -26,10 +27,11 @@ public class ColorAdapter extends ArrayAdapter<Integer> {
         if(rowView==null){
             LayoutInflater inflater = (LayoutInflater)
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.color_layout, null);
+            rowView = inflater.inflate(R.layout.color_layout, null);//gonfia il layout color_Layout
         }
         TextView colorText = (TextView) rowView.findViewById(R.id.colorTxt);
         TextView colorView = (TextView) rowView.findViewById(R.id.colorView);
+        //inizializza la GUI
         if (colorText != null){
                 colorText.setText(getNameColorsList().get(position));
         }

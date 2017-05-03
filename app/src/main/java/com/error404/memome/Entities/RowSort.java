@@ -2,8 +2,8 @@ package com.error404.memome.Entities;
 
 
 public class RowSort {//classe che definisce l oggetto "ordinamento" formato da:
-// tipo ordinamento(colore,titolo,datacreazione,datamodifica o emoji)
-    //crescente o decrescente
+// tipo ordinamento:colore,titolo,datacreazione,datamodifica o emoji
+    //tipo di visualizzazione :crescente o decrescente
 
     private String ascDesc;
     private String sortType;
@@ -15,7 +15,6 @@ public class RowSort {//classe che definisce l oggetto "ordinamento" formato da:
     public String getAscDesc() {
         return ascDesc;
     }
-
     public String getSortType() {
         return sortType;
     }

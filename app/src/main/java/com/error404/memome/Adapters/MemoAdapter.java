@@ -15,7 +15,10 @@ import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
 
-public class MemoAdapter extends ArrayAdapter<Memo>  {
+public class MemoAdapter extends ArrayAdapter<Memo>  {//Classe adapter per Creare una lista di Memo
+    // dove ogni riga è composta da Emoji,Titolo memo, Data modifica della memo,Data creazionen della memo,
+    // Icona che mostra se la memo è o non è preferita.
+
     private ArrayList<Memo> memoList;
     private int textViewId;
 
@@ -33,7 +36,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             rowView = inflater.inflate(textViewId, null);
         }
-        Memo memo= memoList.get(position);//prendo il memo in posizione i-esima
+        Memo memo= memoList.get(position);//memo in posizione i-esima
         if (memo != null) {
             ImageView star=(ImageView)rowView.findViewById(R.id.imageFavorite);
             TextView emoji = (TextView) rowView.findViewById(R.id.emoji1);
@@ -41,6 +44,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {
             TextView title = (TextView) rowView.findViewById(R.id.title1);
             TextView dateLastModify = (TextView) rowView.findViewById(R.id.lastmodify);
             LinearLayout rowListView=(LinearLayout)rowView.findViewById(R.id.linearExternal);
+            //inizializza GUI
             if(rowListView!=null) {
                 rowListView.setBackgroundColor(ContextCompat.getColor(getContext(),memo.getColor()));
             }

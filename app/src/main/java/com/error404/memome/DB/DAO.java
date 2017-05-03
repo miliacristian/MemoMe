@@ -4,16 +4,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-
 import com.error404.memome.Utilities.Encrypt;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.Entities.RowSort;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DAO {
+public class DAO {//Classe che si occupa della gestione del database e dell'esecuzione delle query SQL
 
     private DatabaseHelper dbh;//riferimento al DatabaseHelper,necessario per  aprire il database
     private SQLiteDatabase database;//riferimento a SQLiteDatabase il quale esegue le istruzioni SQL

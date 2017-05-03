@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {//Classe che si occupa della creazione del DB "memo.db" e della definizione e creazione  delle Tabelle "Memo" e "Sort"
     private final static int DB_VERSION = 1;
     private final static String DATABASE_NAME = "memo.db";//nome DB
     public final static String NAME_TABLE_MEMOS = "memos";//nome tabella

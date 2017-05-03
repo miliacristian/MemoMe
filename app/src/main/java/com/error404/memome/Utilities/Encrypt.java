@@ -1,29 +1,29 @@
 package com.error404.memome.Utilities;
+import tgio.rncryptor.RNCryptorNative;//libreria esterna importata da Android Arsenal
 
-import com.error404.memome.Utilities.Values;
-
-import java.security.SecureRandom;
+/*import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.spec.SecretKeySpec;*/
 
-import tgio.rncryptor.RNCryptorNative;
+public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
-public class  Encrypt {
-    private final static String AES="AES";
+    /*private final static String AES="AES";
     private final static String HEX = "0123456789ABCDEF";
     private final static String CRYPTO="Crypto";
-    private final static String SHA1="SHA1PRNG";
+    private final static String SHA1="SHA1PRNG";*/
 
-    public static String encryption(String strNormalText,String key){
-        RNCryptorNative criptor = new RNCryptorNative();
-        String encrypted = new String(criptor.encrypt(strNormalText, key));
+    public static String encryption(String strNormalText,String key){//metodo per cifrare stringhe
+        RNCryptorNative criptor = new RNCryptorNative();//istanza di cryptor
+        String encrypted = new String(criptor.encrypt(strNormalText, key));//stringa cifrata data una stringa in chiaro
+        // e una password
         return encrypted;
     }
-    public static String decryption(String strEncryptedText,String key){
+    public static String decryption(String strEncryptedText,String key){//metodo per decifrare stringhe
         RNCryptorNative criptor = new RNCryptorNative();
-        String decrypted = new String(criptor.decrypt(strEncryptedText, key));
+        String decrypted = new String(criptor.decrypt(strEncryptedText, key));//stringa decifrata data una stringa cifrata
+        // e una password
         return decrypted;
     }
 
@@ -48,7 +48,7 @@ public class  Encrypt {
         }
 
         return strDecryptedText;
-    }*/
+    }
     public static String encrypt(String seed, String cleartext) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] result = encrypt(rawKey, cleartext.getBytes());
@@ -94,7 +94,7 @@ public class  Encrypt {
     }
     public static String fromHex(String hex) {
         return new String(toByte(hex));
-    }*/
+    }
 
     public static byte[] toByte(String hexString) {
         int len = hexString.length()/2;
@@ -116,6 +116,6 @@ public class  Encrypt {
 
     private static void appendHex(StringBuffer sb, byte b) {
         sb.append(HEX.charAt((b>>4)&0x0f)).append(HEX.charAt(b&0x0f));
-    }
+    }*/
 
 }
