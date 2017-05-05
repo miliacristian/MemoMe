@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
     @Override
-    public void onDestroy() {
+    public void onDestroy() {//chiudi il database nel momento della distruzione dell'activity
         super.onDestroy();
         dao.close();
 
