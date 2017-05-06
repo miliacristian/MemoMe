@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +31,8 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     private ListView myListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
+    private static Handler handler = null;
+    private static Runnable run;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         initializeGuiAndListener();
     }
     public void initializeGuiAndListener(){
+        //Inizializza le View e i rekativi listener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
         memoList = dao.loadAllFavoriteMemo();
@@ -52,11 +57,13 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         });
     }
     public void openDB(){
+        //Apre il Database
         dao = new DAO(this);
         dao.open();
         return;
     }
     public void goToShowMemoActivity(int id){
+        //Se la nota è criptata, viene richiesta la password con un alert dialog, altrimenti va all'activity ShowMemo
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
@@ -70,6 +77,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         }
     }
     public void alertEncrypted(int id) {
+        //AlertDialog che gestisce la richiesta di password per note cifrate, e in caso di password corretta, lancia l'activity ShowMemo
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -77,41 +85,65 @@ public class FavoriteMemoActivity extends AppCompatActivity {
 
         final EditText nameEditText = (EditText) formElementsView
                 .findViewById(R.id.nameEditText);
-        new AlertDialog.Builder(FavoriteMemoActivity.this).setView(formElementsView)
-                .setTitle(R.string.warningMemoEncoded)
+        AlertDialog.Builder builder = new AlertDialog.Builder(FavoriteMemoActivity.this);
+        builder.setTitle(R.string.warningMemoEncoded)
                 .setMessage(R.string.warningMemoEncodedText)
-                .setIcon(R.mipmap.lock_finale)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
-                            public void onClick(DialogInterface dialog, int id) {
-                                /*String passFromDB;
-                                String cifratedPassword =Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                passFromDB=dao.loadMemoById(idMemo).getPassword();
-                                if (cifratedPassword.equals(passFromDB))*/
-                                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
-                                if (nameEditText.getText().toString().equals(decryptedFromDB)){
-                                    Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemoActivity.class);
-                                    Bundle bun = new Bundle();
-                                    bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
-                                    myIntent.putExtras(bun);
-                                    startActivity(myIntent);
-                                    dialog.cancel();
-                                } else {
-                                    Toast.makeText(FavoriteMemoActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-
-                        }
-                )
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @TargetApi(11)
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+                .setIcon(R.mipmap.lock_finale);
+        builder.setView(formElementsView);
+        builder.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
                     }
-                })
-                .show();
+                });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                final LinearLayout wrongPassword = (LinearLayout) formElementsView
+                        .findViewById(R.id.layoutWrongPassword);
+                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                System.out.println(decryptedFromDB);
+                if (nameEditText.getText().toString().equals(decryptedFromDB) && !nameEditText.getText().toString().equals(Values.EMPTY_STRING)) {
+                    Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemoActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putInt(Values.BUNDLE_KEY,idMemo);
+                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
+                    myIntent.putExtras(bun);
+                    startActivity(myIntent);
+                    dialog.cancel();
+                } else {
+                    //Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
+                    wrongPassword.setVisibility(View.VISIBLE);
+                    nameEditText.setText(Values.EMPTY_STRING);
+                    if(handler != null){
+                        handler.removeCallbacks(run);
+                    }
+                    handler = new Handler();
+                    run = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            wrongPassword.setVisibility(View.GONE);
+                            handler = null;
+                        }
+                    };
+                    handler.postDelayed(run , Values.ALERT_TIME_OUT);
+                }
+            }
+
+        });
 
     }
     @Override

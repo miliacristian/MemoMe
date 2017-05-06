@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity
     private static Context context;
     private SearchView searchView;
     private boolean doubleBackPressed;
+    private static Handler handler = null;
+    private static Runnable run;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,7 +226,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void alertEncrypted(int id) {
-        final int idMemo=id;
+        /*final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
                 null, false);
@@ -235,9 +239,6 @@ public class MainActivity extends AppCompatActivity
                 .setIcon(R.mipmap.lock_finale)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                /*String passFromDB;
-                                String cifratedPassword = "" + Encrypt.encryption(nameEditText.getText().toString(), nameEditText.getText().toString());
-                                    passFromDB=""+dao.loadMemoById(idMemo).getPassword();*/
                                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
                                 if (//cifratedPassword.equals(passFromDB
                                         nameEditText.getText().toString().equals(decryptedFromDB)) {
@@ -259,8 +260,74 @@ public class MainActivity extends AppCompatActivity
                         dialog.cancel();
                     }
                 })
-                .show();
+                .show();*/
+        final int idMemo=id;
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View formElementsView = inflater.inflate(R.layout.password_layout,
+                null, false);
 
+        final EditText nameEditText = (EditText) formElementsView
+                .findViewById(R.id.nameEditText);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.warningMemoEncoded)
+                .setMessage(R.string.warningMemoEncodedText)
+                .setIcon(R.mipmap.lock_finale);
+        builder.setView(formElementsView);
+        builder.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                    }
+                });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                final LinearLayout wrongPassword = (LinearLayout) formElementsView
+                        .findViewById(R.id.layoutWrongPassword);
+                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                System.out.println(decryptedFromDB);
+                if (nameEditText.getText().toString().equals(decryptedFromDB) && !nameEditText.getText().toString().equals(Values.EMPTY_STRING)) {
+                    Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
+                    Bundle bun = new Bundle();
+                    bun.putInt(Values.BUNDLE_KEY,idMemo);
+                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
+                    myIntent.putExtras(bun);
+                    startActivity(myIntent);
+                    dialog.cancel();
+                } else {
+                    //Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
+
+                    wrongPassword.setVisibility(View.VISIBLE);
+                    nameEditText.setText(Values.EMPTY_STRING);
+                    if(handler != null){
+                        handler.removeCallbacks(run);
+                    }
+                    handler = new Handler();
+                    run = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            wrongPassword.setVisibility(View.GONE);
+                            handler = null;
+                        }
+                    };
+                    handler.postDelayed(run , Values.ALERT_TIME_OUT);
+                }
+                }
+
+        });
     }
     public void deleteAllAlert() {
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)

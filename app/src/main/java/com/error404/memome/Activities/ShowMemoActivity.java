@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -21,12 +22,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.error404.memome.DB.DAO;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
+import com.error404.memome.Utilities.Encrypt;
 import com.error404.memome.Utilities.Values;
 
 //snellire oncreate
@@ -43,6 +46,8 @@ public class ShowMemoActivity extends AppCompatActivity {
     private Toast emptyToast;
     private Toast matchTaost;
     private Bundle bundleState=null;
+    private static Handler handler = null;
+    private static Runnable run;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,7 +200,7 @@ public class ShowMemoActivity extends AppCompatActivity {
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
-                new AlertDialog.Builder(ShowMemoActivity.this).setView(formElementsView)
+                /*new AlertDialog.Builder(ShowMemoActivity.this).setView(formElementsView)
                         .setTitle(R.string.insertPsw)
                         .setIcon(R.mipmap.lock_finale)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -231,7 +236,73 @@ public class ShowMemoActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
-                        .show();
+                        .show();*/
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowMemoActivity.this);
+                builder.setTitle(R.string.insertPsw);
+                builder.setIcon(R.mipmap.lock_finale);
+                builder.setView(formElementsView);
+                builder.setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id){}
+                        });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        final LinearLayout wrongPassword = (LinearLayout) formElementsView
+                                .findViewById(R.id.layoutWrongPassword);
+                        final TextView alertText = (TextView) formElementsView
+                                .findViewById(R.id.textView2);
+                        boolean correctPassword = true;
+                        String alertMessage = getResources().getString(R.string.pswMatch);
+                        if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
+                            //password coincidono
+                           if (TextUtils.isEmpty(nameEditText.getText())){
+                               //password vuota non ammessa
+                               correctPassword = false;
+                                alertMessage = getResources().getString(R.string.emptyPass);
+                           }else{
+                               //effettivamente cifro la nota
+                               insertEncryptToPasswordAndText(nameEditText.getText().toString());
+                               dialog.cancel();
+                               invalidateOptionsMenu();
+                           }
+                        } else {
+                            correctPassword = false;
+                        }
+                        if (!correctPassword){
+                            //in caso di errori, fa apparire la view di errore con il tipo di errore avvenuto (stringa vuota, o password diverse)
+                            alertText.setText(alertMessage);
+                            wrongPassword.setVisibility(View.VISIBLE);
+                            nameEditText.setText(Values.EMPTY_STRING);
+                            nameEditText2.setText(Values.EMPTY_STRING);
+                            if(handler != null){
+                                handler.removeCallbacks(run);
+                            }
+                            handler = new Handler();
+                            run = new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    wrongPassword.setVisibility(View.GONE);
+                                    handler = null;
+                                }
+                            };
+                            handler.postDelayed(run , Values.ALERT_TIME_OUT);
+                        }
+                    }
+
+                });
                 return true;
             case R.id.action_decode:
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
