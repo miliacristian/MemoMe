@@ -349,7 +349,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
                 .show();
     }
     @Override
-    public void onDestroy(){
+    public void onDestroy(){//chiudi il database nel momento della distruzione dell'activity
         super.onDestroy();
         dao.close();
         return;

@@ -49,10 +49,11 @@ public class ShowMemoActivity extends AppCompatActivity {
     private static Handler handler = null;
     private static Runnable run;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//apri il database,gestisici il bundle
+        // e inizializza i componenti grafici in base alla memo cliccata
+
         super.onCreate(savedInstanceState);
-        System.out.println("create");
-        if(savedInstanceState!=null){
+        if(savedInstanceState!=null){//memorizza il bundle nell'attributo bundlestate
             bundleState=savedInstanceState;
         }
         setContentView(R.layout.activity_show_memo);
@@ -100,61 +101,63 @@ public class ShowMemoActivity extends AppCompatActivity {
             window.setStatusBarColor(actionColor);
         }
     }
-    public void handleBundleFromPreviousActivity(){
+    public void handleBundleFromPreviousActivity(){//metodo per gestire il bundle proveniente dalla MainActivity
+        //(ho valore id e valore password dentro il bundle)
         Intent intent = getIntent();
         Bundle bun = intent.getExtras();
-        id = bun.getInt(Values.BUNDLE_KEY);
+        id = bun.getInt(Values.BUNDLE_KEY);//ottieni il valore id
         if(bundleState!=null){
-            password=bundleState.getString("password");
+            password=bundleState.getString("password");//ripristina la password dal bundlestate se ho chiamato 2 volte oncreate
         }
         else {
-            password = bun.getString(Values.PASSWORD);//può essere null
+            password = bun.getString(Values.PASSWORD);//memorizza la password dal bundle usato dalla MainActivity
         }
         return;
     }
-    public void openDB(){
+    public void openDB(){//metodo per aprire il db
         dao = new DAO(this);
         dao.open();
         return;
     }
-    public void deleteThisMemo(){
+    public void deleteThisMemo(){//metodo per eliminare la nota corrente
         dao.deleteMemoByIdFromDB(id);
         finish();
     }
 
-    public static Activity getInstance(){
+    public static Activity getInstance(){//metodo per ottenere il riferimento all'activity corrente
         return refer;
     }
 
-    public void setColorOnTitleAndText(){
+    public void setColorOnTitleAndText(){//metodo per impostare il colore di background all'activity
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
     }
-    public boolean isEncrypted(){
+    public boolean isEncrypted(){//metodo per verificare se la nota è cifrata
         return dao.isEncrypted(id);
     }
 
-    public boolean isFavorite(){
+    public boolean isFavorite(){//metodo per verificare se la nota è preferita
         return dao.isFavorite(id);
     }
 
-    public void insertEncryptToPasswordAndText(String password){
+    public void insertEncryptToPasswordAndText(String password){//metodo per inserire la cifratura sulla password e sul testo
 
         this.password = password;
         dao.addEncryptionToPasswordAndText(id,password);
     }
 
-    public void deleteEncryptionToPasswordAndText(String password){
+    public void deleteEncryptionToPasswordAndText(String password){//metodo per eliminare la cifratura sulla password e sul testo
         dao.deleteEncryptionToPasswordAndText(id,password);
     }
-    public void addToFavorites(){
+    public void addToFavorites(){//metodo per aggiungere la nota ai preferti
         dao.addToFavorites(id);
         return;
     }
-    public void deleteFromFavorites(){
+    public void deleteFromFavorites(){//metodo per eliminare la nota ai preferti
         dao.deleteFromFavorites(id);
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {//metodo per gestire le icone dell'activity ShowMemoActivity
+        // in base al valore degli attributi favorite,encryption
         MenuInflater inflater = getMenuInflater();
         if(isFavorite()) {
             inflater.inflate(R.menu.menu_favorite, menu);
@@ -341,12 +344,13 @@ public class ShowMemoActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onDestroy() {
+    public void onDestroy() {//chiudi il database nel momento della distruzione dell'activity
         super.onDestroy();
         dao.close();
     }
     @Override
-    public void onSaveInstanceState(Bundle keepState){
+    public void onSaveInstanceState(Bundle keepState){//Mantiene lo stato dell'activity mettendo nel bundle la password.
+        //una  nuova chiamata ripristina lo stato dell'activity
         super.onSaveInstanceState(keepState);
         keepState.putString("password",password);
         return;

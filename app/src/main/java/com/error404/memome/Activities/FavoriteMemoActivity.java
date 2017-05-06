@@ -154,7 +154,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         myListView.setAdapter(mem);
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {//chiudi l'activity
         finish();
     }
 
@@ -170,7 +170,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy() {//chiudi il database nel momento della distruzione dell'activity
         super.onDestroy();
         dao.close();
 
