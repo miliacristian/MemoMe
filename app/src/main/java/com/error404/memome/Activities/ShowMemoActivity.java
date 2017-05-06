@@ -107,7 +107,7 @@ public class ShowMemoActivity extends AppCompatActivity {
         Bundle bun = intent.getExtras();
         id = bun.getInt(Values.BUNDLE_KEY);//ottieni il valore id
         if(bundleState!=null){
-            password=bundleState.getString("password");//ripristina la password dal bundlestate se ho chiamato 2 volte oncreate
+            password=bundleState.getString(Values.PASSWORD);//ripristina la password dal bundlestate se ho chiamato 2 volte oncreate
         }
         else {
             password = bun.getString(Values.PASSWORD);//memorizza la password dal bundle usato dalla MainActivity
@@ -350,7 +350,7 @@ public class ShowMemoActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle keepState){//Mantiene lo stato dell'activity mettendo nel bundle la password.
         //una  nuova chiamata ripristina lo stato dell'activity
         super.onSaveInstanceState(keepState);
-        keepState.putString("password",password);
+        keepState.putString(Values.PASSWORD,password);
         return;
     }
 }
