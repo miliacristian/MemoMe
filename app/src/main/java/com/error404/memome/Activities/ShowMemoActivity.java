@@ -53,7 +53,7 @@ public class ShowMemoActivity extends AppCompatActivity {
         // e inizializza i componenti grafici in base alla memo cliccata
 
         super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){//memorizza il bundle nell'attributo bundlestate
+        if(savedInstanceState!=null){//memorizza il bundle savedInstanceState nell'attributo bundlestate
             bundleState=savedInstanceState;
         }
         setContentView(R.layout.activity_show_memo);
@@ -65,7 +65,8 @@ public class ShowMemoActivity extends AppCompatActivity {
     public void initializeGuiAndListener(){
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.showMemoTitle);
-        Memo m=dao.loadMemoById(id);
+        Memo m=dao.loadMemoById(id);//carica memo corrispondente all'id
+        //imposta colore titolo emoji e testo della nota caricata
         color=m.getColor();
         emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
@@ -73,26 +74,27 @@ public class ShowMemoActivity extends AppCompatActivity {
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
         setColorOnTitleAndText();
         System.out.println("la password è:"+password);
-        if (m.isEncrypted()){
-            //password = bun.getString(DAO.PASSWORD);
+        if (m.isEncrypted()){//se nota cifrata decifra la nota
+
                 dao.decryptText(m, password);
         }
         txtViewNota.setText(m.getText());
         txtViewTitle.setText(m.getTitle());
         emojitxt.setText(Memo.getEmojiByUnicode(emoji));
+        //bottone modifica
         FloatingActionButton buttonModifyOrAdd = (FloatingActionButton) findViewById(R.id.fabShow);
         buttonModifyOrAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {//vai alla modifyordaddactivity
                 Intent intent = new Intent(ShowMemoActivity.this, ModifyOrAddActivity.class);
                 Bundle b = new Bundle();
-                b.putInt(Values.BUNDLE_KEY, id);
+                b.putInt(Values.BUNDLE_KEY, id);//passa alla nuova activity id e password
                 b.putString(Values.PASSWORD, password);
                 intent.putExtras(b);
                 startActivity(intent);
             }
         });
-        if (color != R.color.white){
+        if (color != R.color.white){//imposta colore actionbar
             int actionColor = Memo.darkerColor(color);
             ActionBar bar = getSupportActionBar();
             bar.setBackgroundDrawable(new ColorDrawable(actionColor));
@@ -173,7 +175,7 @@ public class ShowMemoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_delete:
+            case R.id.action_delete://mostra alert dialog e elimina la nota
                 AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                         .setTitle(R.string.delete)
                         .setMessage(R.string.confirmDelete)
@@ -195,7 +197,7 @@ public class ShowMemoActivity extends AppCompatActivity {
                         .show();
                 return true;
 
-            case R.id.action_encode:
+            case R.id.action_encode://mostra alert dialog e cifra la nota
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
@@ -240,6 +242,8 @@ public class ShowMemoActivity extends AppCompatActivity {
                             }
                         })
                         .show();*/
+
+                //GUI alertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowMemoActivity.this);
                 builder.setTitle(R.string.insertPsw);
                 builder.setIcon(R.mipmap.lock_finale);
@@ -305,7 +309,7 @@ public class ShowMemoActivity extends AppCompatActivity {
 
                 });
                 return true;
-            case R.id.action_decode:
+            case R.id.action_decode://se cifrata elimina la cifratura sulla nota
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         .setTitle(R.string.decode)
                         .setMessage(R.string.decodeText)
@@ -327,14 +331,14 @@ public class ShowMemoActivity extends AppCompatActivity {
                         })
                         .show();
                 return true;
-            case android.R.id.home:
+            case android.R.id.home://torna indietro all'activity MainActivity
                 finish();
                 return true;
-            case R.id.action_favorite:
+            case R.id.action_favorite://se era preferita eliminala dai preferiti
                 deleteFromFavorites();
                 invalidateOptionsMenu();
                 return true;
-            case R.id.action_not_favorite:
+            case R.id.action_not_favorite://se non era preferita aggiungila ai preferiti
                 addToFavorites();
                 invalidateOptionsMenu();
             default:
