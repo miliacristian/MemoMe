@@ -28,7 +28,7 @@
     <string name="handler_notes">Manage notes</string>
     <string name="incorrectPsw">Wrong password</string>
     <string name="indaco">Indigo</string>
-    <string name="insertPsw">Crypt note</string>
+    <string name="insertPsw">Encrypt note</string>
     <string name="insertText">Insert text</string>
     <string name="insertTitle">Insert title</string>
     <string name="lime">Lime</string>
@@ -56,4 +56,9 @@
     <string name="warningMemoEncodedText">This note is crypted, insert password to read it</string>
     <string name="nougatNotSupported">This feature is still not available on your Android version</string>
     <string name="about">About:</string>
+    <string name="favoriteActivityTitle">Favorite notes</string>
+    <string name="favoriteBtn">Favorite note</string>
+    <string name="modifyMemo">Modify your note</string>
+    <string name="navFavorite">Show favorite notes</string>
+    <string name="notFavoriteBtn">Not favorite memo</string>
 </resources>

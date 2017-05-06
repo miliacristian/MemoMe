@@ -50,10 +50,15 @@
     <string name="type_your_password">Inserisci la tua password...</string>
     <string name="verde">Verde</string>
     <string name="viola">Viola</string>
-    <string name="warningMemoEncoded">Nota cifrate</string>
+    <string name="warningMemoEncoded">Nota cifrata</string>
     <string name="warningMemoEncodedText">La nota è cifrata, inserisci la password per visualizzarla</string>
     <string name="handler_notes">Gestisci note</string>
     <string name="memoMe">MemoMe</string>
     <string name="nougatNotSupported">Questa funzione non è ancora disponibile sulla tua versione di Android</string>
     <string name="about">Su di noi:</string>
+    <string name="favoriteActivityTitle">Note preferite</string>
+    <string name="favoriteBtn">Nota preferita</string>
+    <string name="modifyMemo">Modifica la tua nota</string>
+    <string name="navFavorite">Mostra le note preferite</string>
+    <string name="notFavoriteBtn">Nota non preferita</string>
 </resources>

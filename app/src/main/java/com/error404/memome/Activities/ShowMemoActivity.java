@@ -266,13 +266,11 @@ public class ShowMemoActivity extends AppCompatActivity {
                                 .findViewById(R.id.layoutWrongPassword);
                         final TextView alertText = (TextView) formElementsView
                                 .findViewById(R.id.textView2);
-                        boolean correctPassword = true;
-                        String alertMessage = getResources().getString(R.string.pswMatch);
+                        String alertMessage = Values.EMPTY_STRING;
                         if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
                             //password coincidono
                            if (TextUtils.isEmpty(nameEditText.getText())){
                                //password vuota non ammessa
-                               correctPassword = false;
                                 alertMessage = getResources().getString(R.string.emptyPass);
                            }else{
                                //effettivamente cifro la nota
@@ -281,9 +279,9 @@ public class ShowMemoActivity extends AppCompatActivity {
                                invalidateOptionsMenu();
                            }
                         } else {
-                            correctPassword = false;
+                            alertMessage = getResources().getString(R.string.pswMatch);
                         }
-                        if (!correctPassword){
+                        if (!alertMessage.equals(Values.EMPTY_STRING)){
                             //in caso di errori, fa apparire la view di errore con il tipo di errore avvenuto (stringa vuota, o password diverse)
                             alertText.setText(alertMessage);
                             wrongPassword.setVisibility(View.VISIBLE);
