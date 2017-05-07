@@ -182,7 +182,8 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(actionColor));
     }
 
-    public void alertDialogChooseColor() {
+    public void alertDialogChooseColor() {//Aleert dialog per scegliere una Memo cliccando un elemento di una listView,
+        //sul click viene impostato il colore  nell'attributo colore
         ArrayList<Integer> colorsList;
         LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         View customView = inflater.inflate(R.layout.list_view_color, null, false);
@@ -211,7 +212,8 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         });
     }
 
-    public void alertChooseEmoji(){
+    public void alertChooseEmoji(){//Aleert dialog per scegliere una Memo cliccando un elemento di una listView,
+        //sul click viene impostata l'emoji nell'attributo emoji
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);
             ListView listView=(ListView)customView.findViewById(R.id.listV);
@@ -244,39 +246,40 @@ public class ModifyOrAddActivity extends AppCompatActivity {
                 }
             });
         }
-        public void saveMemo(){
+        public void saveMemo(){//metodo per salvare la memo
             String title=titleModify.getText().toString();
                 String text = textModify.getText().toString();
-            if (mode.equals(ADD_MODE)) {
-                dao.addMemoToDB(title, text,emoji, color);
+            if (mode.equals(ADD_MODE)) {//se la nota non è presente nel DB
+                dao.addMemoToDB(title, text,emoji, color);//aggiungila al DB
                 finish();
-            } else {
-                if (currentMemo.getEncryption() == Values.TRUE){
+            } else {//se la nota  è presente nel DB
+                if (currentMemo.getEncryption() == Values.TRUE){//cifra il nuovo testo e salvalo nel DB
                     String toCifrateText = textModify.getText().toString();
                     String cifratedText = Encrypt.encryption(toCifrateText, password);
                     currentMemo.setText(cifratedText);
                 }else{
                     currentMemo.setText(textModify.getText().toString());
                 }
+                //imposta i valori di colore titolo ed emoji nella Memo
                 currentMemo.setTitle(titleModify.getText().toString());
                 currentMemo.setEmoji(emoji);
                 currentMemo.setColor(color);
-                dao.saveMemo(currentMemo, currentMemo.getId());
-                ShowMemoActivity.getInstance().finish();
+                dao.saveMemo(currentMemo, currentMemo.getId());//salva memo nel DB
+                ShowMemoActivity.getInstance().finish();//ritorna all'activity iniziale
                 finish();
             }
         }
     @Override
     public void onBackPressed(){
-        if (mode.equals(MODIFY_MODE)){
-            if(modifiedMemo()) {
+        if (mode.equals(MODIFY_MODE)){//se la nota è presente nel DB
+            if(modifiedMemo()) {//se è stata modificata conferma la chiusura dell'activity
                 alertCloseActivity();
             }else{
                 finish();
             }
-        }else if(mode.equals(ADD_MODE)){
+        }else if(mode.equals(ADD_MODE)){//se la nota non è presente nel DB
             if (NotEmptyMemoExit()){
-                alertCloseActivity();
+                alertCloseActivity();//se è non vuota conferma la chiusura dell'activity
             }else{
                 finish();
             }
@@ -285,7 +288,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         }
     }
 
-    public boolean NotEmptyMemoExit(){
+    public boolean NotEmptyMemoExit(){//ritorna vero se la memo è non vuota
         if(Values.EMPTY_STRING.equals(titleModify.getText().toString())
                 && Values.EMPTY_STRING.equals(textModify.getText().toString())){
             return false;
@@ -293,7 +296,8 @@ public class ModifyOrAddActivity extends AppCompatActivity {
             return true;
         }
     }
-    public boolean modifiedMemo(){
+    public boolean modifiedMemo(){//verifica per ogni attributo se è stato modificato
+        // Ritorna vero se almeno un attributo è diverso rispetto ai valori di partenza,also altrimenti
      if(currentMemo.getTitle().equals(titleModify.getText().toString())
              && currentMemo.getText().equals(textModify.getText().toString())
              && currentMemo.getEmoji() == emoji
@@ -304,7 +308,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
      }
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {//metodo che sul clicca della freccia indietro esegue onBackPressed
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
@@ -313,7 +317,10 @@ public class ModifyOrAddActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void alertCloseActivity(){
+    public void alertCloseActivity(){//Alert Dialog per confermare il salvataggio delle modifiche.
+        // Se si clicca si la nota viene salvata e si ritorna all'activity principale
+        //Se si clicca no la nota non viene salvata e si ritorna all'activity precedente
+        //Se si clicca annulla si chiude solamente l'alert Dialog
         new AlertDialog.Builder(ModifyOrAddActivity.this)
                 .setTitle(R.string.confirm_close_title)
                 .setMessage(R.string.confirm_close_text)
@@ -355,10 +362,12 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         return;
     }
     @Override
-    public void onSaveInstanceState(Bundle keepState){
+    public void onSaveInstanceState(Bundle keepState){//Metodo che salva lo stato dell'activity in un bundle.
+        // Quando necessario ricarica l'activity usando i valori nel bundle.
+        //Nel bundle vengono salvati colore della memo e emoji,gli altri attributi della memo(es testo memo)vengono automaticamente ripristinati
         super.onSaveInstanceState(keepState);
-        keepState.putInt("color",color);
-        keepState.putInt("emoji",emoji);
+        keepState.putInt(Values.COLOR,color);
+        keepState.putInt(Values.EMOJI,emoji);
         return;
     }
 }

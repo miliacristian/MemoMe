@@ -25,7 +25,6 @@ import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
-//snellire oncreate
 public class FavoriteMemoActivity extends AppCompatActivity {
     private DAO dao;
     private ListView myListView;
@@ -34,24 +33,28 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     private static Handler handler = null;
     private static Runnable run;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//al momento della creazione:
+        // apri il database;
+        // inizializza i listener;
+        //  carica tutte le note preferite presenti nel DB;
         super.onCreate(savedInstanceState);
-        System.out.println("create");
         setContentView(R.layout.activity_favorite_memo);
         openDB();
         initializeGuiAndListener();
     }
     public void initializeGuiAndListener(){
-        //Inizializza le View e i rekativi listener
+        //Inizializza le View e i relativi listener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
-        memoList = dao.loadAllFavoriteMemo();
+        memoList = dao.loadAllFavoriteMemo();//carica note preferite
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
         myListView = (ListView) findViewById(R.id.listOfNotes);
         myListView.setAdapter(mem);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                //sul click di un elemento della lista vai alla ShowMemoActivity
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
@@ -64,6 +67,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     }
     public void goToShowMemoActivity(int id){
         //Se la nota è criptata, viene richiesta la password con un alert dialog, altrimenti va all'activity ShowMemo
+       // mettendo nel bundle l'id'
         Memo m;
         m=dao.loadMemoById(id);
         if (m.getEncryption() == Values.TRUE) {
@@ -111,21 +115,24 @@ public class FavoriteMemoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                //al momento del click decifra la password e vedi se la password inserita è corretta
                 final LinearLayout wrongPassword = (LinearLayout) formElementsView
                         .findViewById(R.id.layoutWrongPassword);
                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                //decifra la password della memo con la password inserita nella EditText
                 System.out.println(decryptedFromDB);
                 if (nameEditText.getText().toString().equals(decryptedFromDB) && !nameEditText.getText().toString().equals(Values.EMPTY_STRING)) {
+                    //Se la password decifrata è uguale alla password inserita allora passa all'activity ShowMemo,altrimenti rimani nell'activity
                     Intent myIntent = new Intent(FavoriteMemoActivity.this, ShowMemoActivity.class);
                     Bundle bun = new Bundle();
-                    bun.putInt(Values.BUNDLE_KEY,idMemo);
-                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
+                    bun.putInt(Values.BUNDLE_KEY,idMemo);//inserisce dentro il bundle id Memo
+                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());//inserisce dentro il bundle la password
                     myIntent.putExtras(bun);
                     startActivity(myIntent);
                     dialog.cancel();
-                } else {
+                } else {//passwsord errata
                     //Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
-                    wrongPassword.setVisibility(View.VISIBLE);
+                    wrongPassword.setVisibility(View.VISIBLE);//imposta la visibilità del layout a "visible" e mostra un messaggio di errore
                     nameEditText.setText(Values.EMPTY_STRING);
                     if(handler != null){
                         handler.removeCallbacks(run);
@@ -147,7 +154,8 @@ public class FavoriteMemoActivity extends AppCompatActivity {
 
     }
     @Override
-    public void onResume(){
+    public void onResume(){//ricarica tutte le memo preferite.Questo metodo garantisce che nella visualizzazione delle memo le note siano sempre aggiornate
+    //e quindi non ci siano discordanze tra memo visualizzate e valori nel database
         super.onResume();
         memoList = dao.loadAllFavoriteMemo();
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
@@ -159,7 +167,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {//ritorna all'activity precedente
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
