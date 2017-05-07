@@ -10,7 +10,7 @@
     <string name="chooseColor">Scegli un colore</string>
     <string name="chooseEmoji">Scegli una emoji</string>
     <string name="confirmDeleteAll">Sei sicuro di voler eliminare tutte le note non cifrate?</string>
-    <string name="confirmDecode" translatable="false"></string>
+    <string name="confirmDecode">ConfirmDecode</string>
     <string name="emptyPass">Password vuota non ammessa</string>>
     <string name="created">Creata:</string>
     <string name="deleteAllNotEncoded">Elimina note non cifrate</string>
@@ -20,7 +20,6 @@
     <string name="decode">Decifra</string>
     <string name="encodeBtn">Encode</string>
     <string name="decodeBtn">Decode</string>
-    <string name="emojiProva" translatable="false">0x1f604</string>
     <string name="handler_notes">Gestisci note</string>
     <string name="insertText">Inserisci testo qui</string>
     <string name="incorrectPsw">Password errata</string>
@@ -79,9 +78,8 @@
     <string name="confirm_close_title">Salvare prima di uscire?</string>
     <string name="confirm_close_text">Vuoi salvare le modifiche prima di uscire?</string>
     <string name="confirm_close_yes">si</string>
-    <string name="confirm_close_no">no</string>
-
-
+    <string name="confirm_close_no" translatable="false">no</string>
+    <string name="nougatNotSupported">Questa funzione non è disponibile per la tua versione di Android</string>
 
 
 </resources>

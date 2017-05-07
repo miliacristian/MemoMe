@@ -61,4 +61,14 @@
     <string name="modifyMemo">Modify your note</string>
     <string name="navFavorite">Show favorite notes</string>
     <string name="notFavoriteBtn">Not favorite memo</string>
+    <string name="confirmNotFavorite">Are you sure to delete this from favourite list?</string>
+    <string name="confirmFavorite">Do you want to add this to favourite list?</string>
+    <string name="confirm_close_text">Do you want to save before exit?</string>
+    <string name="confirm_close_title">Save before exit?</string>
+    <string name="confirm_close_yes">yes</string>
+    <string name="createMemo">Create a note</string>
+    <string name="nougatToast">This feature is still not avaiable on for your Android version</string>
+    <string name="showMemoTitle">Your note</string>
+    <string name="infoText">MemoMe is an application created by Error404 group for Mobile Programming course (2016/2017), teached by Massimo Reagoli. MemoMe gives to the user all the features needed to create, modify, manage and crypt notes, using a functional user friendly GUI.</string>
+    <string name="confirmDecode">ConfirmDecode</string>
 </resources>
