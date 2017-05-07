@@ -55,7 +55,6 @@ public class ModifyOrAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("create of modify");
         if(savedInstanceState!=null){
             bundleState=savedInstanceState;
         }
@@ -71,8 +70,8 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         emojiModify=(TextView) findViewById(R.id.emojiModify);
         emojiModify.setClickable(true);
         if(bundleState!=null){
-            emoji=bundleState.getInt("emoji");
-            color=bundleState.getInt("color");
+            emoji=bundleState.getInt(Values.EMOJI);
+            color=bundleState.getInt(Values.COLOR);
             getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
             if(emoji==Values.INDEX_EMPTY_EMOJI){
                 emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
@@ -113,8 +112,8 @@ public class ModifyOrAddActivity extends AppCompatActivity {
             textModify.setText(currentMemo.getText());
             titleModify.setText(currentMemo.getTitle());
             if(bundleState!=null){
-                color=bundleState.getInt("color");
-                emoji=bundleState.getInt("emoji");
+                color=bundleState.getInt(Values.COLOR);
+                emoji=bundleState.getInt(Values.EMOJI);
             }
             else {
                 color = currentMemo.getColor();
@@ -158,7 +157,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         id=bun.getInt(Values.BUNDLE_KEY);
         return;
     }
-    public void openDB(){
+    public void openDB(){//metodo che apre il DB
         dao = new DAO(this);
         dao.open();
         return;
