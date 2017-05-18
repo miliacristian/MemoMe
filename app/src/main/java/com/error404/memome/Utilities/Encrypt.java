@@ -1,20 +1,20 @@
 package com.error404.memome.Utilities;
-import tgio.rncryptor.RNCryptorNative;//libreria esterna importata da Android Arsenal
+import java.security.SecureRandom;
 
-/*import java.security.SecureRandom;
+import tgio.rncryptor.RNCryptorNative;//libreria esterna importata da Android Arsenal
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;*/
+import javax.crypto.spec.SecretKeySpec;
 
 public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
-    /*private final static String AES="AES";
+    private final static String AES="AES";
     private final static String HEX = "0123456789ABCDEF";
     private final static String CRYPTO="Crypto";
-    private final static String SHA1="SHA1PRNG";*/
+    private final static String SHA1="SHA1PRNG";
 
-    public static String encryption(String strNormalText,String key){//metodo per cifrare stringhe
+    /*public static String encryption(String strNormalText,String key){//metodo per cifrare stringhe
         RNCryptorNative criptor = new RNCryptorNative();//istanza di cryptor
         String encrypted = new String(criptor.encrypt(strNormalText, key));//stringa cifrata data una stringa in chiaro
         // e una password
@@ -25,11 +25,11 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
         String decrypted = new String(criptor.decrypt(strEncryptedText, key));//stringa decifrata data una stringa cifrata
         // e una password
         return decrypted;
-    }
+    }*/
 
     //se la nuova libreria va, tutto il codice sottostante, è inutile, insieme agli attributi soprastanti
 
-    /*public static String encryption(String strNormalText,String key){
+    public static String encryption(String strNormalText,String key){
         String normalTextEnc=Values.EMPTY_STRING;
         try {
             normalTextEnc = Encrypt.encrypt(key, strNormalText);
@@ -46,7 +46,6 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
             System.out.println(Values.ERROR);
             e.printStackTrace();
         }
-
         return strDecryptedText;
     }
     public static String encrypt(String seed, String cleartext) throws Exception {
@@ -64,7 +63,7 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
     private static byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance(AES);
-        SecureRandom sr = SecureRandom.getInstance(SHA1,CRYPTO);
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", new CryptoProvider());
         sr.setSeed(seed);
         kgen.init(128, sr);
         SecretKey skey = kgen.generateKey();
@@ -89,7 +88,7 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
         return decrypted;
     }
 
-    /*public static String toHex(String txt) {
+    public static String toHex(String txt) {
         return toHex(txt.getBytes());
     }
     public static String fromHex(String hex) {
@@ -116,6 +115,6 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
     private static void appendHex(StringBuffer sb, byte b) {
         sb.append(HEX.charAt((b>>4)&0x0f)).append(HEX.charAt(b&0x0f));
-    }*/
+    }
 
 }
