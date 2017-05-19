@@ -2,7 +2,7 @@ package com.error404.memome.Utilities;
 import java.security.Provider;
 
 /**a
- * Implementation of Provider for SecureRndom. The implementation     supports the
+ * Implementation of Provider for SecureRndom. The implementation supports the
  * "SHA1PRNG" algorithm described in JavaTM Cryptography Architecture, API
  * Specification & Reference
  */
