@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.error404.memome.Adapters.ColorAdapter;
 import com.error404.memome.Adapters.EmojiAdapter;
 import com.error404.memome.DB.DAO;
@@ -29,10 +28,8 @@ import com.error404.memome.Utilities.Encrypt;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 
-//snellire oncreate
 public class ModifyOrAddActivity extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
@@ -181,7 +178,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(actionColor));
     }
 
-    public void alertDialogChooseColor() {//Aleert dialog per scegliere una Memo cliccando un elemento di una listView,
+    public void alertDialogChooseColor() {//Alert dialog per scegliere un colore cliccando un elemento di una listView,
         //sul click viene impostato il colore  nell'attributo colore
         ArrayList<Integer> colorsList;
         LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
@@ -211,7 +208,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         });
     }
 
-    public void alertChooseEmoji(){//Aleert dialog per scegliere una Memo cliccando un elemento di una listView,
+    public void alertChooseEmoji(){//Aeert dialog per scegliere una emoji cliccando un elemento di una listView,
         //sul click viene impostata l'emoji nell'attributo emoji
             LayoutInflater inflater = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
             View customView = inflater.inflate(R.layout.list_view_emoji, null, false);

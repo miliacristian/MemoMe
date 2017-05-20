@@ -205,43 +205,6 @@ public class ShowMemoActivity extends AppCompatActivity {
                         .findViewById(R.id.nameEditText);
                 final EditText nameEditText2 = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
-                /*new AlertDialog.Builder(ShowMemoActivity.this).setView(formElementsView)
-                        .setTitle(R.string.insertPsw)
-                        .setIcon(R.mipmap.lock_finale)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
-                            public void onClick(DialogInterface dialog, int id) {
-                                if(TextUtils.isEmpty(nameEditText.getText())){
-                                    if(emptyToast!= null){
-                                        emptyToast.cancel();
-                                    }
-                                    emptyToast=Toast.makeText(ShowMemoActivity.this,R.string.emptyPass, Toast.LENGTH_SHORT);
-                                    emptyToast.show();
-                                }else {
-                                    if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
-                                        insertEncryptToPasswordAndText(nameEditText.getText().toString());
-                                        dialog.cancel();
-                                        invalidateOptionsMenu();
-                                    } else {
-                                        if (matchTaost != null){
-                                            matchTaost.cancel();
-                                        }
-                                        matchTaost = Toast.makeText(ShowMemoActivity.this, R.string.pswMatch, Toast.LENGTH_SHORT);
-                                        matchTaost.show();
-                                    }
-                                }
-                            }
-
-
-                        }
-                        )
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @TargetApi(11)
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        })
-                        .show();*/
 
                 //GUI alertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowMemoActivity.this);

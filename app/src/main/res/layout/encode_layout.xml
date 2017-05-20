@@ -40,7 +40,8 @@
         android:layout_below="@id/layoutPasswords"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
 
 
         <ImageView

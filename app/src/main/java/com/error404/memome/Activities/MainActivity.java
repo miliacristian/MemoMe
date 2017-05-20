@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -24,17 +23,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import com.error404.memome.Adapters.MemoAdapter;
 import com.error404.memome.DB.DAO;
 import com.error404.memome.Utilities.Encrypt;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 
-//snellire oncreate
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
@@ -155,14 +151,6 @@ public class MainActivity extends AppCompatActivity
 
         return super.onCreateOptionsMenu(menu);
     }
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
-        //if (id == R.id.menuSearch) {
-        //}
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

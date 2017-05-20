@@ -71,4 +71,5 @@
     <string name="nougatToast">Funzione non ancora supportata su questa funzione di Android</string>
     <string name="showMemoTitle">La tua nota</string>
     <string name="confirmDecode">ConfirmDecode</string>
+    <string name="search">Search</string>
 </resources>

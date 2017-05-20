@@ -29,6 +29,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
     @Override
     public void onBackPressed() {
-        //non fare niente :)
+        //non fare niente
     }
 }
