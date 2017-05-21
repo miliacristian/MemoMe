@@ -6,8 +6,11 @@ import com.error404.memome.Utilities.Values;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
+//Classe che definisce l'oggetto Memo
+//Una memo ha un colore,un titolo,una(eventuale)emoji,un identificativo dentro il DB,un testo,una data creazione,
+// una data di modifica,può essere preferita e può essere cifrata con una password
 public class Memo {
+    private static final String SLASH="/";
     private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
     private static final int[]EMOJIS={MainActivity.getIstanceContext().getResources().getInteger(R.integer.emptyEmoji), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiRide1), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiSbadata2),
             MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiRide3), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiFlirt4), MainActivity.getIstanceContext().getResources().getInteger(R.integer.emojiLove5),
@@ -24,7 +27,7 @@ public class Memo {
     private int favorite;
     private int encryption;
     private String password;
-
+    //metodo costruttore della Memo fornendo in input tutti gli attributi
     public Memo(int id,String title,String text,int color,int emoji,int datecreation[],int datelastmodify[],int encryption,String password,int favorite){
 
         this.title = title;
@@ -40,7 +43,7 @@ public class Memo {
         this.lastModify.set(datelastmodify[Values.INDEX_YEAR], datelastmodify[Values.INDEX_MONTH]+1, datelastmodify[Values.INDEX_DAY]);
         this.favorite=favorite;
     }
-
+    //metodi setter e getter (inizio)
     public int getId() {
         return id;
     }
@@ -108,9 +111,7 @@ public class Memo {
     public String dateCreationConverter(Calendar date){
         return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
     }
-    public String dateLastModifyConverter(Calendar date){
-        return date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
-    }
+
     public static int getColors(int index){
         return COLORS[index];
     }
@@ -134,7 +135,13 @@ public class Memo {
         }
         return listColors;
     }
+    //metodi setter e getter (fine)
 
+    //metodo per covertire 3 numeri in un formato data
+    public String dateLastModifyConverter(Calendar date){
+        return date.get(Calendar.DAY_OF_MONTH)+SLASH+date.get(Calendar.MONTH)+SLASH+date.get(Calendar.YEAR);
+    }
+    //metodo per verificare se la nota è cifrata
     public boolean isEncrypted(){
         if(this.encryption==Values.TRUE){
             return true;
