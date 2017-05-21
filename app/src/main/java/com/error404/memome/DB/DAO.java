@@ -23,6 +23,7 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
     private final  String ID="_id";
     private final  String WHERE="where";
     private final  String TEXT="text";
+    private final  String TITLE="title";
     private final  String ENCRYPTION="encryption";
     private final  String DAYDATECREATION="daydatecreation";
     private final  String MONTHDATECREATION="monthdatecreation";
@@ -36,6 +37,7 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
     //istruzioni SQL
 
     private final  String SELECT_ALL="SELECT * FROM memos";
+    private final  String INSERT_INTO_MEMOS="insert into memos(";
     private final  String DELETE_ALL_NOT_ENCRYPTED="delete from memos where encryption<>1";
     private final  String SELECT_SORT="select ascdesc,sorttype from sort";
     private final  String DELETE_MEMO="delete from memos";
@@ -133,10 +135,10 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
         cv.put(ENCRYPTION,encryption);
         cv.put(Values.PASSWORD,password);
         cv.put(Values.FAVORITE,favorite);
-        database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,"_id="+id,null);
+        database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,ID+"="+id,null);
     }
     public ArrayList<Memo> loadAllMemoByTitle(){//metodo per caricare tutte le note per titolo e metterle in una lista
-        RowSort rowSort=new RowSort("asc","title");
+        RowSort rowSort=new RowSort(ASC,TITLE);
         String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
         String sql = SELECT_ALL +" "+sortMethod;
         Cursor tabAllMemos = database.rawQuery(sql, null);
@@ -226,9 +228,9 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
         sqLiteStatement.execute();
         return;
     }
-    public void addMemoToDB(String title,String text,int emoji,int color){//metodo per aggiungere al DB una nota
-        //
-        SQLiteStatement sqLiteStatement=database.compileStatement("insert into memos("+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    public void addMemoToDB(String title,String text,int emoji,int color){
+        //metodo per aggiungere al DB una nota sfruttando la bindString di sqLiteStatement
+        SQLiteStatement sqLiteStatement=database.compileStatement(INSERT_INTO_MEMOS+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         Calendar date=Calendar.getInstance();
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);

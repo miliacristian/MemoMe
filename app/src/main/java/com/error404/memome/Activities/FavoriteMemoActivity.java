@@ -15,8 +15,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.error404.memome.Adapters.MemoAdapter;
 import com.error404.memome.DB.DAO;
 import com.error404.memome.Utilities.Encrypt;

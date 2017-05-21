@@ -1,6 +1,6 @@
 package com.error404.memome.Activities;
 
-import android.annotation.TargetApi;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,14 +25,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.annotation.TargetApi;
 import com.error404.memome.DB.DAO;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
-import com.error404.memome.Utilities.Encrypt;
 import com.error404.memome.Utilities.Values;
 
-//snellire oncreate
 public class ShowMemoActivity extends AppCompatActivity {
     private DAO dao;
     private TextView emojitxt;
@@ -73,7 +71,6 @@ public class ShowMemoActivity extends AppCompatActivity {
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
         setColorOnTitleAndText();
-        System.out.println("la password è:"+password);
         if (m.isEncrypted()){//se nota cifrata decifra la nota
 
                 dao.decryptText(m, password);

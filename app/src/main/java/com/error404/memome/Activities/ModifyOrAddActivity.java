@@ -29,7 +29,8 @@ import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
 import java.util.ArrayList;
-
+//attributi della modify:
+//colore,id memo,emoji,testo,titolo,dao,emojiAdapter,ColorAdapter
 public class ModifyOrAddActivity extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();
@@ -50,22 +51,28 @@ public class ModifyOrAddActivity extends AppCompatActivity {
     private String password;
     private Bundle bundleState=null;
     @Override
+    //metodo che definisce cosa bisogna fare al momento della creazione dell'activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //se il bundle non è null salvalo nell'attributo bundleState
         if(savedInstanceState!=null){
             bundleState=savedInstanceState;
         }
         setContentView(R.layout.activity_modify_or_add);
+        //apri il DB,gestisci il bundle proveniente dall'activity precedente(ShowMemo o MainActivity)
+        //e inizializza la GUI e i listener
         openDB();
         handleBundleFromPreviousActivity();
         initializeGuiAndListener();
     }
     public void initializeGuiAndListener(){
+        //inizializza GUI
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textModify=(EditText)findViewById(R.id.textModify);
         titleModify=(EditText)findViewById(R.id.titleModify);
         emojiModify=(TextView) findViewById(R.id.emojiModify);
         emojiModify.setClickable(true);
+        //se bundle diverso da null ripristina il colore e l'emoji precedenti
         if(bundleState!=null){
             emoji=bundleState.getInt(Values.EMOJI);
             color=bundleState.getInt(Values.COLOR);
@@ -80,6 +87,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         else {
             emojiModify.setText(getApplicationContext().getResources().getString(R.string.clickMe));
         }
+        //sul click gestisci l'alert per scegliere l'emoji
         emojiModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,20 +96,23 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         });
         colorModify=(ImageView)findViewById(R.id.colorModify);
         colorModify.setClickable(true);
+        //sul click gestisci l'alert per scegliere il colore
         colorModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialogChooseColor();
             }
         });
-
+        //se nel bundle il valore id non era associato a nessun valore vuol dire che siamo nella modalità "creazione"
         if(id==Values.NO_ID){
             mode=ADD_MODE;
         }
+        //se il valore id è associato a un id di una nota nel DB ,allora vuol dire che siamo nella modalità "modifica"
         else{
             mode=MODIFY_MODE;
-        }
+        }//se siamo in modalità modifica...
         if(mode.equals(MODIFY_MODE)){
+            //imposta il titolo dell'activity in "Modifica" e recupera tutti i valori significativi della memo corrente
             currentMemo= dao.loadMemoById(id);
             if(currentMemo.getEncryption()== Values.TRUE){
                 dao.decryptText(currentMemo,password);
@@ -124,17 +135,21 @@ public class ModifyOrAddActivity extends AppCompatActivity {
             }
             setColorOnTitleAndText();
         }
+        //altrimenti non ripristinare nulla e imposta il titolo dell'activity a "Crea nota"
         else{
             getSupportActionBar().setTitle(R.string.createMemo);
         }
         FloatingActionButton buttonSaveMemo = (FloatingActionButton) findViewById(R.id.fab2);
+        //sul click del bottone "Salva Memo"
         buttonSaveMemo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String title=titleModify.getText().toString();
+                //se il titolo non è vuoto allora salva la memo e ritorna all'activity iniziale
                 if(!title.equals(Values.EMPTY_STRING)) {
                     saveMemo();
                 }
+                //se il titolo è vuoto allora non salvare la memo e mostra un toast
                 else{
                     if (mToast != null){
                         mToast.cancel();
@@ -147,10 +162,12 @@ public class ModifyOrAddActivity extends AppCompatActivity {
 
         return;
     }
+    //metodo per gestire il bundle dall'activity ShowMemo o dall'activity MainActivity
     public void handleBundleFromPreviousActivity(){
         Intent intent=getIntent();
         Bundle bun=intent.getExtras();
-        password = bun.getString(Values.PASSWORD);
+        //prendi l'id e la password dal bundle
+        password = bun.getString(Values.PASSWORD);//può essere null
         id=bun.getInt(Values.BUNDLE_KEY);
         return;
     }
@@ -159,15 +176,19 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         dao.open();
         return;
     }
+    //metodo imposta il colore sul titolo o sul testo
     public void setColorOnTitleAndText(){
+        //imposta il colore di background dell'activity
         getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(getApplicationContext(),color));
         int actionColor;
+        //se il colore non è bianco allora imposta la status bar dello stesso colore ma più scuro
         if (color != R.color.white){
             actionColor = Memo.darkerColor(color);
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(actionColor);
         }else{
+            //se il colore è bianco allora imposta la status bar al colore di default dell'activity
             actionColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
             int statusColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark);
             Window window = getWindow();

@@ -77,7 +77,7 @@
     <string name ="favoriteActivityTitle">Note preferite</string>
     <string name="confirm_close_title">Salvare prima di uscire?</string>
     <string name="confirm_close_text">Vuoi salvare le modifiche prima di uscire?</string>
-    <string name="confirm_close_yes">si</string>
+    <string name="confirm_close_yes">Si</string>
     <string name="confirm_close_no" translatable="false">no</string>
     <string name="nougatNotSupported">Questa funzione non è disponibile per la tua versione di Android</string>
     <string name="search">Search</string>
