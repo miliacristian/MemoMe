@@ -69,11 +69,11 @@
     <string name="infoText">MemoMe is an application created by Error404 group for Mobile Programming course (2016/2017), teached by Massimo Reagoli. MemoMe gives to the user all the features needed to create, modify, manage and crypt notes, using a functional user friendly GUI.</string>
     <string name="confirmDecode">ConfirmDecode</string>
     <string name="search">Search</string>
-    <string name="developers">Credits:DelloVicario Milia DeTurris</string>
+    <string name="developers" translatable="false">Credits:DelloVicario Milia DeTurris</string>
     <string name="textview">TextView</string>
     <string name="ok">Ok</string>
     <string name="infoTitle">MemoMe Info:</string>
     <string name="info">Info</string>
     <string name="confirm_close_no">no</string>
-    <string name="nothing"></string>
+    <string name="nothing" translatable="false"></string>
 </resources>
