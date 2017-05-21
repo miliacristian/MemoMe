@@ -64,10 +64,16 @@
     <string name="confirmFavorite">Vuoi aggiungere questa nota ai preferiti?</string>
     <string name="confirm_close_text">Vuoi salvare le modifiche prima di uscire?</string>
     <string name="confirm_close_title">Salvare prima di uscire?</string>
-    <string name="confirm_close_yes">si</string>
+    <string name="confirm_close_yes">Si</string>
     <string name="createMemo">Crea una nota</string>
     <string name="infoText">MemoMe è una applicazione creata dal gruppo Error404 per il corso di Mobile Programming (AA 2016/2017), tenuto dal professor Massimo Regoli.         MemoMe fornisce gli strumenti necessari per la creazione, modifica, cifratura e visualizzazione di note personali,     tramite una interfaccia user friendly e funzionale.</string>
     <string name="showMemoTitle">La tua nota</string>
     <string name="confirmDecode">ConfirmDecode</string>
-    <string name="search">Search</string>
+    <string name="search">Ricerca</string>
+    <string name="textview">TextView</string>
+    <string name="ok">Ok</string>
+    <string name="infoTitle">MemoMe Info:</string>
+    <string name="info">Info</string>
+    <string name="confirm_close_no">no</string>
+    <string name="nothing"></string>
 </resources>
