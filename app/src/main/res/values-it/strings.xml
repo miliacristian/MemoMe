@@ -54,7 +54,6 @@
     <string name="warningMemoEncodedText">La nota è cifrata,inserisci la password per visualizzarla</string>
     <string name="handler_notes">Gestisci note</string>
     <string name="memoMe">MemoMe</string>
-    <string name="nougatNotSupported">Questa funzione non è ancora disponibile sulla tua versione di Android</string>
     <string name="about">Su di noi:</string>
     <string name="favoriteActivityTitle">Note preferite</string>
     <string name="favoriteBtn">Nota preferita</string>
@@ -68,7 +67,6 @@
     <string name="confirm_close_yes">si</string>
     <string name="createMemo">Crea una nota</string>
     <string name="infoText">MemoMe è una applicazione creata dal gruppo Error404 per il corso di Mobile Programming (AA 2016/2017), tenuto dal professor Massimo Regoli.         MemoMe fornisce gli strumenti necessari per la creazione, modifica, cifratura e visualizzazione di note personali,     tramite una interfaccia user friendly e funzionale.</string>
-    <string name="nougatToast">Funzione non ancora supportata su questa funzione di Android</string>
     <string name="showMemoTitle">La tua nota</string>
     <string name="confirmDecode">ConfirmDecode</string>
     <string name="search">Search</string>

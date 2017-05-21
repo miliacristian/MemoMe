@@ -1,6 +1,5 @@
 package com.error404.memome.Activities;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -24,8 +23,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.annotation.TargetApi;
 import com.error404.memome.DB.DAO;
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
@@ -41,8 +38,6 @@ public class ShowMemoActivity extends AppCompatActivity {
     private int emoji;
     private String password;
     private static Activity refer;
-    private Toast emptyToast;
-    private Toast matchTaost;
     private Bundle bundleState=null;
     private static Handler handler = null;
     private static Runnable run;

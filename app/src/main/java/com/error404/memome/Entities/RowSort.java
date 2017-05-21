@@ -1,6 +1,5 @@
 package com.error404.memome.Entities;
 
-
 public class RowSort {//Classe che definisce l oggetto "ordinamento" formato da:
 // tipo ordinamento:colore,titolo,datacreazione,datamodifica o emoji
     //tipo di visualizzazione :crescente o decrescente

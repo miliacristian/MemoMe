@@ -1,4 +1,5 @@
 package com.error404.memome.Activities;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -214,41 +215,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void alertEncrypted(int id) {
-        /*final int idMemo=id;
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View formElementsView = inflater.inflate(R.layout.password_layout,
-                null, false);
-
-        final EditText nameEditText = (EditText) formElementsView
-                .findViewById(R.id.nameEditText);
-        new AlertDialog.Builder(MainActivity.this).setView(formElementsView)
-                .setTitle(R.string.warningMemoEncoded)
-                .setMessage(R.string.warningMemoEncodedText)
-                .setIcon(R.mipmap.lock_finale)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
-                                if (//cifratedPassword.equals(passFromDB
-                                        nameEditText.getText().toString().equals(decryptedFromDB)) {
-                                    Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
-                                    Bundle bun = new Bundle();
-                                    bun.putInt(Values.BUNDLE_KEY,idMemo);
-                                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
-                                    myIntent.putExtras(bun);
-                                    startActivity(myIntent);
-                                    dialog.cancel();
-                                } else {
-                                    Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                )
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .show();*/
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -295,8 +261,6 @@ public class MainActivity extends AppCompatActivity
                     startActivity(myIntent);
                     dialog.cancel();
                 } else {
-                    //Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
-
                     wrongPassword.setVisibility(View.VISIBLE);
                     nameEditText.setText(Values.EMPTY_STRING);
                     if(handler != null){

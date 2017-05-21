@@ -8,11 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 
 public class MemoAdapter extends ArrayAdapter<Memo>  {//Classe adapter per Creare una lista di Memo

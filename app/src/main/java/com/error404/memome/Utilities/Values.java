@@ -1,4 +1,5 @@
 package com.error404.memome.Utilities;
+
 import com.error404.memome.Entities.Memo;
 
 //Classe che contiene i valori costanti e globali dell'applicazione

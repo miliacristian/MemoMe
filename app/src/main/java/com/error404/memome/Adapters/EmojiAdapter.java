@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 
 public class EmojiAdapter extends ArrayAdapter<Integer> {//Classe adapter per Creare una lista di emoji

@@ -1,6 +1,5 @@
 package com.error404.memome.Activities;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -129,7 +128,6 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                     startActivity(myIntent);
                     dialog.cancel();
                 } else {//passwsord errata
-                    //Toast.makeText(MainActivity.this, R.string.incorrectPsw, Toast.LENGTH_SHORT).show();
                     wrongPassword.setVisibility(View.VISIBLE);//imposta la visibilità del layout a "visible" e mostra un messaggio di errore
                     nameEditText.setText(Values.EMPTY_STRING);
                     if(handler != null){

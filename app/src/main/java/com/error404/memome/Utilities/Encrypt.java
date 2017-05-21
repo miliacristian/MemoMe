@@ -1,4 +1,5 @@
 package com.error404.memome.Utilities;
+
 import java.security.Provider;
 import java.security.SecureRandom;
 import javax.crypto.Cipher;

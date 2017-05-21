@@ -1,4 +1,5 @@
 package com.error404.memome.DB;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

@@ -58,7 +58,6 @@
     <string name="chiudi">Chiudi</string>
     <string name="nessuna_emoji">Nessuna Emoji</string>
     <string name="clickMe">Emoji</string>
-    <string name="nougatToast">Funzione non ancora supportata su questa versione di Android.</string>
     <string name="about">Su di noi:</string>
     <string name="info" translatable="false">Info</string>
     <string name="infoTitle" translatable="false">MemoMe Info:</string>
@@ -79,7 +78,6 @@
     <string name="confirm_close_text">Vuoi salvare le modifiche prima di uscire?</string>
     <string name="confirm_close_yes">Si</string>
     <string name="confirm_close_no" translatable="false">no</string>
-    <string name="nougatNotSupported">Questa funzione non è disponibile per la tua versione di Android</string>
     <string name="search">Search</string>
 
 

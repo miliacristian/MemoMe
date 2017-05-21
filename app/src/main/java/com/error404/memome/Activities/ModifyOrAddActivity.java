@@ -29,8 +29,10 @@ import com.error404.memome.Entities.Memo;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
 import java.util.ArrayList;
+
 //attributi della modify:
 //colore,id memo,emoji,testo,titolo,dao,emojiAdapter,ColorAdapter
+
 public class ModifyOrAddActivity extends AppCompatActivity {
     private DAO dao;
     private ArrayList<Integer> emojiList=new ArrayList<Integer>();

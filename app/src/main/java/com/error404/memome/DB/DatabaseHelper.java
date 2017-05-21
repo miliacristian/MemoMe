@@ -1,8 +1,8 @@
 package com.error404.memome.DB;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 
 public class DatabaseHelper extends SQLiteOpenHelper {//Classe che si occupa della creazione del DB "memo.db" e della definizione e creazione  delle Tabelle "Memo" e "Sort"
     private final static int DB_VERSION = 1;

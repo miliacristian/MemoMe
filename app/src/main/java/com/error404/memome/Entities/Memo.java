@@ -3,12 +3,13 @@ package com.error404.memome.Entities;
 import com.error404.memome.Activities.MainActivity;
 import com.error404.memome.R;
 import com.error404.memome.Utilities.Values;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+
 //Classe che definisce l'oggetto Memo
 //Una memo ha un colore,un titolo,una(eventuale)emoji,un identificativo dentro il DB,un testo,una data creazione,
 // una data di modifica,può essere preferita e può essere cifrata con una password
+
 public class Memo {
     private static final String SLASH="/";
     private static final int[]COLORS={R.color.white,R.color.red,R.color.purple, R.color.pink,R.color.lime,R.color.lightBlue,R.color.indigo,R.color.grey,R.color.green,R.color.cyan,R.color.brown};
