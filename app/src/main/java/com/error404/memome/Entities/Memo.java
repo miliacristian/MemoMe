@@ -142,10 +142,11 @@ public class Memo {
         return false;
     }
     @Override
+    //metodo che ritorna il titolo della nota in minuscolo
     public String toString() {
         return this.title.toLowerCase();
     }
-
+    //metodo per scurire un colore dato in input
     public static int darkerColor(int color){
         int darkColor;
             float ratio = 1.0f - 0.2f;

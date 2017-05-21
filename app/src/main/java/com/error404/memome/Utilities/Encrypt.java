@@ -10,7 +10,8 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
     private final static String AES="AES";
     private final static String HEX = "0123456789ABCDEF";
-
+    private final static String SHA1PRNG="SHA1PRNG";
+    //metodo che data una stringa in chiaro e una chiave ritorna una  stringa cifrata con la rispettiva chiave
     public static String encryption(String strNormalText,String key){
         String normalTextEnc=Values.EMPTY_STRING;
         try {
@@ -20,6 +21,7 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
         }
         return normalTextEnc;
     }
+    //metodo che data una stringa cifrata e una chiave ritorna una  stringa decifrata
     public static String decryption(String strEncryptedText,String key){
         String strDecryptedText=Values.EMPTY_STRING;
         try {
@@ -45,7 +47,7 @@ public class  Encrypt {//Classe per cifrare e decifrare stringhe
 
     private static byte[] getRawKey(byte[] seed) throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance(AES);
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", new CryptoProvider());
+        SecureRandom sr = SecureRandom.getInstance(SHA1PRNG, new CryptoProvider());
         sr.setSeed(seed);
         kgen.init(128, sr);
         SecretKey skey = kgen.generateKey();
