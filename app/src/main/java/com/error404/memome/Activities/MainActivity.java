@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity
         final View formElementsView = inflater.inflate(R.layout.password_layout,
                 null, false);
 
-        final EditText nameEditText = (EditText) formElementsView
+        final EditText editPassword = (EditText) formElementsView
                 .findViewById(R.id.nameEditText);
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.warningMemoEncoded)
@@ -250,19 +250,19 @@ public class MainActivity extends AppCompatActivity
             {
                 final LinearLayout wrongPassword = (LinearLayout) formElementsView
                         .findViewById(R.id.layoutWrongPassword);
-                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), nameEditText.getText().toString());
+                String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), editPassword.getText().toString());
                 System.out.println(decryptedFromDB);
-                if (nameEditText.getText().toString().equals(decryptedFromDB) && !nameEditText.getText().toString().equals(Values.EMPTY_STRING)) {
+                if (editPassword.getText().toString().equals(decryptedFromDB) && !editPassword.getText().toString().equals(Values.EMPTY_STRING)) {
                     Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
                     Bundle bun = new Bundle();
                     bun.putInt(Values.BUNDLE_KEY,idMemo);
-                    bun.putString(Values.PASSWORD, nameEditText.getText().toString());
+                    bun.putString(Values.PASSWORD,editPassword.getText().toString());
                     myIntent.putExtras(bun);
                     startActivity(myIntent);
                     dialog.cancel();
                 } else {
                     wrongPassword.setVisibility(View.VISIBLE);
-                    nameEditText.setText(Values.EMPTY_STRING);
+                    editPassword.setText(Values.EMPTY_STRING);
                     if(handler != null){
                         handler.removeCallbacks(run);
                     }

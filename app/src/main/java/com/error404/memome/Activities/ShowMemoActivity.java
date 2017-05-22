@@ -151,7 +151,7 @@ public class ShowMemoActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {//metodo per gestire le icone dell'activity ShowMemoActivity
-        // in base al valore degli attributi favorite,encryption
+        // in base al valore degli attributi favorite e encryption
         MenuInflater inflater = getMenuInflater();
         if(isFavorite()) {
             inflater.inflate(R.menu.menu_favorite, menu);
@@ -193,9 +193,9 @@ public class ShowMemoActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
-                final EditText nameEditText = (EditText) formElementsView
+                final EditText editPassword = (EditText) formElementsView
                         .findViewById(R.id.nameEditText);
-                final EditText nameEditText2 = (EditText) formElementsView
+                final EditText confirmPassword = (EditText) formElementsView
                         .findViewById(R.id.nameEditText2);
 
                 //GUI alertDialog
@@ -210,42 +210,44 @@ public class ShowMemoActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id){}
                         });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id) {//chiudi alert Dialog
                         dialog.cancel();
                     }
                 });
                 final AlertDialog dialog = builder.create();
-                dialog.show();
+                dialog.show();//mostra alertDialog
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {
+                {//sul click del bottone ok..
                     @Override
                     public void onClick(View v)
-                    {
+                    {   //GUI per gestire errori
                         final LinearLayout wrongPassword = (LinearLayout) formElementsView
                                 .findViewById(R.id.layoutWrongPassword);
                         final TextView alertText = (TextView) formElementsView
                                 .findViewById(R.id.textView2);
                         String alertMessage = Values.EMPTY_STRING;
-                        if (nameEditText.getText().toString().equals(nameEditText2.getText().toString())) {
+                        //verifiche dopo l'inserimento della password
+                        if (editPassword.getText().toString().equals(confirmPassword.getText().toString())) {
                             //password coincidono
-                           if (TextUtils.isEmpty(nameEditText.getText())){
+                           if (TextUtils.isEmpty(editPassword.getText())){
                                //password vuota non ammessa
                                 alertMessage = getResources().getString(R.string.emptyPass);
                            }else{
                                //effettivamente cifro la nota
-                               insertEncryptToPasswordAndText(nameEditText.getText().toString());
+                               insertEncryptToPasswordAndText(editPassword.getText().toString());
                                dialog.cancel();
                                invalidateOptionsMenu();
                            }
-                        } else {
+                        }
+                        else {
                             alertMessage = getResources().getString(R.string.pswMatch);
                         }
                         if (!alertMessage.equals(Values.EMPTY_STRING)){
                             //in caso di errori, fa apparire la view di errore con il tipo di errore avvenuto (stringa vuota, o password diverse)
                             alertText.setText(alertMessage);
                             wrongPassword.setVisibility(View.VISIBLE);
-                            nameEditText.setText(Values.EMPTY_STRING);
-                            nameEditText2.setText(Values.EMPTY_STRING);
+                            editPassword.setText(Values.EMPTY_STRING);
+                            confirmPassword.setText(Values.EMPTY_STRING);
                             if(handler != null){
                                 handler.removeCallbacks(run);
                             }
