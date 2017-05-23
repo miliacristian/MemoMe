@@ -22,7 +22,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
                 startActivity(i);
-                finish();
+                finish();//vai alla main Activity
             }
         }, Values.SPLASH_TIME_OUT);
         }

@@ -266,7 +266,7 @@ public class ShowMemoActivity extends AppCompatActivity {
 
                 });
                 return true;
-            case R.id.action_decode://se cifrata elimina la cifratura sulla nota
+            case R.id.action_decode://se cifrata elimina la cifratura sulla nota quando si clicca sul pulsante ok
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         .setTitle(R.string.decode)
                         .setMessage(R.string.decodeText)
@@ -275,13 +275,13 @@ public class ShowMemoActivity extends AppCompatActivity {
                         .setPositiveButton(R.string.decode, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                deleteEncryptionToPasswordAndText(password);
-                                invalidateOptionsMenu();
-                                dialog.dismiss();
+                                deleteEncryptionToPasswordAndText(password);//togli la cifratura sulla nota
+                                invalidateOptionsMenu();//cambia la GUI della status bar
+                                dialog.dismiss();//chiudi l'alert
                             }
 
                         })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {//chiudi l'alert senza fare niente
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }

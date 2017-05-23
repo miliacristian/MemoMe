@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity
     private static Handler handler = null;
     private static Runnable run;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//apri il DB e inizializza GUI e tutti i listener
         super.onCreate(savedInstanceState);
-        System.out.println("create");
         setContentView(R.layout.activity_memo_me_main);
         openDB();
         initializeGuiAndListener();
     }
-    public void openDB(){
+    public void openDB(){//apri il DB
         dao = new DAO(this);
         dao.open();
         return;
@@ -91,57 +90,56 @@ public class MainActivity extends AppCompatActivity
         });
         return;
     }
-    public void goToShowMemoActivity(int id){
+    public void goToShowMemoActivity(int id){//metodo per andare alla ShowMemo activity
         Memo m;
-        m=dao.loadMemoById(id);
-        if (m.getEncryption() == Values.TRUE) {
+        m=dao.loadMemoById(id);//carica la memo
+        if (m.getEncryption() == Values.TRUE) {//verifica se è cifrata
             alertEncrypted(id);
             return;
         }else {
                 Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
                 Bundle bun = new Bundle();
-                bun.putInt(Values.BUNDLE_KEY,id);
+                bun.putInt(Values.BUNDLE_KEY,id);//inserisci nel bundle l'id della memo e vai alla ShowMemo activity
                 myIntent.putExtras(bun);
                 startActivity(myIntent);
                 return;
             }
         }
 
-    public void deleteAllMemo() {
+    public void deleteAllMemoNotEncrypted() {//metodo per cancellare tutte le note non cifrate
         dao.deleteAllMemoNotEncrypted();
     }
     public static Context getIstanceContext(){
         return context;
     }
 
-    public void updateSortAndGUI(String type) {
-        dao.updateSort(type);
-        memoList = dao.loadAllMemo();
-        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
+    public void updateSortAndGUI(String type) {//metodo per aggiornare la GUI dell'activity
+        dao.updateSort(type);//aggiorna il DB
+        memoList = dao.loadAllMemo();//carica tutte le memo
+        mem = new MemoAdapter(this, R.layout.rawlayout, memoList);//istanzaia memoAdapter e impostalo
         myListView.setAdapter(mem);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {//apri la searchView
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.memo_me_main, menu);
         MenuItem item = menu.findItem(R.id.menuSearch);
         searchView = (SearchView)item.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {//imposta il comportamento del listener
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(final String newText) {
+            public boolean onQueryTextChange(final String newText) {//ogni volta che cambia il testo ricalcola la lista di memo filtrate
                 final ArrayList<Memo> filteredMemos=getFilteredMemos(newText);
                 mem= new MemoAdapter(MainActivity.this, R.layout.rawlayout,filteredMemos);
                 myListView.setAdapter(mem);
                 myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//rimposta l'azione di default del listener
                         goToShowMemoActivity(filteredMemos.get(position).getId());
                     }
                 });
@@ -154,15 +152,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {//metodo per gestire il drawer laterale
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        int id = item.getItemId();
-        if (id == R.id.sort_title) {//ordina per titolo
+        int id = item.getItemId();//memorizza l'opzione scelta
+        if (id == R.id.sort_title) {//ordina per titolo, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.TITLE);
             }
-        } else if (id == R.id.sort_creation) {//ordinamento data creazione
+        } else if (id == R.id.sort_creation) {//ordinamento data creazione, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.SORT_CREATION);
@@ -170,40 +168,41 @@ public class MainActivity extends AppCompatActivity
         }else if(id==R.id.nav_favorites){
             Intent myIntent=new Intent(MainActivity.this,FavoriteMemoActivity.class);
             startActivity(myIntent);
-        } else if (id == R.id.sort_modify) {//ordinamento ultima modifica
+        } else if (id == R.id.sort_modify) {//ordinamento ultima modifica, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.SORT_LAST_MODIFY);
             }
-        } else if (id == R.id.sort_color) {//ordinamento colore
+        } else if (id == R.id.sort_color) {//ordinamento colore, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.COLOR);
             }
-        } else if (id == R.id.nav_delete_all) {
+        } else if (id == R.id.nav_delete_all) {//elimina tutte le note non cifrate, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
-                deleteAllAlert();
+                deleteAllMemoNotEncrypted();
+                updateSortAndGUI(Values.ONLYUPDATEGUI);
             }
-        } else if (id == R.id.sort_emoji) {
+        } else if (id == R.id.sort_emoji) {//ordina emoji, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
                 updateSortAndGUI(Values.EMOJI);
             }
             //ordina per emoji
-        } else if (id == R.id.nav_about){
+        } else if (id == R.id.nav_about){//apri alert about e chiudi il drawer
             drawer.closeDrawer(GravityCompat.START);
             alertAbout();
         }
         return true;
     }
 
-    private void alertAbout(){
+    private void alertAbout(){//metodo per visualizzare l'alert about
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle(R.string.infoTitle)
                 .setMessage(R.string.infoText)
                 .setIcon(R.mipmap.info_icon)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {//chiudi l'alert sul click del pulsante ok
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -281,22 +280,25 @@ public class MainActivity extends AppCompatActivity
 
         });
     }
-    public void deleteAllAlert() {
+
+    public void deleteAllNotEncryptedAlert() {//metodo che gestisce l'alert per eliminare tutte le memo non cifrate
+        //GUI alert (inizio)
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
                 .setTitle(R.string.deleteAllNotEncoded)
                 .setMessage(R.string.confirmDeleteAll)
                 .setIcon(R.mipmap.delete_finale)
+                //GUI alert(fine)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        deleteAllMemo();
-                        updateSortAndGUI(Values.ONLYUPDATEGUI);
+                        deleteAllMemoNotEncrypted();//elimina tutte le note non cifrate
+                        updateSortAndGUI(Values.ONLYUPDATEGUI);//aggiorna la GUI e chiudi l'alert
                         dialog.dismiss();
                     }
 
                 })
 
 
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {//chiudi l'alert e non fare niente
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -304,14 +306,14 @@ public class MainActivity extends AppCompatActivity
                 .show();
 
     }
-    public ArrayList<Memo> getFilteredMemos(String newText){
-        ArrayList<Memo> filteredMemos=new ArrayList<Memo>();
-        ArrayList<Memo> allMemo=dao.loadAllMemo();
-        if(newText.equals(Values.EMPTY_STRING)){
+    public ArrayList<Memo> getFilteredMemos(String newText){//metodo per ottenere una lista di memo filtrate che nel titolo contengono la stringa newText
+        ArrayList<Memo> filteredMemos=new ArrayList<Memo>();//lista memo filtrate
+        ArrayList<Memo> allMemo=dao.loadAllMemo();//lista di tutte le memo
+        if(newText.equals(Values.EMPTY_STRING)){//se la stringa è vuota allora prendi tutte le note
             filteredMemos=allMemo;
             return filteredMemos;
         }
-        for(int i=0;i<allMemo.size();i++){
+        for(int i=0;i<allMemo.size();i++){//cicla tutta lista di note e per ognuna verifica che il titolo contenga newText poi aggiungila alla lista memo filtrate
             if(allMemo.get(i).getTitle().toLowerCase().contains(newText.toLowerCase())){
                 filteredMemos.add(allMemo.get(i));
             }
@@ -319,21 +321,22 @@ public class MainActivity extends AppCompatActivity
         return filteredMemos;
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {//sul primo click del tasto indietro appare un toast "clicca ancora indietro per uscire"
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(searchView!=null && !searchView.isIconified()){
+        if(searchView!=null && !searchView.isIconified()){//se la searchView è ancora aperta allora chiudila
             searchView.onActionViewCollapsed();
             myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//rimposta l'azione di default sul listener della listView
                     goToShowMemoActivity(memoList.get(position).getId());
                 }
             });
             return;
         }
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {//se il drawer è aperto chiudilo
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {//se in EXIT_TIMEOUT secondi si clicca sul tasto indietro 2 volte si chiude l'activity,altrimenti si rimane nell'activity
             if (doubleBackPressed) {
                 super.onBackPressed();
                 return;
@@ -352,10 +355,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        updateSortAndGUI(Values.ONLYUPDATEGUI);
-        if(searchView!=null && !searchView.isIconified()){
+        updateSortAndGUI(Values.ONLYUPDATEGUI);//aggiorna GUI
+        if(searchView!=null && !searchView.isIconified()){//se la searchView è ancora aperta allora chiudila
             searchView.onActionViewCollapsed();
-            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//rimposta l'azione di default sul listener della listView
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     goToShowMemoActivity(memoList.get(position).getId());
