@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,7 +65,11 @@ public class ShowMemoActivity extends AppCompatActivity {
         emoji=m.getEmoji();
         emojitxt = (TextView) findViewById(R.id.emojitxt);
         txtViewTitle = (TextView) findViewById(R.id.txtViewTitle);
+        txtViewTitle.setMovementMethod(new ScrollingMovementMethod());
         txtViewNota = (TextView) findViewById(R.id.txtViewNota);
+        txtViewNota.setMovementMethod(new ScrollingMovementMethod());
+        txtViewTitle.setLongClickable(false);
+        txtViewNota.setLongClickable(false);
         setColorOnTitleAndText();
         if (m.isEncrypted()){//se nota cifrata decifra la nota
 
