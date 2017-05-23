@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void alertEncrypted(int id) {
+        //alert dialog che gestisce la richiesta e controllo di password per l'accesso a note cifrate
         final int idMemo=id;
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.password_layout,
@@ -230,9 +231,7 @@ public class MainActivity extends AppCompatActivity
                 new DialogInterface.OnClickListener()
                 {
                     @Override
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                    }
+                    public void onClick(DialogInterface dialog, int id){}
                 });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -244,6 +243,7 @@ public class MainActivity extends AppCompatActivity
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
         {
+            //onClick del pulsante di conferma (OK)
             @Override
             public void onClick(View v)
             {
@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity
                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), editPassword.getText().toString());
                 System.out.println(decryptedFromDB);
                 if (editPassword.getText().toString().equals(decryptedFromDB) && !editPassword.getText().toString().equals(Values.EMPTY_STRING)) {
+                    //se la password immessa è corretta, procedo verso la show memo
                     Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
                     Bundle bun = new Bundle();
                     bun.putInt(Values.BUNDLE_KEY,idMemo);
@@ -260,6 +261,8 @@ public class MainActivity extends AppCompatActivity
                     startActivity(myIntent);
                     dialog.cancel();
                 } else {
+                    //password errata, quindi faccio apparire una scritta che avverte di tale errore, gestita con handler
+                    //di modo che scompaia dopo ALERT_TIME_OUT secondi
                     wrongPassword.setVisibility(View.VISIBLE);
                     editPassword.setText(Values.EMPTY_STRING);
                     if(handler != null){
@@ -283,7 +286,7 @@ public class MainActivity extends AppCompatActivity
 
     public void deleteAllNotEncryptedAlert() {//metodo che gestisce l'alert per eliminare tutte le memo non cifrate
         //GUI alert (inizio)
-        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+        AlertDialog deleteNotEncryptedAlert = new AlertDialog.Builder(this)
                 .setTitle(R.string.deleteAllNotEncoded)
                 .setMessage(R.string.confirmDeleteAll)
                 .setIcon(R.mipmap.delete_finale)

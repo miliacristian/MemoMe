@@ -168,7 +168,7 @@ public class ShowMemoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete://mostra alert dialog e elimina la nota
-                AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                AlertDialog alertDelete =new AlertDialog.Builder(this)
                         .setTitle(R.string.delete)
                         .setMessage(R.string.confirmDelete)
                         .setIcon(R.mipmap.delete_finale)
@@ -189,7 +189,8 @@ public class ShowMemoActivity extends AppCompatActivity {
                         .show();
                 return true;
 
-            case R.id.action_encode://mostra alert dialog e cifra la nota
+            case R.id.action_encode://mostra alert dialog per cifrare la nota
+
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 final View formElementsView = inflater.inflate(R.layout.encode_layout,
                         null, false);
@@ -217,37 +218,39 @@ public class ShowMemoActivity extends AppCompatActivity {
                 final AlertDialog dialog = builder.create();
                 dialog.show();//mostra alertDialog
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
-                {//sul click del bottone ok..
+                {//onClick del pulsante OK
                     @Override
-                    public void onClick(View v)
-                    {   //GUI per gestire errori
+                    public void onClick(View v) {
+                        //primo campo password
                         final LinearLayout wrongPassword = (LinearLayout) formElementsView
                                 .findViewById(R.id.layoutWrongPassword);
+                        //secondo campo password
                         final TextView alertText = (TextView) formElementsView
                                 .findViewById(R.id.textView2);
                         String alertMessage = Values.EMPTY_STRING;
-                        //verifiche dopo l'inserimento della password
                         if (editPassword.getText().toString().equals(confirmPassword.getText().toString())) {
-                            //password coincidono
+                            //le password coincidono
                            if (TextUtils.isEmpty(editPassword.getText())){
-                               //password vuota non ammessa
+                               //la password immessa è la stringa vuota, quindi imposto la stringa di errore con il messaggio  relativo
                                 alertMessage = getResources().getString(R.string.emptyPass);
                            }else{
-                               //effettivamente cifro la nota
+                               //le password coincidono e sono diverse da EMPTY_STING, quindi procedo con la cifratura
                                insertEncryptToPasswordAndText(editPassword.getText().toString());
                                dialog.cancel();
                                invalidateOptionsMenu();
                            }
                         }
                         else {
+                            //le password non coincidono, quindi imposto la stringa di errore con il messaggio relativo
                             alertMessage = getResources().getString(R.string.pswMatch);
                         }
                         if (!alertMessage.equals(Values.EMPTY_STRING)){
-                            //in caso di errori, fa apparire la view di errore con il tipo di errore avvenuto (stringa vuota, o password diverse)
+                            //in caso di errori, fa apparire la view di errore con la stringa ottenuta durante i controlli
                             alertText.setText(alertMessage);
                             wrongPassword.setVisibility(View.VISIBLE);
                             editPassword.setText(Values.EMPTY_STRING);
                             confirmPassword.setText(Values.EMPTY_STRING);
+                            //Handler per far scomparire la view di errore dopo ALERT_TIME_OUT secodi
                             if(handler != null){
                                 handler.removeCallbacks(run);
                             }
@@ -266,6 +269,7 @@ public class ShowMemoActivity extends AppCompatActivity {
 
                 });
                 return true;
+
             case R.id.action_decode://se cifrata elimina la cifratura sulla nota quando si clicca sul pulsante ok
                 AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
                         .setTitle(R.string.decode)

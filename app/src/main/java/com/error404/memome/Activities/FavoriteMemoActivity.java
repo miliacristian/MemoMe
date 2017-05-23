@@ -163,9 +163,10 @@ public class FavoriteMemoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {//ritorna all'activity precedente
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                //ritorna all'activity precedente
                 finish();
                 return true;
             default:
