@@ -271,7 +271,7 @@ public class ShowMemoActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_decode://se cifrata elimina la cifratura sulla nota quando si clicca sul pulsante ok
-                AlertDialog myQuittingDialogB =new AlertDialog.Builder(this)
+                AlertDialog dialogToQuit =new AlertDialog.Builder(this)
                         .setTitle(R.string.decode)
                         .setMessage(R.string.decodeText)
                         .setIcon(R.mipmap.unlock_finale)

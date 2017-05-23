@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DAO dao;
-    private ListView myListView;
+    private ListView memoListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
     private static Context context;
@@ -60,15 +60,15 @@ public class MainActivity extends AppCompatActivity
         context=getApplicationContext();
         openDB();
         setSupportActionBar(toolbar);
-        memoList = dao.loadAllMemo();
+        memoList = dao.loadAllMemo();//memorizza tutte le memo in memoList
         FloatingActionButton buttonCreateMemo = (FloatingActionButton) findViewById(R.id.fab);
-        buttonCreateMemo.setOnClickListener(new View.OnClickListener() {
+        buttonCreateMemo.setOnClickListener(new View.OnClickListener() {//sul click del bottone "crea memo" vai alla modify Activity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ModifyOrAddActivity.class);
-                Bundle b = new Bundle();
-                b.putInt(Values.BUNDLE_KEY, Values.NO_ID);
-                intent.putExtras(b);
+                Bundle bundle = new Bundle();
+                bundle.putInt(Values.BUNDLE_KEY, Values.NO_ID);//inserisci nel bundle l'id della memo
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -79,10 +79,11 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //inizializza listView
         mem = new MemoAdapter(this, R.layout.rawlayout, memoList);
-        myListView = (ListView) findViewById(R.id.listOfNotes);
-        myListView.setAdapter(mem);
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        memoListView = (ListView) findViewById(R.id.listOfNotes);
+        memoListView.setAdapter(mem);
+        memoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//sul click di una nota vai alla showMemo caricando la nota cliccata
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 goToShowMemoActivity(memoList.get(position).getId());
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         dao.updateSort(type);//aggiorna il DB
         memoList = dao.loadAllMemo();//carica tutte le memo
         mem = new MemoAdapter(this, R.layout.rawlayout, memoList);//istanzaia memoAdapter e impostalo
-        myListView.setAdapter(mem);
+        memoListView.setAdapter(mem);
     }
 
     @Override
@@ -136,8 +137,8 @@ public class MainActivity extends AppCompatActivity
             public boolean onQueryTextChange(final String newText) {//ogni volta che cambia il testo ricalcola la lista di memo filtrate
                 final ArrayList<Memo> filteredMemos=getFilteredMemos(newText);
                 mem= new MemoAdapter(MainActivity.this, R.layout.rawlayout,filteredMemos);
-                myListView.setAdapter(mem);
-                myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                memoListView.setAdapter(mem);
+                memoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//rimposta l'azione di default del listener
                         goToShowMemoActivity(filteredMemos.get(position).getId());
@@ -181,8 +182,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_delete_all) {//elimina tutte le note non cifrate, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
                 drawer.closeDrawer(GravityCompat.START);
-                deleteAllMemoNotEncrypted();
-                updateSortAndGUI(Values.ONLYUPDATEGUI);
+                deleteAllNotEncryptedAlert();
             }
         } else if (id == R.id.sort_emoji) {//ordina emoji, chiudi il drawer e aggiorna la GUI
             if (dao != null) {
@@ -294,8 +294,8 @@ public class MainActivity extends AppCompatActivity
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         deleteAllMemoNotEncrypted();//elimina tutte le note non cifrate
-                        updateSortAndGUI(Values.ONLYUPDATEGUI);//aggiorna la GUI e chiudi l'alert
-                        dialog.dismiss();
+                        updateSortAndGUI(Values.ONLYUPDATEGUI);//aggiorna la GUI
+                        dialog.dismiss();//chiudi l'alert
                     }
 
                 })
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if(searchView!=null && !searchView.isIconified()){//se la searchView è ancora aperta allora chiudila
             searchView.onActionViewCollapsed();
-            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            memoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {//rimposta l'azione di default sul listener della listView
                     goToShowMemoActivity(memoList.get(position).getId());
@@ -361,7 +361,7 @@ public class MainActivity extends AppCompatActivity
         updateSortAndGUI(Values.ONLYUPDATEGUI);//aggiorna GUI
         if(searchView!=null && !searchView.isIconified()){//se la searchView è ancora aperta allora chiudila
             searchView.onActionViewCollapsed();
-            myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//rimposta l'azione di default sul listener della listView
+            memoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {//rimposta l'azione di default sul listener della listView
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     goToShowMemoActivity(memoList.get(position).getId());

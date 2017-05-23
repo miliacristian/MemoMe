@@ -24,7 +24,7 @@ import com.error404.memome.Utilities.Values;
 import java.util.ArrayList;
 public class FavoriteMemoActivity extends AppCompatActivity {
     private DAO dao;
-    private ListView myListView;
+    private ListView memoListView;
     private ArrayList<Memo> memoList = new ArrayList<Memo>();
     private MemoAdapter mem;
     private static Handler handler = null;
@@ -45,9 +45,9 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.favoriteActivityTitle);
         memoList = dao.loadAllFavoriteMemo();//carica note preferite
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
-        myListView = (ListView) findViewById(R.id.listOfNotes);
-        myListView.setAdapter(mem);
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        memoListView = (ListView) findViewById(R.id.listOfNotes);
+        memoListView.setAdapter(mem);
+        memoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -155,7 +155,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
         super.onResume();
         memoList = dao.loadAllFavoriteMemo();
         mem = new MemoAdapter(this, R.layout.raw_layout_favorite, memoList);
-        myListView.setAdapter(mem);
+        memoListView.setAdapter(mem);
     }
     @Override
     public void onBackPressed() {//chiudi l'activity
