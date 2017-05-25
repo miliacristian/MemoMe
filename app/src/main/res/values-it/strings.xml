@@ -74,6 +74,6 @@
     <string name="ok">Ok</string>
     <string name="infoTitle">MemoMe Info:</string>
     <string name="info">Info</string>
-    <string name="confirm_close_no">no</string>
+    <string name="confirm_close_no">No</string>
     <string name="nothing"></string>
 </resources>

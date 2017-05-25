@@ -63,7 +63,7 @@
     <string name="confirmFavorite">Do you want to add this to favourite list?</string>
     <string name="confirm_close_text">Do you want to save before exit?</string>
     <string name="confirm_close_title">Save before exit?</string>
-    <string name="confirm_close_yes">yes</string>
+    <string name="confirm_close_yes">Yes</string>
     <string name="createMemo">Create a note</string>
     <string name="showMemoTitle">Your note</string>
     <string name="infoText">MemoMe is an application created by Error404 group for Mobile Programming course (2016/2017), teached by Massimo Reagoli. MemoMe gives to the user all the features needed to create, modify, manage and crypt notes, using a functional user friendly GUI.</string>
@@ -74,6 +74,6 @@
     <string name="ok">Ok</string>
     <string name="infoTitle">MemoMe Info:</string>
     <string name="info">Info</string>
-    <string name="confirm_close_no">no</string>
+    <string name="confirm_close_no">No</string>
     <string name="nothing" translatable="false"></string>
 </resources>
