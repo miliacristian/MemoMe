@@ -161,7 +161,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
                 }
             }
         });
-
+        setColorOnTitleAndText();
         return;
     }
     //metodo per gestire il bundle dall'activity ShowMemo o dall'activity MainActivity
@@ -189,6 +189,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(actionColor);
+
         }else{
             //se il colore è bianco allora imposta la status bar al colore di default dell'activity
             actionColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
@@ -199,6 +200,7 @@ public class ModifyOrAddActivity extends AppCompatActivity {
         }
         ActionBar bar = getSupportActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(actionColor));
+        getWindow().setNavigationBarColor(actionColor);
     }
 
     public void alertDialogChooseColor() {//Alert dialog per scegliere un colore cliccando un elemento di una listView,

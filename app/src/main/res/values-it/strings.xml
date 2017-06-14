@@ -52,7 +52,7 @@
     <string name="viola">Viola</string>
     <string name="warningMemoEncoded">Nota cifrata</string>
     <string name="warningMemoEncodedText">La nota è cifrata,inserisci la password per visualizzarla</string>
-    <string name="handler_notes">Gestisci note</string>
+    <string name="handler_notes">Gestisci note:</string>
     <string name="memoMe">MemoMe</string>
     <string name="about">Su di noi:</string>
     <string name="favoriteActivityTitle">Note preferite</string>

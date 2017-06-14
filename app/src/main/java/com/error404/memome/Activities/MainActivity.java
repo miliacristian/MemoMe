@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
+        getWindow().setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
         return;
     }
     public void goToShowMemoActivity(int id){//metodo per andare alla ShowMemo activity

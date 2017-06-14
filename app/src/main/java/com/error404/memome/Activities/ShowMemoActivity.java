@@ -91,15 +91,18 @@ public class ShowMemoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        int actionColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
         if (color != R.color.white){//imposta colore actionbar
-            int actionColor = Memo.darkerColor(color);
+            actionColor = Memo.darkerColor(color);
             ActionBar bar = getSupportActionBar();
             bar.setBackgroundDrawable(new ColorDrawable(actionColor));
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(actionColor);
         }
+        getWindow().setNavigationBarColor(actionColor);
     }
+
     public void handleBundleFromPreviousActivity(){//metodo per gestire il bundle proveniente dalla MainActivity
         //(ho valore id e valore password dentro il bundle)
         Intent intent = getIntent();

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class FavoriteMemoActivity extends AppCompatActivity {
                 goToShowMemoActivity(memoList.get(position).getId());
             }
         });
+        getWindow().setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorPrimary));
     }
     public void openDB(){
         //Apre il Database

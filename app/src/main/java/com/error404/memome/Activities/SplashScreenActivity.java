@@ -2,6 +2,7 @@ package com.error404.memome.Activities;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.error404.memome.R;
@@ -15,6 +16,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        getWindow().setNavigationBarColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
 
         new Handler().postDelayed(new Runnable() {
 

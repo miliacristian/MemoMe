@@ -24,7 +24,7 @@
     <string name="emptyPass">Empty password is not allowed</string>
     <string name="encodeBtn">Decrypt</string>
     <string name="grigio">Gray</string>
-    <string name="handler_notes">Manage notes</string>
+    <string name="handler_notes">Manage notes:</string>
     <string name="incorrectPsw">Wrong password</string>
     <string name="indaco">Indigo</string>
     <string name="insertPsw">Encrypt note</string>
@@ -53,7 +53,7 @@
     <string name="viola">Purple</string>
     <string name="warningMemoEncoded">Crypted note!</string>
     <string name="warningMemoEncodedText">This note is crypted, insert password to read it</string>
-    <string name="about">About:</string>
+    <string name="about">About us:</string>
     <string name="favoriteActivityTitle">Favorite notes</string>
     <string name="favoriteBtn">Favorite note</string>
     <string name="modifyMemo">Modify your note</string>
@@ -66,7 +66,7 @@
     <string name="confirm_close_yes">Yes</string>
     <string name="createMemo">Create a note</string>
     <string name="showMemoTitle">Your note</string>
-    <string name="infoText">MemoMe is an application created by Error404 group for Mobile Programming course (2016/2017), teached by Massimo Reagoli. MemoMe gives to the user all the features needed to create, modify, manage and crypt notes, using a functional user friendly GUI.</string>
+    <string name="infoText">MemoMe is an application created by Error404 group for Mobile Programming course (2016/2017), teached by Massimo Regoli. MemoMe gives to the user all the features needed to create, modify, manage and crypt notes, using a functional user friendly GUI.</string>
     <string name="confirmDecode">ConfirmDecode</string>
     <string name="search">Search</string>
     <string name="developers" translatable="false">Credits:DelloVicario Milia DeTurris</string>
