@@ -18,12 +18,12 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {//Classe adapter per Crear
     // Icona che mostra se la memo è o non è preferita.
 
     private ArrayList<Memo> memoList;
-    private int textViewId;
+    private int layoutId;
 
-    public MemoAdapter(Context c, int textViewId, ArrayList<Memo> memoList){
-        super(c,textViewId,memoList);
+    public MemoAdapter(Context c, int layoutId, ArrayList<Memo> memoList){
+        super(c,layoutId,memoList);
         this.memoList=memoList;//riferimenti alle memo
-        this.textViewId = textViewId;
+        this.layoutId = layoutId;
     }
     @Override
     public View getView(int position , View convertView, ViewGroup parent){//chiamata automaticamente ogni volta che si deve caricare
@@ -32,7 +32,7 @@ public class MemoAdapter extends ArrayAdapter<Memo>  {//Classe adapter per Crear
         if(rowView==null){
             LayoutInflater inflater = (LayoutInflater)
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(textViewId, null);
+            rowView = inflater.inflate(layoutId, null);
         }
         Memo memo= memoList.get(position);//memo in posizione i-esima
         if (memo != null) {
