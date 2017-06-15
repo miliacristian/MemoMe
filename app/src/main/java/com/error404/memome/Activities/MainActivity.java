@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         openDB();
         initializeGuiAndListener();
     }
-    public void openDB(){//apri il DB
+    public void openDB(){//apri il DB e se questo è il primo avvio dell'applicazione crea il DB con le tabelle
         dao = new DAO(this);
         dao.open();
         return;

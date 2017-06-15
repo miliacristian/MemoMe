@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {//Classe che si occupa del
             "\tpassword\tTEXT \n"+
             ")";
 
-    public final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +//attributi della tabella Sort
+    private  final static String SORT_TABLE_SQL="CREATE TABLE "+NAME_SORT_TABLE+"(\n" +//attributi della tabella Sort
             "\tascdesc\tTEXT NOT NULL PRIMARY KEY,\n" +
             "\tsorttype\tTEXT NOT NULL\n" +
             ");";
@@ -46,6 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {//Classe che si occupa del
         sqLiteDatabase.execSQL(SORT_DEFAULT);//popola la tabella "Sort" con un ordinamento di default(crescente per titolo)
     }
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {//non fare niente
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int j) {//non fare niente
     }
 }

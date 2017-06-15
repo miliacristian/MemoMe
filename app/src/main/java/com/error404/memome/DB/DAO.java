@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class DAO {//Classe che si occupa della gestione del database e dell'esecuzione delle query SQL
 
     private DatabaseHelper dbh;//riferimento al DatabaseHelper,necessario per  aprire il database
-    private SQLiteDatabase database;//riferimento a SQLiteDatabase il quale esegue le istruzioni SQL
+    private SQLiteDatabase sqlitedatabase;//riferimento a SQLiteDatabase il quale esegue le istruzioni SQL
 
     //valori privati e costanti relativi agli attributi delle tabelle,
     private final  String SORTTYPE="sorttype";
@@ -50,18 +50,18 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
     }
     public void open() {//apre il database inizializzando il riferimento a SQLiteDatabase e
         // sfruttando il riferimento a DataBaseHelper
-        database = dbh.getWritableDatabase();
+        sqlitedatabase = dbh.getWritableDatabase();
     }
 
     public void close() {//chiude il database
-        database.close();
+        sqlitedatabase.close();
     }
 
 
     public Memo loadMemoById(int id){//metodo per istanziare un oggetto memo dando una chiave primaria
         Memo memo=null;
         String sql=SELECT_ALL+" "+WHERE+" "+ID+"="+id;//seleziona la memo con l'id opportuno
-        Cursor c=database.rawQuery(sql,null);
+        Cursor c=sqlitedatabase.rawQuery(sql,null);
         if(c!=null) {
             c.moveToFirst();
             memo = loadMemoByCursorOneRow(c);//istanzia la memo
@@ -136,13 +136,13 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
         cv.put(ENCRYPTION,encryption);
         cv.put(Values.PASSWORD,password);
         cv.put(Values.FAVORITE,favorite);
-        database.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,ID+"="+id,null);
+        sqlitedatabase.update(DatabaseHelper.NAME_TABLE_MEMOS,cv,ID+"="+id,null);
     }
     public ArrayList<Memo> loadAllMemoByTitle(){//metodo per caricare tutte le note per titolo e metterle in una lista
         RowSort rowSort=new RowSort(ASC,TITLE);
         String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
         String sql = SELECT_ALL +" "+sortMethod;
-        Cursor tabAllMemos = database.rawQuery(sql, null);
+        Cursor tabAllMemos = sqlitedatabase.rawQuery(sql, null);
         if(tabAllMemos!=null) {
             ArrayList<Memo> arrMemo = new ArrayList<Memo>();
             fromCursorToList(arrMemo, tabAllMemos);
@@ -157,7 +157,7 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
         if(rowSort!=null) {
             String sortMethod = ORDER_BY+" "+rowSort.getSortType()+" "+ rowSort.getAscDesc();
             String sql = SELECT_ALL +" "+sortMethod;
-            Cursor tabAllMemos = database.rawQuery(sql, null);
+            Cursor tabAllMemos = sqlitedatabase.rawQuery(sql, null);
             if(tabAllMemos!=null) {
                 ArrayList<Memo> arrMemo = new ArrayList<Memo>();
                 fromCursorToList(arrMemo, tabAllMemos);
@@ -206,12 +206,12 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
         //informazioni su tipo ordianemento e ASC/DESC
 
         Cursor c=null;//cursore locale da ritornare non chiudibile
-        c = database.rawQuery(SELECT_SORT, null);
+        c = sqlitedatabase.rawQuery(SELECT_SORT, null);
         return c;
     }
     public void switchAscDescIntoDB(String actualAscDesc){//metodo che cambia l'ordinamento da ASCENDENTE a DECRESCENTE(Se il vecchio ordianmento era ASC) o da DESC a ASC
         //(Se il vecchio ordianmento era DESC),per fare ciò esegue una query SQL
-        SQLiteStatement sqLiteStatement=database.compileStatement(SWITCH_ASC_DESC);
+        SQLiteStatement sqLiteStatement=sqlitedatabase.compileStatement(SWITCH_ASC_DESC);
         if(actualAscDesc.equals(ASC)){
             sqLiteStatement.bindString(1,DESC);
             sqLiteStatement.execute();
@@ -224,14 +224,14 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
     }
     public void updateOnlySortTypeIntoDB(String newSortType){//metodo che aggiorna il tipo di ordinamento
         // di visualizzazione delle note
-        SQLiteStatement sqLiteStatement=database.compileStatement(UPDATE_ONLY_SORT_TYPE);
+        SQLiteStatement sqLiteStatement=sqlitedatabase.compileStatement(UPDATE_ONLY_SORT_TYPE);
         sqLiteStatement.bindString(1,newSortType);
         sqLiteStatement.execute();
         return;
     }
     public void addMemoToDB(String title,String text,int emoji,int color){
         //metodo per aggiungere al DB una nota sfruttando la bindString di sqLiteStatement
-        SQLiteStatement sqLiteStatement=database.compileStatement(INSERT_INTO_MEMOS+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+        SQLiteStatement sqLiteStatement=sqlitedatabase.compileStatement(INSERT_INTO_MEMOS+DatabaseHelper.MEMO_FIELDS_WITHOUT_PASSWORD+")"+"VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         Calendar date=Calendar.getInstance();
         int month=date.get(Calendar.MONTH);
         int year=date.get(Calendar.YEAR);
@@ -252,13 +252,13 @@ public class DAO {//Classe che si occupa della gestione del database e dell'esec
 
     public void deleteMemoByIdFromDB(int id){//metodo per eliminare una nota dal DB dato un id
         String sql=DELETE_MEMO+" "+WHERE+" "+ID+"="+id;
-        database.execSQL(sql);
+        sqlitedatabase.execSQL(sql);
         return;
     }
 
     public void deleteAllMemoNotEncrypted(){//metodo per eliminare tutte le note non cifrate,per quanto riguarda
         // le note cifrate esse dovranno essere cancellate una per una
-        database.execSQL(DELETE_ALL_NOT_ENCRYPTED);
+        sqlitedatabase.execSQL(DELETE_ALL_NOT_ENCRYPTED);
         return;
     }
 
