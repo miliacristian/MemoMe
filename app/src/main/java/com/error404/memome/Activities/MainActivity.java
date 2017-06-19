@@ -252,7 +252,6 @@ public class MainActivity extends AppCompatActivity
                 final LinearLayout wrongPassword = (LinearLayout) formElementsView
                         .findViewById(R.id.layoutWrongPassword);
                 String decryptedFromDB = Encrypt.decryption(dao.loadMemoById(idMemo).getPassword(), editPassword.getText().toString());
-                System.out.println(decryptedFromDB);
                 if (editPassword.getText().toString().equals(decryptedFromDB) && !editPassword.getText().toString().equals(Values.EMPTY_STRING)) {
                     //se la password immessa è corretta, procedo verso la show memo
                     Intent myIntent = new Intent(MainActivity.this, ShowMemoActivity.class);
